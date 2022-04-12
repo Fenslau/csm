@@ -3,9 +3,13 @@
 }
 
 .max-content {
+	width: -webkit-max-content;
+	width: -moz-max-content;
 	width: max-content;
 }
 .min-content {
+	width: -webkit-min-content;
+	width: -moz-min-content;
 	width: min-content;
 }
 
@@ -27,3 +31,4 @@
 ul.chosen-choices {
 	height: 100% !important;
 }
+

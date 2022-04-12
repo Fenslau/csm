@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+
+
+Breadcrumbs::register('home', function ($breadcrumbs) {
+    $breadcrumbs->push('Главная', route('home'));
+});
+
+Breadcrumbs::register('users', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Управление пользователями', route('users'));
+});
+
+Breadcrumbs::register('profile', function ($breadcrumbs, $user) {
+    $breadcrumbs->parent('users');
+    $breadcrumbs->push($user->employee->user_name, route('user', $user->id));
+});
+
+Breadcrumbs::register('role', function ($breadcrumbs, $role) {
+    $breadcrumbs->parent('users');
+    $breadcrumbs->push($role->role_name, route('role', $role->id));
+});
+
+Breadcrumbs::register('otkaz', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Регистрация отказов', route('otkaz'));
+});
+Breadcrumbs::register('document', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Электронный документооборот', route('document'));
+});
+Breadcrumbs::register('procedure', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Процедурный кабинет', route('procedure'));
+});
+
+Breadcrumbs::register('stat-otkaz', function ($breadcrumbs) {
+    $breadcrumbs->parent('otkaz');
+    $breadcrumbs->push('Статистика отказов', route('stat-otkaz'));
+});
+
+Breadcrumbs::register('reason', function ($breadcrumbs) {
+    $breadcrumbs->parent('otkaz');
+    $breadcrumbs->push('Причины отказов', route('edit_otkaz_reasons'));
+});
+
+Breadcrumbs::register('cost', function ($breadcrumbs) {
+    $breadcrumbs->parent('otkaz');
+    $breadcrumbs->push('Стоимость отказов', route('edit_otkaz_costs'));
+});

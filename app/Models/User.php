@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'login',
         'email',
         'password',
     ];
@@ -41,4 +41,42 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function employee() {
+      return $this->hasOne(Employee::class);
+    }
+
+    public function otkazy() {
+      return $this->hasMany(Otkazy::class);
+    }
+
+    public function roles() {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function hasPermission($permission) {
+        $permission = Permission::where('permission_slug', $permission)->first();
+        foreach ($permission->roles as $role){
+            if($this->roles->contains($role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public function giveRoles($ids) {
+        if ($ids === NULL) {
+          $this->roles()->detach();
+          return TRUE;
+        } else {
+            $roles = Role::whereIn('id', $ids)->get();
+            if($roles !== null) {
+                $this->roles()->detach();
+                $this->roles()->saveMany($roles);
+                return TRUE;
+            } else return FALSE;
+        }
+    }
 }
