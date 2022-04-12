@@ -1,24 +1,27 @@
 <div class="d-flex justify-content-between form-group row m-1">
   <label class="mr-3" for="city{{ $multiple }}">Город: </label>
   <select id="city{{ $multiple }}" {{ $multiple }} class="form-control w-auto overflow-auto chosen-select" data-placeholder="Выберите город" name="city{{ $arr }}">
-    <option @selected('Томск', session('city'))>Томск</option>
-    <option @selected('Красноярск', session('city'))>Красноярск</option>
+    @foreach ($cities as $city)
+      <option @selected('{{ $city }}', session('city'))>{{ $city }}</option>
+    @endforeach
   </select>
 </div>
 
 <div class="d-flex justify-content-between form-group row m-1">
   <label class="mr-3" for="organization{{ $multiple }}">Организация: </label>
   <select id="organization{{ $multiple }}" {{ $multiple }} class="form-control w-auto overflow-auto chosen-select" data-placeholder="Выберите организацию" name="organization{{ $arr }}">
-    <option @selected('Санталь', session('organization'))>Санталь</option>
-    <option @selected('ЦСМ', session('organization'))>ЦСМ</option>
+    @foreach ($organizations as $organization)
+      <option @selected('{{ $organization }}', session('organization'))>{{ $organization }}</option>
+    @endforeach
   </select>
 </div>
 
 <div class="d-flex justify-content-between form-group row m-1">
   <label class="mr-3" for="division{{ $multiple }}">Подразделение: </label>
   <select id="division{{ $multiple }}" {{ $multiple }} class="form-control w-auto overflow-auto chosen-select" data-placeholder="Выберите подразделение" name="division{{ $arr }}">
-    <option @selected('Стоматология', session('division'))>Стоматология</option>
-    <option @selected('Педиатрия', session('division'))>Педиатрия</option>
+    @foreach ($divisions as $division)
+      <option @selected('{{ $division }}', session('division'))>{{ $division }}</option>
+    @endforeach
   </select>
 </div>
 

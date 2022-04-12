@@ -8,6 +8,8 @@ use App\Http\Requests\ReasonaddRequest;
 use App\Models\User;
 use App\Models\Otkazy;
 use App\Models\Reason;
+use App\Models\Organization;
+use App\Models\Person;
 
 class OtkazController extends Controller
 {
@@ -15,7 +17,10 @@ class OtkazController extends Controller
       $reasons = $items = array();
       $items = Otkazy::with('user', 'reason')->orderBy('created_at', 'desc')->paginate(25);
       $reasons = Reason::where('active', 1)->get();
-      return view('otkazy', compact('items', 'reasons'));
+      $organizations = Organization::distinct()->pluck('org');
+      $divisions = Organization::distinct()->pluck('department');
+      $cities = Person::distinct()->pluck('city');
+      return view('otkazy', compact('items', 'reasons', 'organizations', 'divisions', 'cities'));
     }
 
     public function new(OtkazRequest $request) {

@@ -11,7 +11,7 @@
       {{ Breadcrumbs::render('otkaz') }}
       <h4 class="text-center">Регистрация отказов</h4>
         <div class="d-flex flex-wrap justify-content-between">
-          <form class="max-content my-3 new-otkaz" action="{{ route('new-otkaz') }}" method="POST">
+          <form class="max-content my-5 new-otkaz" action="{{ route('new-otkaz') }}" method="POST">
             @csrf
             @include('inc.otkaz-form', ['multiple' => '', 'arr' => ''])
 
@@ -21,7 +21,7 @@
             </div>
           </form>
             @can('otkaz_stat')
-              <form class="max-content my-3 stat-otkaz" action="{{ route('stat-otkaz') }}" method="POST">
+              <form class="max-content my-5 stat-otkaz" action="{{ route('stat-otkaz') }}" method="POST">
                 @csrf
                 @include('inc.otkaz-form', ['multiple' => 'multiple', 'arr' => '[]'])
                 <div class="form-group row m-1">

@@ -63,6 +63,26 @@ return [
             ]) : [],
         ],
 
+        'csm' => [
+            'driver' => 'mysql',
+            'url' => '0370.ru',
+            'host' => '95.170.156.101',
+            'port' => '3306',
+            'database' => 'ProVrachey.rf',
+            'username' => 'In-ProVrachey.rf',
+            'password' => 'Cc3f0PGHvviD5z4T',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
