@@ -43,6 +43,11 @@ class User extends Authenticatable
     ];
 
 
+    // public function getAuthPassword() {
+    //
+    //   return bcrypt('123');
+    // }
+
     public function employee() {
       return $this->hasOne(Employee::class);
     }

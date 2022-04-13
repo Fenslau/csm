@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "adldap/adldap": "dev-master",
         "barryvdh/laravel-debugbar": "^3.6",
         "davejamesmiller/laravel-breadcrumbs": "^5.3",
         "fruitcake/laravel-cors": "^2.0",

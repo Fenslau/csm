@@ -4,8 +4,70 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02f9dd83ec538a3472bc7729ab1811d4",
+    "content-hash": "4421bd43faa5557a19ef62fed26edef6",
     "packages": [
+        {
+            "name": "adldap/adldap",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adldap/adLDAP.git",
+                "reference": "63fd63e4f680e521bdf6cba23e0e524a2c34c0d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adldap/adLDAP/zipball/63fd63e4f680e521bdf6cba23e0e524a2c34c0d5",
+                "reference": "63fd63e4f680e521bdf6cba23e0e524a2c34c0d5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ldap": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.6.*"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Adldap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Richard Hyland",
+                    "email": "adldap@richardhyland.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Scott Barnett",
+                    "email": "scott@wiggumworld.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Steve Bauman",
+                    "email": "steven_bauman@outlook.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP LDAP Library for Active Directory Manipulation",
+            "keywords": [
+                "active directory",
+                "ldap",
+                "windows"
+            ],
+            "support": {
+                "issues": "https://github.com/adldap/adLDAP/issues",
+                "source": "https://github.com/adldap/adLDAP"
+            },
+            "time": "2015-06-16T12:41:10+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.1.1",
@@ -8226,7 +8288,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "adldap/adldap": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

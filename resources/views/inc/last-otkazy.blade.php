@@ -33,7 +33,7 @@
         </tr>
       @empty
         <tr>
-          <td class="text-center" colspan="10">Ни одного откаа не зарегистрировано</td>
+          <td class="text-center" colspan="10">Ни одного отказа не зарегистрировано</td>
         </tr>
       @endforelse
     </tbody>

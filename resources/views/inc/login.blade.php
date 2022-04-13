@@ -11,14 +11,16 @@
       </div>
 
       <div class="modal-body">
-        <div class="form-group">
-          <label for="login">Логин: </label>
-          <input name="login" class="form-control form-control-sm" id="login">
+
+        <div class="input-group">
+          <input name="login" class="form-control" placeholder="login" >
+          <div class="input-group-append">
+            <div class="input-group-text">@0370.ru</div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="password">Пароль: </label>
-          <input name="password" class="form-control form-control-sm" id="password" type="password">
+        <div class="form-group mt-3">
+          <input name="password" class="form-control" placeholder="Пароль" type="password">
         </div>
 
       </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use \Adldap\Adldap;
 
 class LoginController extends Controller
 {
@@ -15,6 +16,19 @@ class LoginController extends Controller
             'login' => ['required'],
             'password' => ['required'],
         ]);
+        $config = array(
+            'account_suffix' => "@csm.local",
+            'domain_controllers' => array("192.168.1.59"),
+            'base_dn' => 'DC=csm,DC=local',
+            'admin_username' => '',
+            'admin_password' => '',
+        );
+        $ad = new Adldap($config);
+        if ($ad->authenticate($request->login, $request->password)) {
+          dd($adldap->user()->info($request->login));
+        }
+        dd('Fail');
+
         if (Auth::attempt($credentials, $remember = true)) {
             $request->session()->regenerate();
             return redirect()->intended(url()->previous());
