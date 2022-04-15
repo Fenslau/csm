@@ -9,7 +9,14 @@ class Organization extends Model
 {
     use HasFactory;
 
-//    protected $connection = 'csm';
+    protected $connection;
 
     protected $table = 'position';
+
+    public function __construct()
+    {
+        $this->connection = env('CSM_CONN');
+    }
+
+
 }

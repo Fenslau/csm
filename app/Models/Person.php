@@ -2,17 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class Person extends Authenticatable
+class Person extends Model
 {
-    use Notifiable;
+    use HasFactory;
 
-    //    protected $connection = 'csm';
+        protected $connection;
 
         protected $table = 'person';
+
+        public function __construct()
+        {
+            $this->connection = env('CSM_CONN');
+        }
+
+        public function person($fio) {
+            return Person::leftJoin('position', 'person.hash', '=', 'position.hash')->where('fio', $fio)->first();
+        }
 }

@@ -16,12 +16,11 @@ class CreateOtkaziesTable extends Migration
         Schema::create('otkazies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('reason_id')->constrained();
+            $table->foreignId('theme_id')->constrained();
             $table->string('city')->index();
             $table->string('organization')->index();
-            $table->string('division')->index();
-            $table->tinyInteger('group');
-            $table->string('theme')->index();
-            $table->foreignId('reason_id')->constrained();
+            $table->string('department')->index();
             $table->timestamps();
         });
     }

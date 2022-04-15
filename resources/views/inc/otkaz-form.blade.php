@@ -19,8 +19,8 @@
 <div class="d-flex justify-content-between form-group row m-1">
   <label class="mr-3" for="division{{ $multiple }}">Подразделение: </label>
   <select id="division{{ $multiple }}" {{ $multiple }} class="form-control w-auto overflow-auto chosen-select" data-placeholder="Выберите подразделение" name="division{{ $arr }}">
-    @foreach ($divisions as $division)
-      <option @selected('{{ $division }}', session('division'))>{{ $division }}</option>
+    @foreach ($departments as $department)
+      <option @selected('{{ $department }}', session('department'))>{{ $department }}</option>
     @endforeach
   </select>
 </div>

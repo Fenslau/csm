@@ -10,25 +10,7 @@
     <div class="col">
       {{ Breadcrumbs::render('users') }}
       <h4 class="text-center">Управление пользователями</h4>
-      <div class="d-flex flex-column mt-3 pt-3 shadow border">
-        <form class="m-auto form-inline flex-md-nowrap" action="{{ route('new-user') }}" method="POST">
-          @csrf
-          <div class="input-group m-1">
-            <input type="text" autocomplete="off" class="form-control form-control-sm" name="user_name" placeholder="Имя" value="{{ old('user_name') }}">
-            <input type="text" autocomplete="off" class="form-control form-control-sm" name="user_surname" placeholder="Фамилия" value="{{ old('user_surname') }}">
-            <input type="email" autocomplete="off" class="form-control form-control-sm" name="email" placeholder="e-mail" value="{{ old('e-mail') }}" data-toggle="tooltip" title="Можно оставить пустым">
-          </div>
 
-          <div class="input-group m-1">
-              <input data-toggle="tooltip" title="Если оставить пустым - сгенерируется случайно" type="text" autocomplete="off" class="form-control form-control-sm" name="login" placeholder="Логин" value="{{ old('login') }}">
-              <input data-toggle="tooltip" title="Если оставить пустым - сгенерируется случайно" type="text" autocomplete="off" class="form-control form-control-sm" name="password" placeholder="Пароль">
-            <div class="input-group-append">
-              <button @can(['create_user']) @else disabled @endcan type="submit" class="btn btn-sm btn-outline-success shadow-none">Создать</button>
-            </div>
-          </div>
-        </form>
-        <span class="text-center mb-1">создание нового пользователя</span>
-      </div>
       @include('inc.toast')
       <div class="d-flex flex-column mt-3 p-3 shadow border">
           <h5 class="text-center">Все пользователи</h5>
@@ -57,7 +39,7 @@
           <div class="input-group m-1">
             <input type="text" autocomplete="off" class="border-success border-right-0 form-control form-control-sm" name="role_name" placeholder="Название" value="{{ old('role_name') }}">
             <div class="input-group-append">
-              <button @can(['create_role']) @else disabled @endcan type="submit" class="btn btn-sm btn-outline-success shadow-none">Создать роль</button>
+              <button type="submit" class="btn btn-sm btn-outline-success shadow-none">Создать роль</button>
             </div>
           </div>
         </form>

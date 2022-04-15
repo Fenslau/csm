@@ -33,7 +33,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  $(document).on('click', '.del-reason', function (e) {
+  $(document).on('click', '.del-reason, .del-theme', function (e) {
       e.preventDefault();
       var _this = $(this)
         axios.post($(this).attr('url'), {

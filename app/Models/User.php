@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'login',
+        'name',
         'email',
-        'password',
+        'city',
+        'organization',
+        'department',
     ];
 
     /**
@@ -48,12 +50,13 @@ class User extends Authenticatable
     //   return bcrypt('123');
     // }
 
-    public function employee() {
-      return $this->hasOne(Employee::class);
+    public static function get_id($user) {
+        User::updateOrCreate(['name' => $user['name']], $user);
+        return User::where('name', $user['name'])->pluck('id');
     }
 
     public function otkazy() {
-      return $this->hasMany(Otkazy::class);
+        return $this->hasMany(Otkazy::class);
     }
 
     public function roles() {

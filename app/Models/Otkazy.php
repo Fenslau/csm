@@ -19,4 +19,8 @@ class Otkazy extends Model
     public function reason() {
       return $this->belongsTo(Reason::class);
     }
+
+    public function theme() {
+      return $this->belongsTo(Theme::class);
+    }
 }

@@ -167,6 +167,7 @@ return [
         'user_weight'           => 'Вес',
         'reason'                => 'Причина',
         'role_name'             => 'Роль',
-        'reason_id'             => 'Причина'
+        'reason_id'             => 'Причина',
+        'theme_id'             => 'Тема'
     ],
 ];

@@ -9,8 +9,7 @@
             <div class="font-weight-bolder">
               <a class="alert-link card-link" href="{{ route('user', auth()->user()->id) }}">
                 <i class="fa fa-user"></i>
-                {{ auth()->user()->employee->user_name }}
-                {{ mb_substr(auth()->user()->employee->user_surname, 0, 1, 'UTF-8') }}.
+                {{ auth()->user()->name }}
               </a>
             </div>
           </div>

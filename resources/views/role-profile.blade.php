@@ -26,7 +26,7 @@
             @endforelse
           </select>
           <div class="input-group-append">
-            <button @can(['permissions']) @else disabled @endcan type="submit" class="btn btn-sm btn-outline-success shadow-none">Выдать права</button>
+            <button type="submit" class="btn btn-sm btn-outline-success shadow-none">Выдать права</button>
           </div>
         </div>
       </form>
@@ -35,10 +35,7 @@
           <h5 class="text-center">Пользователи с такой ролью</h5>
           <div class="py-3 d-flex flex-wrap">
             @forelse ($users as $user)
-              <div class="m-2 p-1 px-2 bg-light border rounded position-relative">
-                 <a class="stretched-link" href="{{ route('user', $user->id) }}">{{ $user->employee->user_name }} {{ $user->employee->user_surname }}
-                 </a>
-              </div>
+              @include('inc.user')
             @empty
               Нет ни одного пользователя с такой ролью
             @endforelse

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use \Adldap\Adldap;
+use App\Models\Person;
+use App\Models\User;
+use Adldap\Adldap;
+
 
 class LoginController extends Controller
 {
@@ -16,24 +19,41 @@ class LoginController extends Controller
             'login' => ['required'],
             'password' => ['required'],
         ]);
+        $user = $this->auth($credentials);
+
+        if ($user) {
+          $person = new Person();
+          $person = $person->person($user['name']);
+
+          if (isset($person->city)) $user['city'] = $person->city;
+          if (isset($person->org)) $user['organization'] = $person->org;
+          if (isset($person->department)) $user['department'] = $person->department;
+          Auth::loginUsingId(User::get_id($user));
+          return redirect()->intended(url()->previous());
+        }
+        else return back()->with('error', 'Неправильный логин или пароль');
+    }
+
+
+
+    public function auth($credentials) {
+        if (env('APP_ENV') == 'local') return (['name' => 'Зырянова Мария Петровна', 'email' => 'zmp@0370.ru']);
         $config = array(
-            'account_suffix' => "@csm.local",
-            'domain_controllers' => array("192.168.1.59"),
-            'base_dn' => 'DC=csm,DC=local',
-            'admin_username' => '',
-            'admin_password' => '',
+            'account_suffix' => env('AD_ACCOUNT_SUFFIX'),
+            'domain_controllers' => array(env('AD_DOMAIN_CONTROLLERS')),
+            'base_dn' => env('AD_BASE_DN'),
+            'admin_username' => env('AD_ADMIN_USERNAME'),
+            'admin_password' => env('AD_ADMIN_PASSWORD'),
         );
         $ad = new Adldap($config);
-        if ($ad->authenticate($request->login, $request->password)) {
-          dd($adldap->user()->info($request->login));
+        if ($ad->authenticate($credentials['login'], $credentials['password'])) {
+          $info = $ad->user()->info($credentials['login']);
+          dd($info);
+          $user['name'] = $info[0]['displayname'][0];
+          $user['email'] = $info[0]['mail'][0];
+          return $user;
         }
-        dd('Fail');
-
-        if (Auth::attempt($credentials, $remember = true)) {
-            $request->session()->regenerate();
-            return redirect()->intended(url()->previous());
-        }
-        return back()->with('error', 'Неправильный логин или пароль');
+        return FALSE;
     }
 
     public function logout(Request $request) {

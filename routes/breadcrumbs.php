@@ -16,7 +16,7 @@ Breadcrumbs::register('users', function ($breadcrumbs) {
 
 Breadcrumbs::register('profile', function ($breadcrumbs, $user) {
     $breadcrumbs->parent('users');
-    $breadcrumbs->push($user->employee->user_name, route('user', $user->id));
+    $breadcrumbs->push($user->name, route('user', $user->id));
 });
 
 Breadcrumbs::register('role', function ($breadcrumbs, $role) {
@@ -37,14 +37,18 @@ Breadcrumbs::register('procedure', function ($breadcrumbs) {
     $breadcrumbs->push('Процедурный кабинет', route('procedure'));
 });
 
-Breadcrumbs::register('stat-otkaz', function ($breadcrumbs) {
+Breadcrumbs::register('otkaz-stat', function ($breadcrumbs) {
     $breadcrumbs->parent('otkaz');
-    $breadcrumbs->push('Статистика отказов', route('stat-otkaz'));
+    $breadcrumbs->push('Статистика отказов', route('otkaz-stat'));
 });
 
 Breadcrumbs::register('reason', function ($breadcrumbs) {
     $breadcrumbs->parent('otkaz');
     $breadcrumbs->push('Причины отказов', route('edit_otkaz_reasons'));
+});
+Breadcrumbs::register('theme', function ($breadcrumbs) {
+    $breadcrumbs->parent('otkaz');
+    $breadcrumbs->push('Темы отказов', route('edit_otkaz_themes'));
 });
 
 Breadcrumbs::register('cost', function ($breadcrumbs) {

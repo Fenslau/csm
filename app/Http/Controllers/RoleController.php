@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\NewRoleRequest;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Employee;
 use App\Models\Permission;
 
 class RoleController extends Controller

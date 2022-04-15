@@ -49,13 +49,13 @@
           </div>
 
 
-@canany('create_user', 'create_role')
+
           <div class="">
             <h5 class="d-none d-md-block text-center pt-3">Администрирование</h5>
             <nav class="d-sm-none navbar navbar-light">
 
               <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"><i class="fas fa-bars fa-1x"></i> Административное Меню</button>
-@canany('create_user', 'create_role')
+
               <div class="collapse navbar-collapse" id="navbarSupportedContent2">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item rounded px-2 my-1 border">
@@ -63,19 +63,19 @@
                   </li>
                 </ul>
               </div>
-@endcanany
+
             </nav>
 
             <nav class="d-none d-sm-flex justify-content-around align-items-stretch navbar">
-@canany('create_user', 'create_role')
+
               <div class="m-1 min-content alert alert-danger">
                 <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('users') }}">Управление пользователями</a>
                 <p class="d-none d-md-block text-center lh-sm"><small>создание пользователей, выдача логинов, ролей, прав</small></p>
               </div>
-@endcanany
+
             </nav>
           </div>
-@endcanany
+
       </div>
     </div>
   </div>

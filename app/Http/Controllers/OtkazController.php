@@ -5,25 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\OtkazRequest;
 use App\Http\Requests\ReasonaddRequest;
+use App\Http\Requests\ThemeaddRequest;
 use App\Models\User;
 use App\Models\Otkazy;
+use App\Models\Theme;
 use App\Models\Reason;
-use App\Models\Organization;
 use App\Models\Person;
+use App\Models\Organization;
 
 class OtkazController extends Controller
 {
     public function main() {
-      $reasons = $items = array();
+      $themes = $reasons = $items = array();
       $items = Otkazy::with('user', 'reason')->orderBy('created_at', 'desc')->paginate(25);
+      $themes = Theme::where('active', 1)->get();
       $reasons = Reason::where('active', 1)->get();
-      $organizations = Organization::distinct()->pluck('org');
-      $divisions = Organization::distinct()->pluck('department');
       $cities = Person::distinct()->pluck('city');
-      return view('otkazy', compact('items', 'reasons', 'organizations', 'divisions', 'cities'));
+      $organizations = Organization::distinct()->pluck('org');
+      $departments = Organization::distinct()->pluck('department');
+
+      return view('otkazy', compact('items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }
 
     public function new(OtkazRequest $request) {
+//dd($request->all());
       $user = User::find(auth()->user()->id);
       $otkaz = new Otkazy($request->all());
       $user->otkazy()->save($otkaz);
@@ -31,18 +36,30 @@ class OtkazController extends Controller
       else return back()->with('error', 'Не удалось зарегистрировать отказ');
     }
 
-    public function stat(Request $request) {
+    public function statistic(Request $request) {
       $items = array();
-      session()->forget(['city', 'organization', 'division', 'group', 'theme', 'reason', 'calendar_from', 'calendar_to']);
+      session()->forget(['city', 'organization', 'department', 'group', 'theme', 'reason', 'calendar_from', 'calendar_to']);
       session($request->all());
 
-      return view('stat-otkaz', compact('items'));
+      $reasons = Reason::where('active', 1)->pluck('reason');
+      $themes = Theme::where('active', 1)->pluck('theme');
+      $organizations = Organization::distinct()->pluck('org');
+      $departments = Organization::distinct()->pluck('department');
+      $cities = Person::distinct()->pluck('city');
+
+      return view('stat-otkaz', compact('items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }
 
     public function editreasons() {
       $items = array();
       $reasons = Reason::where('active', 1)->get();
       return view('otkazy-edit-reasons', compact('reasons'));
+    }
+
+    public function editthemes() {
+      $items = array();
+      $themes = Theme::where('active', 1)->get();
+      return view('otkazy-edit-themes', compact('themes'));
     }
 
     public function editcosts() {
@@ -63,6 +80,21 @@ class OtkazController extends Controller
     public function reasondel(Request $request) {
       $reason = Reason::find($request->name)->update(['active' => 0]);
       if ($reason) return response()->json( array('success' => true));
+      else return response()->json( array('success' => false));
+    }
+
+    public function themeadd(ThemeaddRequest $request) {
+      $theme = Theme::updateOrCreate(
+        ['theme' => $request->theme],
+        ['active' => 1]
+    );
+      if ($theme) return back()->with('success', 'Новая тема отказа добавлена');
+      else return back()->with('error', 'Не удалось добавить тему отказа');
+    }
+
+    public function themedel(Request $request) {
+      $theme = Theme::find($request->name)->update(['active' => 0]);
+      if ($theme) return response()->json( array('success' => true));
       else return response()->json( array('success' => false));
     }
 }

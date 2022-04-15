@@ -19,21 +19,22 @@
           </div>
         </div>
       </form>
-
-      <h4 class="mb-3 text-center">Все причины</h4>
-      <div class="d-flex">
-        @forelse ($reasons as $reason)
-          <div class="m-2 p-1 px-2 bg-light rounded border max-content input-group">
-            {{ $reason->reason }}
-            <div class="input-group-append">
-              <button url="{{ route('reason-del') }}" name="{{ $reason->id }}" type="button" class="close pl-2 text-danger del-reason">
-                <span>&times;</span>
-              </button>
-            </div>
+      <div class="d-flex flex-column mt-3 p-3 shadow border">
+          <h5 class="mb-3 text-center">Все причины</h5>
+          <div class="py-3 d-flex flex-wrap">
+            @forelse ($reasons as $reason)
+              <div class="m-2 p-1 px-2 bg-light rounded border max-content input-group">
+                {{ $reason->reason }}
+                <div class="input-group-append">
+                  <button url="{{ route('reason-del') }}" name="{{ $reason->id }}" type="button" class="close pl-2 text-danger del-reason">
+                    <span>&times;</span>
+                  </button>
+                </div>
+              </div>
+            @empty
+              Ни одной причины не найдено
+            @endforelse
           </div>
-        @empty
-          Ни одной причины не найдено
-        @endforelse
       </div>
     </div>
   </div>
