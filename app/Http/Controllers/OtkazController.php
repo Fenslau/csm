@@ -12,6 +12,8 @@ use App\Models\Theme;
 use App\Models\Reason;
 use App\Models\Person;
 use App\Models\Organization;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class OtkazController extends Controller
 {
@@ -38,16 +40,33 @@ class OtkazController extends Controller
 
     public function statistic(Request $request) {
       $items = array();
-      session()->forget(['city', 'organization', 'department', 'group', 'theme', 'reason', 'calendar_from', 'calendar_to']);
-      session($request->all());
+      $stat = new Otkazy;
+      $our_organizations = $stat->getwhere($request)->select('organization', DB::raw('count(*) as count'))->groupBy('organization')->get()->toArray();
+      foreach ($our_organizations as &$organization) {
+          $organization['departments'] = $stat->getwhere($request)->where('organization', $organization['organization'])->select('department', DB::raw('count(*) as count'))->groupBy('department')->get()->toArray();
+      }
+      $our_reasons = $stat->getwhere($request)->with('reason')->select('reason_id', DB::raw('count(*) as count'))->groupBy('reason_id')->get();
+      $our_themes = $stat->getwhere($request)->with('theme')->select('theme_id', DB::raw('count(*) as count'))->groupBy('theme_id')->get();
+      // foreach ($organizations as $organization) {
+      //     if (!empty($organization["organization"])) $sum_parsed[] = "SUM(organization = '".$organization['organization']."') AS `".$organization['organization']."`";
+      // }
+      // $sum_parsed = implode(', ', $sum_parsed);
+      //
+      // if (!empty($sum_parsed)) {
+    	// 	$departments = $stat->select('department', DB::raw("$sum_parsed"))->groupBy('department')->get()->toArray();
+    	// }
+      // $stat = $stat->get()->groupBy(function($date) {
+      //   return Carbon::parse($date->created_at)->format('d.m');
+      // });
 
-      $reasons = Reason::where('active', 1)->pluck('reason');
-      $themes = Theme::where('active', 1)->pluck('theme');
+
+      $reasons = Reason::where('active', 1)->get();
+      $themes = Theme::where('active', 1)->get();
       $organizations = Organization::distinct()->pluck('org');
       $departments = Organization::distinct()->pluck('department');
       $cities = Person::distinct()->pluck('city');
 
-      return view('stat-otkaz', compact('items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
+      return view('stat-otkaz', compact('our_organizations', 'our_reasons', 'our_themes', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }
 
     public function editreasons() {

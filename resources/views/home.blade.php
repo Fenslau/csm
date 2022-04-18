@@ -70,7 +70,7 @@
 
               <div class="m-1 min-content alert alert-danger">
                 <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('users') }}">Управление пользователями</a>
-                <p class="d-none d-md-block text-center lh-sm"><small>создание пользователей, выдача логинов, ролей, прав</small></p>
+                <p class="d-none d-md-block text-center lh-sm"><small>контроль пользователей, выдача ролей, прав</small></p>
               </div>
 
             </nav>
