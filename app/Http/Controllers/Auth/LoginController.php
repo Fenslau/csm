@@ -17,7 +17,7 @@ class LoginController extends Controller
 
         $credentials = $request->validate([
             'login' => ['required'],
-            'password' => ['required'],
+            //'password' => ['required'],
         ]);
         $user = $this->auth($credentials);
 
@@ -37,7 +37,11 @@ class LoginController extends Controller
 
 
     public function auth($credentials) {
-        if (env('APP_ENV') == 'local') return (['name' => 'Зырянова Мария Петровна', 'email' => 'zmp@0370.ru']);
+        if (env('APP_ENV') == 'local') {
+          $name = Person::where('email', 'like', $credentials['login'].'%')->first();
+          if (isset($name->fio)) return (['name' => $name->fio, 'email' => $name.'@0370.ru']);
+          else return FALSE;
+        }
         $config = array(
             'account_suffix' => env('AD_ACCOUNT_SUFFIX'),
             'domain_controllers' => array(env('AD_DOMAIN_CONTROLLERS')),
