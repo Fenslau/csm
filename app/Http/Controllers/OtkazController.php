@@ -17,22 +17,32 @@ use Illuminate\Support\Facades\DB;
 
 class OtkazController extends Controller
 {
-    public function main() {
+    public function main(Request $request) {
       $themes = $reasons = $items = array();
-      $items = Otkazy::with('user', 'reason')->orderBy('created_at', 'desc')->paginate(25);
-      $themes = Theme::where('active', 1)->get();
-      $reasons = Reason::where('active', 1)->get();
+      $stat = new Otkazy;
+      //$items = Otkazy::with('user', 'reason')->orderBy('created_at', 'desc')->paginate(25);
+      $items = $stat->getwhere($request)->with('user', 'reason')->select('*', DB::raw('MAX(created_at) as maxdate, count(*) as count'))->orderBy('maxdate', 'desc')->groupBy('city', 'organization', 'department', 'theme_id', 'reason_id')->paginate(5000);
+      $themes = Theme::where('active', 1)->orderBy('theme', 'asc')->get();
+      $reasons = Reason::where('active', 1)->orderBy('reason', 'asc')->get();
       $cities = Person::distinct()->pluck('city');
-      $organizations = Organization::distinct()->pluck('org');
-      $departments = Organization::distinct()->pluck('department');
+      $organizations = Organization::distinct()->orderBy('org', 'asc')->pluck('org');
+      $departments = Organization::distinct()->orderBy('department', 'asc')->pluck('department');
 
-      return view('otkazy', compact('items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
+      return view('otkazy', compact('request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
+    }
+
+    public function getdepartments(Request $request) {
+      if ($request->org) {
+        $departments = Organization::where('org', $request->org)->distinct()->orderBy('department', 'asc')->pluck('department');
+        $data = view('inc.select-department', compact('departments'))->render();
+        return response()->json(['options' => $data]);
+      }
     }
 
     public function new(OtkazRequest $request) {
-//dd($request->all());
       $user = User::find(auth()->user()->id);
-      $otkaz = new Otkazy($request->all());
+      session(['call' => $request->call]);
+      $otkaz = new Otkazy($request->except('call'));
       $user->otkazy()->save($otkaz);
       if ($user) return back()->with('success', 'Отказ зарегистрирован');
       else return back()->with('error', 'Не удалось зарегистрировать отказ');
@@ -46,20 +56,19 @@ class OtkazController extends Controller
           $organization['departments'] = $stat->getwhere($request)->where('organization', $organization['organization'])->select('department', DB::raw('count(*) as count'))->groupBy('department')->get()->toArray();
       }
       $our_reasons = $stat->getwhere($request)->with('reason')->select('reason_id', DB::raw('count(*) as count'))->groupBy('reason_id')->get();
+      foreach ($our_reasons as &$reason) {
+          $reason->dates = $stat->getwhere($request)->where('reason_id', $reason->reason_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
+             return Carbon::parse($date->created_at)->format('d M');
+          })->take(30)->reverse();
+      }
+
       $our_themes = $stat->getwhere($request)->with('theme')->select('theme_id', DB::raw('count(*) as count'))->groupBy('theme_id')->get();
-      // foreach ($organizations as $organization) {
-      //     if (!empty($organization["organization"])) $sum_parsed[] = "SUM(organization = '".$organization['organization']."') AS `".$organization['organization']."`";
-      // }
-      // $sum_parsed = implode(', ', $sum_parsed);
-      //
-      // if (!empty($sum_parsed)) {
-    	// 	$departments = $stat->select('department', DB::raw("$sum_parsed"))->groupBy('department')->get()->toArray();
-    	// }
-      // $stat = $stat->get()->groupBy(function($date) {
-      //   return Carbon::parse($date->created_at)->format('d.m');
-      // });
-
-
+      foreach ($our_themes as &$theme) {
+          $theme->dates = $stat->getwhere($request)->where('theme_id', $theme->theme_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
+             return Carbon::parse($date->created_at)->format('d M');
+          })->take(30)->reverse();
+      }
+//dd($our_reasons);
       $reasons = Reason::where('active', 1)->get();
       $themes = Theme::where('active', 1)->get();
       $organizations = Organization::distinct()->pluck('org');

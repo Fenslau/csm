@@ -36,6 +36,9 @@ Route::post('/otkazy/new', 'App\Http\Controllers\OtkazController@new')
 ->name('new-otkaz');
 Route::get('/otkazy/stat', 'App\Http\Controllers\OtkazController@statistic')
 ->name('otkaz-stat');
+Route::post('/otkazy/get-departments', 'App\Http\Controllers\OtkazController@getdepartments')
+->name('get-departments');
+
 
 
 Route::get('/document', 'App\Http\Controllers\DocumentController@main')

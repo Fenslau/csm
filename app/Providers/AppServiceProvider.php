@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +28,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-
+        setlocale(LC_ALL, 'ru_RU.UTF-8');
+        DB::statement("SET lc_time_names = 'ru_RU'");
+        Carbon::setLocale(config('app.locale'));
         Blade::directive('selected', function ($parameters) {
             [$value, $expected] = explode(',', $parameters);
             $value = trim($value, '\'');

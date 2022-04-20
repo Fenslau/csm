@@ -6,6 +6,9 @@
 @section('content')
 <style type="text/css">
 
+    .highcharts-credits {
+      display: none;
+    }
     caption.highcharts-table-caption {
       display: none;
     }
@@ -106,7 +109,7 @@
           по <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-04">
         </div>
         <div class="form-group row m-1">
-          <button type="submit" class="btn btn btn-outline-danger shadow-none flex-grow-1 mr-2">Показать</button>
+          <button type="submit" class="btn btn-outline-danger shadow-none flex-grow-1 mr-2">Показать</button>
           <input type="reset" class="btn btn-outline-secondary shadow-none" value="Сбросить" onclick="$('.chosen-select option:selected').removeAttr('selected'); $('.chosen-select option').prop('selected', false); $('.chosen-select').trigger('chosen:updated');">
         </div>
       </form>
@@ -126,7 +129,7 @@
                   type: 'pie'
               },
               title: {
-                  text: 'Отказы по организациям и подразделениям'
+                  text: 'Отказы по организациям и подразделениям @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
               },
               subtitle: {
                   text: 'Нажмите на организацию, чтобы увидеть статистику её подразделений'
@@ -208,7 +211,7 @@
                   type: 'column'
               },
               title: {
-                  text: 'Темы отказов'
+                  text: 'Темы отказов @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
               },
               subtitle: {
                   text: ''
@@ -272,12 +275,12 @@
                           name: "{{ $theme->theme->theme }}",
                           id: "{{ $theme->theme->theme }}",
                           data: [
-
+                            @foreach ($theme->dates as $date => $value)
                               [
-                                  "",
-                                  0
+                                  "{{ $date }}",
+                                  {{ count($value) }}
                               ],
-
+                            @endforeach
                           ]
                         },
                       @endforeach
@@ -303,7 +306,7 @@
                   type: 'column'
               },
               title: {
-                  text: 'Причины отказов'
+                  text: 'Причины отказов @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
               },
               subtitle: {
                   text: ''
@@ -367,12 +370,12 @@
                           name: "{{ $reason->reason->reason }}",
                           id: "{{ $reason->reason->reason }}",
                           data: [
-
+                            @foreach ($reason->dates as $date => $value)
                               [
-                                  "",
-                                  0
+                                  "{{ $date }}",
+                                  {{ count($value) }}
                               ],
-
+                            @endforeach
                           ]
                         },
                       @endforeach
