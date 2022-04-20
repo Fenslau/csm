@@ -57,24 +57,24 @@ class OtkazController extends Controller
           $organization['organization'] = str_replace('"', '', $organization['organization']);
       }
 
-      $our_reasons = $stat->getwhere($request)->with('reason')->select('reason_id', DB::raw('count(*) as count'))->groupBy('reason_id')->get();
+      $our_reasons = $stat->getwhere($request)->with('reason')->select('reason_id', DB::raw('count(*) as count'))->groupBy('reason_id')->orderBy('count', 'desc')->get();
       foreach ($our_reasons as &$reason) {
           $reason->dates = $stat->getwhere($request)->where('reason_id', $reason->reason_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
              return Carbon::parse($date->created_at)->format('d M');
           })->take(30)->reverse();
       }
 
-      $our_themes = $stat->getwhere($request)->with('theme')->select('theme_id', DB::raw('count(*) as count'))->groupBy('theme_id')->get();
+      $our_themes = $stat->getwhere($request)->with('theme')->select('theme_id', DB::raw('count(*) as count'))->groupBy('theme_id')->orderBy('count', 'desc')->get();
       foreach ($our_themes as &$theme) {
           $theme->dates = $stat->getwhere($request)->where('theme_id', $theme->theme_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
              return Carbon::parse($date->created_at)->format('d M');
           })->take(30)->reverse();
       }
 
-      $reasons = Reason::get();
-      $themes = Theme::get();
-      $organizations = Organization::distinct()->pluck('org');
-      $departments = Organization::distinct()->pluck('department');
+      $reasons = Reason::orderBy('reason')->get();
+      $themes = Theme::orderBy('theme')->get();
+      $organizations = Organization::distinct()->orderBy('org')->pluck('org');
+      $departments = Organization::distinct()->orderBy('department')->pluck('department');
       $cities = Person::distinct()->pluck('city');
 
       return view('stat-otkaz', compact('our_organizations', 'our_reasons', 'our_themes', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
