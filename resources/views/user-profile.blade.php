@@ -10,7 +10,7 @@
     <div class="col">
       {{ Breadcrumbs::render('profile', $user) }}
       <h4 class="text-center">Пользователь {{ $user->name }}</h4>
-      <div class="my-3 max-content">
+      <div class="my-3 col-md-6">
         <div class="d-flex justify-content-between">
           <span>E-mail: </span> <span class="ml-3">{{ $user->email }}</span>
         </div>
@@ -18,10 +18,10 @@
           <span>Город: </span> <span class="ml-3">{{ $user->city }}</span>
         </div>
         <div class="d-flex justify-content-between">
-          <span>Организация: </span> <span class="ml-3">{{ $user->organization }}</span>
+          <span>Организация: </span> <span class="ml-3 text-truncate">{{ $user->organization }}</span>
         </div>
         <div class="d-flex justify-content-between">
-          <span>Подразделение: </span> <span class="ml-3">{{ $user->department }}</span>
+          <span>Подразделение: </span> <span class="ml-3 text-truncate">{{ $user->department }}</span>
         </div>
       </div>
 

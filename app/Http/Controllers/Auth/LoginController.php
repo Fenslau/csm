@@ -24,7 +24,7 @@ class LoginController extends Controller
         if ($user) {
           $person = new Person();
           $person = $person->person($user['name']);
-
+          if (isset($person->email)) $user['email'] = $person->email;
           if (isset($person->city)) $user['city'] = $person->city;
           if (isset($person->org)) $user['organization'] = $person->org;
           if (isset($person->department)) $user['department'] = $person->department;
@@ -39,7 +39,7 @@ class LoginController extends Controller
     public function auth($credentials) {
         if (env('APP_ENV') == 'local') {
           $name = Person::where('email', 'like', $credentials['login'].'%')->first();
-          if (isset($name->fio)) return (['name' => $name->fio, 'email' => $name.'@0370.ru']);
+          if (isset($name->fio)) return (['name' => $name->fio, 'email' => $name->email]);
           else return FALSE;
         }
         $config = array(

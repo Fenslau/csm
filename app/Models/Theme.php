@@ -11,10 +11,11 @@ class Theme extends Model
 
     protected $fillable = [
         'theme',
+        'cost',
         'active'
     ];
 
     public function otkazy() {
       return $this->hasMany(Otkazy::class);
-    }    
+    }
 }

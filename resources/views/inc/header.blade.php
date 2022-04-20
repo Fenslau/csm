@@ -6,7 +6,7 @@
         @auth
           <div class="w-100 d-flex align-items-center justify-content-between">
             <a class="btn btn-sm btn-secondary shadow-none text-nowrap" href="{{ route('logout') }}"><i class="fa fa-sign-out fa-flip-horizontal"></i> Выйти</a>
-            <div class="font-weight-bolder">
+            <div class="font-weight-bolder text-right">
               <a class="alert-link card-link" href="{{ route('user', auth()->user()->id) }}">
                 <i class="fa fa-user"></i>
                 {{ auth()->user()->name }}

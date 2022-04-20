@@ -160,7 +160,7 @@
 
               series: [
                   {
-                      name: "Организация",
+                      name: "Отказы",
                       colorByPoint: true,
                       data: [
                         @foreach($our_organizations as $org)
@@ -177,7 +177,7 @@
                   series: [
                     @foreach($our_organizations as $org)
                       {
-                          name: "{{ $org['organization'] }}",
+                          name: "Отказы",
                           id: "{{ $org['organization'] }}",
                           data: [
                             @foreach($org['departments'] as $department)
@@ -250,7 +250,7 @@
 
               series: [
                   {
-                      name: "Тема",
+                      name: "Отказы",
                       colorByPoint: true,
                       data: [
                         @foreach ($our_themes as $theme)
@@ -272,7 +272,7 @@
                   series: [
                       @foreach ($our_themes as $theme)
                         {
-                          name: "{{ $theme->theme->theme }}",
+                          name: "Отказы",
                           id: "{{ $theme->theme->theme }}",
                           data: [
                             @foreach ($theme->dates as $date => $value)
@@ -345,7 +345,7 @@
 
               series: [
                   {
-                      name: "Причина",
+                      name: "Отказы",
                       colorByPoint: true,
                       data: [
                         @foreach ($our_reasons as $reason)
@@ -367,7 +367,7 @@
                   series: [
                       @foreach ($our_reasons as $reason)
                         {
-                          name: "{{ $reason->reason->reason }}",
+                          name: "Отказы",
                           id: "{{ $reason->reason->reason }}",
                           data: [
                             @foreach ($reason->dates as $date => $value)

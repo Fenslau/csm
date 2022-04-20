@@ -95,6 +95,7 @@
                 }
                 else {
                   $('.vision-tooggable').removeClass("visiblility");
+                  $('#organization').change();
                 }
               });
             });
@@ -129,13 +130,14 @@
     <div class="col">
       <h4 class="mt-5 text-center">Отказы, сгруппированные @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty</h4>
       <form class="form-inline float-right my-3" action="{{ route('otkaz') }}" method="GET">
-        <div class="form-group">
-          С <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="2022-04-04"	max="{{ date('Y-m-d') }}" min="2022-04-04">
-          по <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-04">
+        <div class="input-group align-items-center">
+          С <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="2022-04-04"	max="{{ date('Y-m-d') }}" min="2022-04-04">
+          по <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-04">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-sm btn-outline-danger shadow-none">Показать</button>
+          </div>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-sm btn-outline-danger shadow-none">Применить</button>
-        </div>
+
       </form>
       <div class="table-responsive">
         @include('inc.group-otkazy')
