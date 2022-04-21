@@ -28,7 +28,7 @@ class LoginController extends Controller
           if (isset($person->city)) $user['city'] = $person->city;
           if (isset($person->org)) $user['organization'] = $person->org;
           if (isset($person->department)) $user['department'] = $person->department;
-          Auth::loginUsingId(User::get_id($user));
+          Auth::loginUsingId(User::get_id($user), true);
           return redirect()->intended(url()->previous());
         }
         else return back()->with('error', 'Неправильный логин или пароль');

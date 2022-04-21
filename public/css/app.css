@@ -39,3 +39,10 @@ ul.chosen-choices {
     opacity: 0;
 }
 
+.dataTables_length {
+	display: none;
+}
+.dataTables_filter {
+	float: left !important;
+}
+

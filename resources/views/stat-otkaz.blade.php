@@ -104,9 +104,9 @@
           </select>
         </div>
 
-        <div class="form-group row m-1">
-          С <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="2022-04-04"	max="{{ date('Y-m-d') }}" min="2022-04-04">
-          по <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-04">
+        <div class="form-group row m-1 align-items-center">
+          С <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="{{ date('Y-m') }}-01"	max="{{ date('Y-m-d') }}" min="2022-04-01">
+          по <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-01">
         </div>
         <div class="form-group row m-1">
           <button type="submit" class="btn btn-outline-danger shadow-none flex-grow-1 mr-2">Показать</button>
@@ -214,7 +214,7 @@
                   text: 'Темы отказов @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
               },
               subtitle: {
-                  text: ''
+                  text: 'Нажмите на тему, чтобы увидеть статистику по ней по датам'
               },
               accessibility: {
                   announceNewData: {
@@ -309,7 +309,7 @@
                   text: 'Причины отказов @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
               },
               subtitle: {
-                  text: ''
+                  text: 'Нажмите на причину, чтобы увидеть статистику по ней по датам'
               },
               accessibility: {
                   announceNewData: {

@@ -34,3 +34,10 @@ ul.chosen-choices {
     height: 0;
     opacity: 0;
 }
+
+.dataTables_length {
+	display: none;
+}
+.dataTables_filter {
+	float: left !important;
+}

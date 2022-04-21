@@ -1,15 +1,18 @@
 <table class="d-table table table-striped table-bordered table-hover table-sm table-responsive group-table">
     <thead class="thead-dark">
       <tr class="text-center">
-        <th>№</th>
-        <th>Город</th>
-        <th>Ограниазция</th>
-        <th>Подразделение</th>
+        <th class="d-none view-all">№</th>
+        <th>Дата</th>
+        <th>Время</th>
+
+        <th class="d-none view-all">Город</th>
+        <th class="d-none view-all">Ограниазция</th>
 
         <th>Тема</th>
         <th>Причина</th>
-        <!-- <th>Дата</th>
-        <th>Время</th> -->
+        <th>Подразделение</th>
+
+        <th class="d-none view-all">Регистратор</th>
         <th>Отказы</th>
       </tr>
     </thead>
@@ -17,20 +20,23 @@
     <tbody>
       @forelse ($items as $item)
         <tr class="lh-md text-center">
-          <td>{{ $loop->iteration }}</td>
-          <td>{{ $item['city'] }}</td>
-          <td class="text-truncate">{{ $item['organization'] }}</td>
-          <td class="text-truncate">{{ $item['department'] }}</td>
+          <td class="d-none view-all">{{ $loop->iteration }}</td>
+          <td>{{ date('d.m.y', strtotime($item['maxdate'])) }}</td>
+          <td>{{ date('H:i', strtotime($item['maxdate'])) }}</td>
+
+          <td class="d-none view-all">{{ $item['city'] }}</td>
+          <td class="text-truncate d-none view-all">{{ $item['organization'] }}</td>
 
           <td>{{ $item->theme->theme }}</td>
           <td>{{ $item->reason->reason }}</td>
-          <!-- <td>{{ date('d.m.y', strtotime($item['maxdate'])) }}</td>
-          <td>{{ date('H:i', strtotime($item['maxdate'])) }}</td> -->
+          <td class="text-truncate">{{ $item['department'] }}</td>
+
+          <td class="d-none view-all">{{ $item->user->name }}</td>
           <td>{{ $item->count }}</td>
         </tr>
       @empty
         <tr>
-          <td class="text-center" colspan="10">Ни одного отказа не зарегистрировано</td>
+          <td class="text-center" colspan="6">Ни одного отказа не зарегистрировано</td>
         </tr>
       @endforelse
     </tbody>
