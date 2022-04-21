@@ -38,7 +38,7 @@ class LoginController extends Controller
 
     public function auth($credentials) {
         if (env('APP_ENV') == 'local') {
-          $name = Person::where('email', 'like', $credentials['login'].'%')->first();
+          $name = Person::where('email', $credentials['login'].'@0370.ru')->first();
           if (isset($name->fio)) return (['name' => $name->fio, 'email' => $name->email]);
           else return FALSE;
         }
