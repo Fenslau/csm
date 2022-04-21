@@ -56,7 +56,7 @@ class OtkazController extends Controller
           $organization['departments'] = $stat->getwhere($request)->where('organization', $organization['organization'])->select('department', DB::raw('count(*) as count'))->groupBy('department')->get()->toArray();
           $organization['organization'] = str_replace('"', '', $organization['organization']);
       }
-
+      $our_departments = $stat->getwhere($request)->select('department', DB::raw('count(*) as count'))->groupBy('department')->get()->toArray();
       $our_reasons = $stat->getwhere($request)->with('reason')->select('reason_id', DB::raw('count(*) as count'))->groupBy('reason_id')->orderBy('count', 'desc')->get();
       foreach ($our_reasons as &$reason) {
           $reason->dates = $stat->getwhere($request)->where('reason_id', $reason->reason_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
@@ -77,7 +77,7 @@ class OtkazController extends Controller
       $departments = Organization::distinct()->orderBy('department')->pluck('department');
       $cities = Person::distinct()->pluck('city');
 
-      return view('stat-otkaz', compact('our_organizations', 'our_reasons', 'our_themes', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
+      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }
 
     public function editreasons() {
