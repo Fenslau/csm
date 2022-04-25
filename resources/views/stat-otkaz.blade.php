@@ -117,7 +117,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <figure class="highcharts-figure mt-3">
+      <figure class="highcharts-figure mt-5">
           <div id="container1"></div>
           <p class="highcharts-description">
           </p>
@@ -199,7 +199,7 @@
 
   <div class="row">
     <div class="col">
-      <figure class="highcharts-figure mt-3">
+      <figure class="highcharts-figure mt-5">
           <div id="container1.5"></div>
           <p class="highcharts-description">
           </p>
@@ -274,9 +274,106 @@
     </div>
   </div>
 
+
   <div class="row">
     <div class="col">
-      <figure class="highcharts-figure mt-3">
+      <figure class="highcharts-figure mt-5">
+          <div id="container1.8"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container1.8', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Отказы по подразделениям @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на подразделение, чтобы увидеть статистику по нему по датам'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Количество отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f}'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_departments as $department)
+                          {
+                              name: "{{ $department->department }}",
+                              y: {{ $department->count }},
+                              drilldown: "{{ $department->department }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_departments as $department)
+                        {
+                          name: "Отказы",
+                          id: "{{ $department->department }}",
+                          data: [
+                            @foreach ($department->dates as $date => $value)
+                              [
+                                  "{{ $date }}",
+                                  {{ count($value) }}
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
           <div id="container2"></div>
           <p class="highcharts-description">
           </p>
@@ -371,7 +468,7 @@
 
   <div class="row">
     <div class="col">
-      <figure class="highcharts-figure mt-3">
+      <figure class="highcharts-figure mt-5">
           <div id="container3"></div>
           <p class="highcharts-description">
           </p>

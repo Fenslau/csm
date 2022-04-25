@@ -21,7 +21,13 @@ class OtkazController extends Controller
       $themes = $reasons = $items = array();
       $stat = new Otkazy;
       //$items = Otkazy::with('user', 'reason')->orderBy('created_at', 'desc')->paginate(25);
-      $items = $stat->getwhere($request)->with('reason', 'theme', 'user')->select('*', DB::raw('MAX(created_at) as maxdate, count(*) as count'))->orderBy('maxdate', 'desc')->groupBy('department', 'theme_id', 'reason_id')->paginate(5000);
+      $items = $stat->getwhere($request)->with('reason', 'theme')->select('*', DB::raw('MAX(created_at) as maxdate, count(*) as count'))->orderBy('maxdate', 'desc')->groupBy('department', 'theme_id', 'reason_id')->paginate(5000);
+      foreach ($items as &$item) {
+        $user_info = $stat->where('created_at', $item->maxdate)->first();
+        $item->user_id = $user_info->user_id;
+        $item->organization = $user_info->organization;
+        $item->city = $user_info->city;
+      }
       $themes = Theme::where('active', 1)->orderBy('theme', 'asc')->get();
       $reasons = Reason::where('active', 1)->orderBy('reason', 'asc')->get();
       $cities = Person::distinct()->pluck('city');
@@ -41,7 +47,7 @@ class OtkazController extends Controller
 
     public function new(OtkazRequest $request) {
       $user = User::find(auth()->user()->id);
-      session(['call' => $request->call]);
+      session(['call' => $request->call, 'department' => $request->department]);
       $otkaz = new Otkazy($request->except('call'));
       $user->otkazy()->save($otkaz);
       if ($user) return back()->with('success', 'Отказ зарегистрирован');
@@ -51,12 +57,18 @@ class OtkazController extends Controller
     public function statistic(Request $request) {
       $items = array();
       $stat = new Otkazy;
-      $our_organizations = $stat->getwhere($request)->select('organization', DB::raw('count(*) as count'))->groupBy('organization')->get()->toArray();
+      $our_organizations = $stat->getwhere($request)->select('organization', DB::raw('count(*) as count'))->groupBy('organization')->orderBy('count', 'desc')->get()->toArray();
       foreach ($our_organizations as &$organization) {
           $organization['departments'] = $stat->getwhere($request)->where('organization', $organization['organization'])->select('department', DB::raw('count(*) as count'))->groupBy('department')->get()->toArray();
           $organization['organization'] = str_replace('"', '', $organization['organization']);
       }
-      $our_departments = $stat->getwhere($request)->select('department', DB::raw('count(*) as count'))->groupBy('department')->get()->toArray();
+      $our_departments = $stat->getwhere($request)->select('department', DB::raw('count(*) as count'))->groupBy('department')->orderBy('count', 'desc')->get();
+      foreach ($our_departments as &$department) {
+          $department->dates = $stat->getwhere($request)->where('department', $department->department)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
+             return Carbon::parse($date->created_at)->format('d.m');
+          })->take(30)->reverse();
+      }
+
       $our_reasons = $stat->getwhere($request)->with('reason')->select('reason_id', DB::raw('count(*) as count'))->groupBy('reason_id')->orderBy('count', 'desc')->get();
       foreach ($our_reasons as &$reason) {
           $reason->dates = $stat->getwhere($request)->where('reason_id', $reason->reason_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {

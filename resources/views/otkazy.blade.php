@@ -76,9 +76,9 @@
 
             <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
               <label class="mr-3" for="department">Подразделение: </label>
-              <select id="department" class="form-control text-truncate chosen-select" name="department">
+              <select id="department"  data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department">
                 @foreach ($departments as $department)
-                  <option class="text-truncate" value="{{ $department }}" @if(!empty(auth()->user()->department) AND $department == auth()->user()->department) selected @endif>{{ $department }}</option>
+                  <option class="text-truncate" value="{{ $department }}" @if(!empty(session('department')) AND $department == session('department')) selected @endif>{{ $department }}</option>
                 @endforeach
               </select>
             </div>
