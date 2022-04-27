@@ -55,7 +55,12 @@
               <label class="mr-3" for="department">Подразделение: </label>
               <select id="department"  data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department">
                 @foreach ($departments as $department)
-                  <option class="text-truncate" value="{{ $department }}" @if(!empty(session('department')) AND $department == session('department')) selected @endif>{{ $department }}</option>
+                  <option class="text-truncate" value="{{ $department }}"
+                    @if(!empty(session('department')))
+                      @if ($department == session('department')) selected @endif
+                    @elseif(!empty(auth()->user()->department) AND auth()->user()->department == $department) selected
+                    @endif
+                  >{{ $department }}</option>
                 @endforeach
               </select>
             </div>
