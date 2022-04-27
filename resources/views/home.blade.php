@@ -26,6 +26,9 @@
                         <a class="nav-link" href="{{ route('procedure') }}">Процедурный кабинет</a>
                       </li>
                       <li class="nav-item rounded px-2 my-1 border">
+                        <a class="nav-link" href="{{ route('journals') }}">Журналы</a>
+                      </li>
+                      <li class="nav-item rounded px-2 my-1 border">
                         <a class="nav-link" href="{{ route('otkaz') }}">Регистрация отказов</a>
                       </li>
                     </ul>
@@ -40,6 +43,10 @@
                   <div class="m-1 min-content alert alert-success">
                     <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('procedure') }}">Процедурный кабинет</a>
                     <p class="d-none d-md-block text-center lh-sm"><small>регистрация манипуляций</small></p>
+                  </div>
+                  <div class="m-1 min-content alert alert-success">
+                    <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journals') }}">Журналы</a>
+                    <p class="d-none d-md-block text-center lh-sm"><small>холодильники, уборка помещений, кварцевание и т.п</small></p>
                   </div>
                   <div class="m-1 min-content alert alert-success">
                     <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('otkaz') }}">Регистрация отказов</a>

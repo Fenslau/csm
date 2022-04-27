@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Journals\Holod;
 
 class User extends Authenticatable
 {
@@ -57,6 +58,10 @@ class User extends Authenticatable
 
     public function otkazy() {
         return $this->hasMany(Otkazy::class);
+    }
+
+    public function holod() {
+        return $this->hasMany(Holod::class);
     }
 
     public function roles() {

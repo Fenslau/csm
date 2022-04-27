@@ -168,6 +168,8 @@ return [
         'reason'                => 'Причина',
         'role_name'             => 'Роль',
         'reason_id'             => 'Причина',
-        'theme_id'             => 'Тема'
+        'theme_id'              => 'Тема',
+        'holodilnik'            => 'Холодильник',
+        'temperature'           => 'Температура'
     ],
 ];

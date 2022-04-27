@@ -40,6 +40,13 @@ Route::post('/otkazy/get-departments', 'App\Http\Controllers\OtkazController@get
 ->name('get-departments');
 
 
+Route::get('/journals', 'App\Http\Controllers\JournalController@main')
+->name('journals');
+Route::get('/journals/holod', 'App\Http\Controllers\Journals\HolodController@main')
+->name('journal-holod');
+Route::post('/journals/holod/new', 'App\Http\Controllers\Journals\HolodController@new')
+->name('new-holod');
+
 
 Route::get('/document', 'App\Http\Controllers\DocumentController@main')
 ->name('document');

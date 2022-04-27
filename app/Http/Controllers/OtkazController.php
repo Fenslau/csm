@@ -22,12 +22,15 @@ class OtkazController extends Controller
       $stat = new Otkazy;
       //$items = Otkazy::with('user', 'reason')->orderBy('created_at', 'desc')->paginate(25);
       $items = $stat->getwhere($request)->with('reason', 'theme')->select('*', DB::raw('MAX(created_at) as maxdate, count(*) as count'))->orderBy('maxdate', 'desc')->groupBy('department', 'theme_id', 'reason_id')->paginate(5000);
+      $user_info = $stat->whereIn('created_at', array_column($items->toArray()['data'], 'maxdate'))->orderBy('created_at', 'desc')->get()->toArray();
+      $i = 0;
       foreach ($items as &$item) {
-        $user_info = $stat->where('created_at', $item->maxdate)->first();
-        $item->user_id = $user_info->user_id;
-        $item->organization = $user_info->organization;
-        $item->city = $user_info->city;
+        $item->user_id = $user_info[$i]['user_id'];
+        $item->organization = $user_info[$i]['organization'];
+        $item->city = $user_info[$i]['city'];
+        $i++;
       }
+      $items->load('user');
       $themes = Theme::where('active', 1)->orderBy('theme', 'asc')->get();
       $reasons = Reason::where('active', 1)->orderBy('reason', 'asc')->get();
       $cities = Person::distinct()->pluck('city');
@@ -47,9 +50,9 @@ class OtkazController extends Controller
 
     public function new(OtkazRequest $request) {
       $user = User::find(auth()->user()->id);
-      session(['call' => $request->call, 'department' => $request->department]);
+      session(['department' => $request->department]);
       $otkaz = new Otkazy($request->except('call'));
-      $user->otkazy()->save($otkaz);
+      $user = $user->otkazy()->save($otkaz);
       if ($user) return back()->with('success', 'Отказ зарегистрирован');
       else return back()->with('error', 'Не удалось зарегистрировать отказ');
     }

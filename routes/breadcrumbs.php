@@ -28,6 +28,16 @@ Breadcrumbs::register('otkaz', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Регистрация отказов', route('otkaz'));
 });
+
+Breadcrumbs::register('journals', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Журналы', route('journals'));
+});
+Breadcrumbs::register('journal-holod', function ($breadcrumbs) {
+    $breadcrumbs->parent('journals');
+    $breadcrumbs->push('Холодильники', route('journal-holod'));
+});
+
 Breadcrumbs::register('document', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Электронный документооборот', route('document'));
