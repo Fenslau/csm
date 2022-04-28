@@ -45,6 +45,9 @@
           </div>
         </div>
       </form>
+      <div class="text-center m-5">
+        <input class="btn btn-success" type="button" onclick="history.back();" value="Назад"/>
+      </div>
     </div>
   </div>
 </div>

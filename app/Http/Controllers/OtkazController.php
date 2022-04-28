@@ -35,7 +35,9 @@ class OtkazController extends Controller
       $reasons = Reason::where('active', 1)->orderBy('reason', 'asc')->get();
       $cities = Person::distinct()->pluck('city');
       $organizations = Organization::distinct()->orderBy('org', 'asc')->pluck('org');
-      $departments = Organization::distinct()->orderBy('department', 'asc')->pluck('department');
+      $popular_departments = Otkazy::select('department', DB::raw('count(*) as popular'))->groupBy('department')->orderBy('popular', 'desc')->pluck('department')->toArray();
+      $all_departments = Organization::distinct()->orderBy('department', 'asc')->pluck('department')->toArray();
+      $departments = array_merge($popular_departments, array_diff($all_departments, $popular_departments));
 
       return view('otkazy', compact('request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }

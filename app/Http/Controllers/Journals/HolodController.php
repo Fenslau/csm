@@ -22,13 +22,14 @@ class HolodController extends Controller
       $cities = Person::distinct()->pluck('city');
       $organizations = Organization::distinct()->orderBy('org', 'asc')->pluck('org');
       $departments = Organization::distinct()->orderBy('department', 'asc')->pluck('department');
-
-      return view('Journals/holod', compact('items', 'organizations', 'departments', 'cities', 'holodilniks', 'request'));
+      $our_departments = Holod::distinct()->orderBy('department', 'asc')->pluck('department');
+      $our_holodilniks = Holod::distinct()->orderBy('holodilnik', 'asc')->pluck('holodilnik');
+      return view('Journals/holod', compact('items', 'organizations', 'departments', 'cities', 'holodilniks', 'request', 'our_departments', 'our_holodilniks'));
   }
 
   public function new(HolodRequest $request) {
     $user = User::find(auth()->user()->id);
-    session(['temperature' => $request->temperature, 'holodilnik' => $request->holodilnik]);
+    session(['department' => $request->department, 'temperature' => $request->temperature, 'holodilnik' => $request->holodilnik]);
 
     $user = $user->holod()->updateOrCreate(['created_at' => today(), 'city' => $request->city, 'organization' => $request->organization, 'department' => $request->department, 'holodilnik' => $request->holodilnik], [$request->time => $request->temperature]);
     if ($user) return back()->with('success', 'Температурный режим зарегистрирован');

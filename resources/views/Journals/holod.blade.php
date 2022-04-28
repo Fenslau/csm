@@ -26,7 +26,12 @@
             <label class="mr-3" for="department">Подразделение: </label>
             <select id="department"  data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department">
               @foreach ($departments as $department)
-                <option class="text-truncate" value="{{ $department }}" @if(!empty(auth()->user()->department) AND $department == auth()->user()->department) selected @endif>{{ $department }}</option>
+                <option class="text-truncate" value="{{ $department }}"
+                  @if(!empty(session('department')))
+                    @if ($department == session('department')) selected @endif
+                  @elseif(!empty(auth()->user()->department) AND auth()->user()->department == $department) selected
+                  @endif
+                >{{ $department }}</option>
               @endforeach
             </select>
           </div>
@@ -81,7 +86,8 @@
             <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
               <label class="mr-1" for="department_">Подразделение: </label>
               <select style="width: 200px;" id="department_"  data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department">
-                @foreach ($departments as $department)
+                  <option value=""></option>
+                @foreach ($our_departments as $department)
                   <option class="text-truncate" value="{{ $department }}">{{ $department }}</option>
                 @endforeach
               </select>
@@ -89,7 +95,8 @@
             <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
               <label class="mr-1" for="holodilnik_">Холодильник: </label>
               <select id="holodilnik_"  data-placeholder="Выберите холодильник" class="form-control text-truncate chosen-select" name="holodilnik">
-                @foreach ($holodilniks as $holodilnik)
+                  <option value=""></option>
+                @foreach ($our_holodilniks as $holodilnik)
                   <option class="text-truncate" value="{{ $holodilnik }}">{{ $holodilnik }}</option>
                 @endforeach
               </select>
