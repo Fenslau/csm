@@ -36,8 +36,8 @@
 
           <td class="text-truncate d-none view-all">{{ $item['department'] }}</td>
           <td>{{ $item['holodilnik'] }}</td>
-          <td>@empty($item['utro']) @else{{ $item['utro'] }}&deg;C @endempty</td>
-          <td>@empty($item['vecher']) @else{{ $item['vecher'] }}&deg;C @endempty</td>
+          <td>@empty($item['utro']) @else{{ $item['utro'] }} @if(is_numeric($item['utro']))&deg;C @endif @endempty</td>
+          <td>@empty($item['vecher']) @else{{ $item['vecher'] }} @if(is_numeric($item['vecher']))&deg;C @endif @endempty</td>
 
           <td class="d-none view-all">{{ $item->user->name }}</td>
 

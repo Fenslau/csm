@@ -57,9 +57,10 @@
           <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
             <label class="mr-3 text-nowrap" for="temperature">Температура: </label>
             <select id="temperature" data-placeholder="Выберите температуру" class="form-control text-truncate chosen-select" name="temperature">
-              @for ($temp = 0; $temp < 16; $temp++)
+              @for ($temp = 1; $temp < 10; $temp++)
                 <option value="{{ $temp }}" @if(!empty(session('temperature')) AND $temp == session('temperature')) selected @endif>{{ $temp }}&deg;C</option>
               @endfor
+                <option value="Разморозка">Разморозка</option>
             </select>
           </div>
 

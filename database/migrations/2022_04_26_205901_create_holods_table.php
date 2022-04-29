@@ -21,8 +21,8 @@ class CreateHolodsTable extends Migration
             $table->string('department')->index();
 
             $table->string('holodilnik')->index();
-            $table->integer('utro');
-            $table->integer('vecher');
+            $table->string('utro');
+            $table->string('vecher');
             $table->timestamps();
         });
     }

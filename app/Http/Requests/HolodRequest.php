@@ -26,7 +26,7 @@ class HolodRequest extends FormRequest
         return [
           'holodilnik'  => ['required'],
           'time'        => ['required'],
-          'temperature' => ['required', 'integer']
+          'temperature' => ['required']
         ];
     }
 }
