@@ -16,7 +16,7 @@ class HolodController extends Controller
 {
     public function main(Request $request) {
       $items = array();
-      $stat = new Holod;
+      $stat = new Holod();
       $items = $stat->getwhere($request)->with('user')->orderBy('updated_at', 'desc')->paginate(5000);
       $holodilniks = (['1', '2', '3', '4', '5', '6']);
       $cities = Person::distinct()->pluck('city');

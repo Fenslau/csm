@@ -65,7 +65,7 @@ return [
 
         'csm' => [
             'driver' => 'mysql',
-            'url' => '0370.ru',
+            'url' => '',
             'host' => '127.0.0.1',
             'port' => '3306',
             'database' => 'ProVrachey.rf',

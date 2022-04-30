@@ -36,12 +36,12 @@
 
             <nav class="d-none d-sm-flex justify-content-around align-items-stretch navbar">
               <div class="m-1 min-content alert alert-success">
-                <p class="d-none d-md-block text-center lh-sm mb-0"><small>Регистрации и контроля температурного режима</small></p>
+                <p class="d-none d-md-block text-center lh-sm mb-0"><small>Регистрация и контроль температурного режима</small></p>
                 <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journal-holod') }}">холодильника</a>
               </div>
               <div class="m-1 min-content alert alert-success">
-                <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="#">...</a>
-                <p class="d-none d-md-block text-center lh-sm"><small></small></p>
+                <p class="d-none d-md-block text-center lh-sm mb-0"><small>учёт работы</small></p>
+                <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journal-lampa') }}">бактерицидной установки</a>
               </div>
               <div class="m-1 min-content alert alert-success">
                 <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="#">...</a>

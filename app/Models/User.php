@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Journals\Holod;
+use App\Models\Journals\Lampa;
 
 class User extends Authenticatable
 {
@@ -62,6 +63,10 @@ class User extends Authenticatable
 
     public function holod() {
         return $this->hasMany(Holod::class);
+    }
+
+    public function lampa() {
+        return $this->hasMany(Lampa::class);
     }
 
     public function roles() {

@@ -27,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if($this->app->environment('staging') OR $this->app->environment('production')) {
+    			\URL::forceScheme('https');
+    		}
         Paginator::useBootstrap();
         setlocale(LC_ALL, 'ru_RU.UTF-8');
         DB::statement("SET lc_time_names = 'ru_RU'");

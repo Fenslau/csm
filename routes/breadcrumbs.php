@@ -37,6 +37,14 @@ Breadcrumbs::register('journal-holod', function ($breadcrumbs) {
     $breadcrumbs->parent('journals');
     $breadcrumbs->push('Холодильники', route('journal-holod'));
 });
+Breadcrumbs::register('journal-lampa', function ($breadcrumbs) {
+    $breadcrumbs->parent('journals');
+    $breadcrumbs->push('Бактерицидные лампы', route('journal-lampa'));
+});
+Breadcrumbs::register('journal-lampa-narabotka', function ($breadcrumbs) {
+    $breadcrumbs->parent('journal-lampa');
+    $breadcrumbs->push('Наработка ламп', route('narabotka-lamp'));
+});
 
 Breadcrumbs::register('document', function ($breadcrumbs) {
     $breadcrumbs->parent('home');

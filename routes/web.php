@@ -47,6 +47,14 @@ Route::get('/journals/holod', 'App\Http\Controllers\Journals\HolodController@mai
 Route::post('/journals/holod/new', 'App\Http\Controllers\Journals\HolodController@new')
 ->name('new-holod');
 
+Route::get('/journals/lampa', 'App\Http\Controllers\Journals\LampaController@main')
+->name('journal-lampa');
+Route::post('/journals/lampa/new', 'App\Http\Controllers\Journals\LampaController@new')
+->name('new-lampa');
+Route::get('/journals/lampa/zamena', 'App\Http\Controllers\Journals\LampaController@narabotka')
+->name('narabotka-lamp');
+Route::post('/journals/lampa/zamena', 'App\Http\Controllers\Journals\LampaController@zamena')
+->name('zamena-lampy');
 
 Route::get('/document', 'App\Http\Controllers\DocumentController@main')
 ->name('document');

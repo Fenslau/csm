@@ -9,9 +9,9 @@
         <!-- <th class="d-none view-all">Ограниазция</th> -->
 
         <th class="d-none view-all">Подразделение</th>
-        <th>Холодильник</th>
-        <th class="printable">Утро</th>
-        <th class="printable">Вечер</th>
+        <th>...</th>
+        <th class="printable">...</th>
+        <th class="printable">...</th>
         <th class="d-none view-all printable">Регистратор</th>
 
       </tr>

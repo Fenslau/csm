@@ -86,6 +86,15 @@
             </select>
           </div>
 
+          <div class="d-flex flex-nowrap justify-content-between form-group m-1">
+            <label class="mr-3 text-nowrap" for="omsdms">ПЛТ/ОМС/ДМС: </label>
+            <select multiple id="omsdms" class="form-control text-truncate chosen-select" data-placeholder="Выберите из списка" name="omsdms[]">
+                <option class="" value="ПЛТ">ПЛТ</option>
+                <option class="" value="ОМС">ОМС</option>
+                <option class="" value="ДМС">ДМС</option>
+            </select>
+          </div>
+
         <div class="d-flex flex-nowrap justify-content-between form-group m-1">
           <label class="mr-3 text-nowrap" for="theme">Тема отказа: </label>
           <select multiple id="theme" class="form-control text-truncate chosen-select" data-placeholder="Выберите тему отказа" name="theme_id[]">
@@ -103,6 +112,7 @@
             @endforeach
           </select>
         </div>
+
 
         <div class="form-group row m-1 align-items-center">
           С <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="{{ date('Y-m') }}-01"	max="{{ date('Y-m-d') }}" min="2022-04-01">

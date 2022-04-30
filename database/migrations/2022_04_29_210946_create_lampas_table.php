@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOtkaziesTable extends Migration
+class CreateLampasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,21 @@ class CreateOtkaziesTable extends Migration
      */
     public function up()
     {
-        Schema::create('otkazies', function (Blueprint $table) {
+        Schema::create('lampas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('reason_id')->constrained();
-            $table->foreignId('theme_id')->constrained();
-            $table->string('omsdms');
             $table->string('city')->index();
             $table->string('organization')->index();
             $table->string('department')->index();
+
+            $table->string('lampa')->index();
+            $table->string('condition');
+            $table->string('rad_mode');
+            $table->time('time_on');
+            $table->time('time_off');
+            $table->integer('duration');
+            $table->integer('duration_all');
+
             $table->timestamps();
         });
     }
@@ -33,6 +39,6 @@ class CreateOtkaziesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('otkazies');
+        Schema::dropIfExists('lampas');
     }
 }

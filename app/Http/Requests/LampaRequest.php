@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OtkazRequest extends FormRequest
+class LampaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,12 @@ class OtkazRequest extends FormRequest
      */
     public function rules()
     {
-        session($this->request->all());
         return [
-            'reason_id' => ['required'],
-            'theme_id' => ['required'],
-            'omsdms' => ['required']
+          'lampa'  => ['required'],
+          'condition'        => ['required'],
+          'rad_mode'        => ['required'],
+          'time_on'        => ['required'],
+          'time_off' => ['required']
         ];
     }
 }
