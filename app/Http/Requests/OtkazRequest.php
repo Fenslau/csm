@@ -27,7 +27,8 @@ class OtkazRequest extends FormRequest
         return [
             'reason_id' => ['required'],
             'theme_id' => ['required'],
-            'omsdms' => ['required']
+            'omsdms' => ['required'],
+            'department' => ['required']
         ];
     }
 }
