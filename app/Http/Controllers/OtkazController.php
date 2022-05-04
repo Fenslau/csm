@@ -34,11 +34,11 @@ class OtkazController extends Controller
       $items->load('user');
       $themes = Theme::where('active', 1)->orderBy('theme', 'asc')->get();
       $reasons = Reason::where('active', 1)->orderBy('reason', 'asc')->get();
-      $cities = Person::distinct()->pluck('city');
+      // $cities = Person::distinct()->pluck('city');
       $organizations = Organization::distinct()->orderBy('org', 'asc')->pluck('org');
-      $popular_departments = Otkazy::select('department', DB::raw('count(*) as popular'))->groupBy('department')->orderBy('popular', 'desc')->pluck('department')->toArray();
-      $all_departments = Organization::distinct()->orderBy('department', 'asc')->pluck('department')->toArray();
-      $departments = array_merge($popular_departments, array_diff($all_departments, $popular_departments));
+      // $popular_departments = Otkazy::select('department', DB::raw('count(*) as popular'))->groupBy('department')->orderBy('popular', 'desc')->pluck('department')->toArray();
+      // $all_departments = Organization::distinct()->orderBy('department', 'asc')->pluck('department')->toArray();
+      // $departments = array_merge($popular_departments, array_diff($all_departments, $popular_departments));
 
       $cities = Department::distinct()->pluck('city');
       $departments = Department::distinct()->pluck('department');
@@ -56,9 +56,11 @@ class OtkazController extends Controller
     public function new(OtkazRequest $request) {
       $user = User::find(auth()->user()->id);
       session(['department' => $request->department]);
-      $otkaz = new Otkazy($request->except('call'));
-      $user = $user->otkazy()->save($otkaz);
-      if ($user) return back()->with('success', 'Отказ зарегистрирован');
+        foreach ($request->department as $department) {
+          $otkaz = new Otkazy($request->except('department') + ['department' => $department]);
+          if (!$user->otkazy()->save($otkaz)) $fail = TRUE;
+        }
+      if (!isset($fail)) return back()->with('success', 'Отказ зарегистрирован');
       else return back()->with('error', 'Не удалось зарегистрировать отказ');
     }
 

@@ -61,9 +61,9 @@
               </select>
             </div>
 
-            <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
+            <div class="d-flex flex-nowrap justify-content-between form-group m-1">
               <label class="mr-3" for="department">Подразделение: </label>
-              <select id="department"  data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department">
+              <select id="department" multiple data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department[]">
                 @foreach ($departments as $department)
                   <option class="text-truncate" value="{{ $department }}"
                     @if(!empty(session('department')))
@@ -75,7 +75,7 @@
               </select>
             </div>
 
-            <div class="form-group row m-1">
+            <div class="form-group row m-1 mt-3">
               <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1">Зарегистрировать</button>
             </div>
           </form>

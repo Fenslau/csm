@@ -67,14 +67,14 @@
               </select>
             </div>
 
-          <div class="d-flex flex-nowrap justify-content-between form-group m-1">
+          <!-- <div class="d-flex flex-nowrap justify-content-between form-group m-1">
             <label class="mr-3" for="organization">Организация: </label>
             <select multiple id="organization" class="form-control text-truncate chosen-select" data-placeholder="Выберите организацию" name="organization[]">
               @foreach ($organizations as $organization)
                 <option class="text-truncate" value="{{ $organization }}" @if (is_array($request->organization) AND in_array($organization, $request->organization)) selected @endif>{{ $organization }}</option>
               @endforeach
             </select>
-          </div>
+          </div> -->
 
 
           <div class="d-flex flex-nowrap justify-content-between form-group m-1">

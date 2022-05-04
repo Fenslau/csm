@@ -89,7 +89,7 @@
               <select style="width: 200px;" id="department_"  data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department">
                   <option value=""></option>
                 @foreach ($our_departments as $department)
-                  <option class="text-truncate" value="{{ $department }}">{{ $department }}</option>
+                  <option class="text-truncate" value="{{ $department }}" @if(!empty($request->department) AND $department == $request->department) selected @endif>{{ $department }}</option>
                 @endforeach
               </select>
             </div>
@@ -98,7 +98,7 @@
               <select id="holodilnik_"  data-placeholder="Выберите холодильник" class="form-control text-truncate chosen-select" name="holodilnik">
                   <option value=""></option>
                 @foreach ($our_holodilniks as $holodilnik)
-                  <option class="text-truncate" value="{{ $holodilnik }}">{{ $holodilnik }}</option>
+                  <option class="text-truncate" value="{{ $holodilnik }}" @if(!empty($request->holodilnik) AND $holodilnik == $request->holodilnik) selected @endif>{{ $holodilnik }}</option>
                 @endforeach
               </select>
             </div>

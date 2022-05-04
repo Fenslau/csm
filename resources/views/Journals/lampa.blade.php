@@ -37,7 +37,7 @@
           </div>
           <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
             <label class="mr-3" for="lampa">Кабинет: </label>
-            <input id="lampa" class="form-control form-control-sm" type="text" name="lampa" value="@if(session('lampa')) {{ session('lampa') }} @endif" list="koridors" placeholder="Введите номер или выберите из списка">
+            <input id="lampa" class="form-control form-control-sm" type="text" autocomplete="off" name="lampa" value="@if(session('lampa')) {{ session('lampa') }} @endif" list="koridors" placeholder="Введите номер или выберите из списка">
             <datalist id="koridors">
             	<option value="Коридор 1">
             	<option value="Коридор 2">
@@ -100,7 +100,7 @@
               <select style="width: 200px;" id="department_"  data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department">
                   <option value=""></option>
                 @foreach ($our_departments as $department)
-                  <option class="text-truncate" value="{{ $department }}">{{ $department }}</option>
+                  <option class="text-truncate" value="{{ $department }}" @if(!empty($request->department) AND $department == $request->department) selected @endif>{{ $department }}</option>
                 @endforeach
               </select>
             </div>
@@ -109,7 +109,7 @@
               <select id="lampa_"  data-placeholder="Выберите кабинет" class="form-control text-truncate chosen-select" name="lampa">
                   <option value=""></option>
                 @foreach ($our_lampas as $lampa)
-                  <option class="text-truncate" value="{{ $lampa }}">{{ $lampa }}</option>
+                  <option class="text-truncate" value="{{ $lampa }}" @if(!empty($request->lampa) AND $lampa == $request->lampa) selected @endif>{{ $lampa }}</option>
                 @endforeach
               </select>
             </div>
