@@ -53,7 +53,7 @@ Route::post('/journals/lampa/new', 'App\Http\Controllers\Journals\LampaControlle
 ->name('new-lampa');
 Route::get('/journals/lampa/zamena', 'App\Http\Controllers\Journals\LampaController@narabotka')
 ->name('narabotka-lamp');
-Route::post('/journals/lampa/zamena', 'App\Http\Controllers\Journals\LampaController@zamena')
+Route::get('/journals/lampa/zamena-lamp', 'App\Http\Controllers\Journals\LampaController@zamena')
 ->name('zamena-lampy');
 
 Route::get('/document', 'App\Http\Controllers\DocumentController@main')

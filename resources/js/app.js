@@ -84,6 +84,8 @@ $(document).ready(function () {
       });
 });
 
+
+
 $(document).ready(function () {
   $(document).on('click', '.view-all-table', function (e) {
     $('.view-all-table').toggleClass('text-muted');

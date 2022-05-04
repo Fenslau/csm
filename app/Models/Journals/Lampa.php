@@ -25,9 +25,9 @@ class Lampa extends Model
 
       if (!empty($request->lampa)) $stat = $stat->where('lampa', $request->lampa);
       elseif (!empty(session('lampa'))) $stat = $stat->where('lampa', session('lampa'));
-      if (!empty($request->calendar_from)) $stat = $stat->where('updated_at', '>=', $request->calendar_from);
-      if (!empty($request->calendar_to)) $stat = $stat->where('updated_at', '<=', date('Y-m-d', strtotime($request->calendar_to)+60*60*24));
-      if (empty($request->calendar_to) AND empty($request->calendar_from)) $stat = $stat->whereMonth('updated_at', now()->month);
+      if (!empty($request->calendar_from)) $stat = $stat->where('created_at', '>=', $request->calendar_from);
+      if (!empty($request->calendar_to)) $stat = $stat->where('created_at', '<=', date('Y-m-d', strtotime($request->calendar_to)+60*60*24));
+      if (empty($request->calendar_to) AND empty($request->calendar_from)) $stat = $stat->whereMonth('created_at', now()->month);
       return $stat;
     }
 

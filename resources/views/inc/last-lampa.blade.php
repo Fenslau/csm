@@ -1,26 +1,31 @@
 <table class="d-table table table-striped table-bordered table-hover table-sm table-responsive group-table">
     <thead class="thead-dark">
       <tr class="text-center">
-        <th class="d-none view-all">№</th>
-        <th class="printable">Дата</th>
-        <th class="d-none view-all">Время</th>
+        <th rowspan="2" class="d-none view-all">№</th>
+        <th rowspan="2" class="printable">Дата</th>
+        <th rowspan="2" class="d-none view-all">Время</th>
 
-        <th class="d-none view-all">Город</th>
+        <th rowspan="2" class="d-none view-all">Город</th>
         <!-- <th class="d-none view-all">Ограниазция</th> -->
 
-        <th class="d-none view-all">Подразделение</th>
-        <th>...</th>
-        <th class="printable">...</th>
-        <th class="printable">...</th>
-        <th class="d-none view-all printable">Регистратор</th>
-
+        <th rowspan="2" class="d-none view-all">Подразделение</th>
+        <th rowspan="2" class="printable">Кабинет</th>
+        <th rowspan="2" class="printable">Условия обеззараживания</th>
+        <th rowspan="2" class="printable">Режим облучения</th>
+        <th colspan="2" class="printable">Время</th>
+        <th rowspan="2" class="printable">Длительность, мин.</th>
+        <th rowspan="2" class="d-none view-all">Регистратор</th>
+      </tr>
+      <tr>
+        <th class="printable">Вкл</th>
+        <th class="printable">Выкл</th>
       </tr>
     </thead>
     <tfoot class="d-none">
        <tr>
          <td colspan="2">Данные верны. </td>
-         <td colspan="6"></td>
-         <td>Подпись _____________ @empty($items[0]->user->name) @else{{ $items[0]->user->name }}@endempty</td>
+         <td colspan="3"></td>
+         <td colspan="1">Подпись _____________ @empty($items[0]->user->name) @else{{ $items[0]->user->name }}@endempty</td>
        </tr>
     </tfoot>
     <tbody>
@@ -28,19 +33,20 @@
         @if ($item['time'] == 'Вечер') @continue @endif
         <tr class="lh-md text-center">
           <td class="d-none view-all">{{ $loop->iteration }}</td>
-          <td>{{ date('d.m.y', strtotime($item['updated_at'])) }}</td>
-          <td class="d-none view-all">{{ date('H:i', strtotime($item['updated_at'])) }}</td>
+          <td>{{ date('d.m.y', strtotime($item['created_at'])) }}</td>
+          <td class="d-none view-all">{{ date('H:i', strtotime($item['created_at'])) }}</td>
 
           <td class="d-none view-all">{{ $item['city'] }}</td>
           <!-- <td class="text-truncate d-none view-all">{{ $item['organization'] }}</td> -->
 
           <td class="text-truncate d-none view-all">{{ $item['department'] }}</td>
-          <td>{{ $item['holodilnik'] }}</td>
-          <td>@empty($item['utro']) @else{{ $item['utro'] }} @if(is_numeric($item['utro']))&deg;C @endif @endempty</td>
-          <td>@empty($item['vecher']) @else{{ $item['vecher'] }} @if(is_numeric($item['vecher']))&deg;C @endif @endempty</td>
-
+          <td>{{ $item['lampa'] }}</td>
+          <td>{{ $item['condition'] }}</td>
+          <td>{{ $item['rad_mode'] }}</td>
+          <td>{{ substr($item['time_on'], 0, 5) }}</td>
+          <td>{{ substr($item['time_off'], 0, 5) }}</td>
+          <td>{{ $item['duration'] }}</td>
           <td class="d-none view-all">{{ $item->user->name }}</td>
-
         </tr>
       @empty
         <tr>
@@ -58,15 +64,11 @@
           "lengthMenu": [ 50, 100, 200, 500 ],
           "pageLength": 50,
           "columnDefs": [ {
-          "targets": 2,
-          "orderable": false
-          },
-          {
-          "targets": 6,
-          "orderable": false
-          },
-          {
           "targets": 7,
+          "orderable": false
+          },
+          {
+          "targets": 8,
           "orderable": false
           }
        ],

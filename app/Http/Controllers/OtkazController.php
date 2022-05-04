@@ -8,6 +8,7 @@ use App\Http\Requests\ReasonaddRequest;
 use App\Http\Requests\ThemeaddRequest;
 use App\Models\User;
 use App\Models\Otkazy;
+use App\Models\Department;
 use App\Models\Theme;
 use App\Models\Reason;
 use App\Models\Person;
@@ -39,12 +40,14 @@ class OtkazController extends Controller
       $all_departments = Organization::distinct()->orderBy('department', 'asc')->pluck('department')->toArray();
       $departments = array_merge($popular_departments, array_diff($all_departments, $popular_departments));
 
+      $cities = Department::distinct()->pluck('city');
+      $departments = Department::distinct()->pluck('department');
       return view('otkazy', compact('request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }
 
     public function getdepartments(Request $request) {
-      if ($request->org) {
-        $departments = Organization::where('org', $request->org)->distinct()->orderBy('department', 'asc')->pluck('department');
+      if ($request->city) {
+        $departments = Department::where('city', $request->city)->distinct()->pluck('department');
         $data = view('inc.select-department', compact('departments'))->render();
         return response()->json(['options' => $data]);
       }
@@ -91,8 +94,10 @@ class OtkazController extends Controller
       $reasons = Reason::orderBy('reason')->get();
       $themes = Theme::orderBy('theme')->get();
       $organizations = Organization::distinct()->orderBy('org')->pluck('org');
-      $departments = Organization::distinct()->orderBy('department')->pluck('department');
-      $cities = Person::distinct()->pluck('city');
+      // $departments = Organization::distinct()->orderBy('department')->pluck('department');
+      // $cities = Person::distinct()->pluck('city');
+      $cities = Department::distinct()->pluck('city');
+      $departments = Department::distinct()->pluck('department');
 
       return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }

@@ -25,6 +25,7 @@
 
   @include('inc.messages')
 <main>
+  @include('inc.toast')  
   @yield('content')
 </main>
 <footer>

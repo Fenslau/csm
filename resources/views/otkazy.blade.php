@@ -79,43 +79,44 @@
               <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1">Зарегистрировать</button>
             </div>
           </form>
-          <!-- <script>
-            $(document).ready(function () {
-              $(document).on('click', '.call-center', function (e) {
-                if (document.getElementById("call").checked) {
-                  $('.vision-tooggable').addClass("visiblility");
-                  @php(session()->forget('call'))
-                  location.reload ();
-                }
-                else {
-                  $('.vision-tooggable').removeClass("visiblility");
-                  $('#organization').change();
-                }
-              });
-            });
-            $(document).ready(function () {
-                if (document.getElementById("call").checked) $('.vision-tooggable').removeClass("visiblility");
-                else $('.vision-tooggable').addClass("visiblility");
-            });
-            $(document).ready(function () {
-              $("#organization").change(function(){
-                var org = $(this).val();
-                axios.post('{{ route('get-departments') }}', {
-                    org: org
-                  })
-                  .then(function (response) {
-                    $("#department").html(response.data.options);
-                    $('.chosen-select').trigger('chosen:updated');
-                  })
-                  .catch(function (error) {
-                    $('.toast-header').addClass('bg-danger');
-                    $('.toast-header').removeClass('bg-success');
-                    $('.toast-body').html('Что-то пошло не так. Попробуйте ещё раз или сообщите нам');
-                    $('.toast').toast('show');
-                  });
-              });
-            });
-          </script> -->
+          <script>
+            // $(document).ready(function () {
+            //   $(document).on('click', '.call-center', function (e) {
+            //     if (document.getElementById("call").checked) {
+            //       $('.vision-tooggable').addClass("visiblility");
+            //       @php(session()->forget('call'))
+            //       location.reload ();
+            //     }
+            //     else {
+            //       $('.vision-tooggable').removeClass("visiblility");
+            //       $('#organization').change();
+            //     }
+            //   });
+            // });
+            // $(document).ready(function () {
+            //     if (document.getElementById("call").checked) $('.vision-tooggable').removeClass("visiblility");
+            //     else $('.vision-tooggable').addClass("visiblility");
+            // });
+            // $(document).ready(function () {
+            //   $("#city").change(function(){
+            //     var org = $(this).val();
+            //     axios.post('{{ route('get-departments') }}', {
+            //         city: city
+            //       })
+            //       .then(function (response) {
+            //         $("#department").html(response.data.options);
+            //         $('.chosen-select').trigger('chosen:updated');
+            //       })
+            //       .catch(function (error) {
+            //         console.log(error);
+            //         $('.toast-header').addClass('bg-danger');
+            //         $('.toast-header').removeClass('bg-success');
+            //         $('.toast-body').html('Что-то пошло не так. Попробуйте ещё раз или сообщите нам');
+            //         $('.toast').toast('show');
+            //       });
+            //   });
+            // });
+          </script>
         </div>
     </div>
 </div>
