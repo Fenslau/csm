@@ -41,7 +41,8 @@ class OtkazController extends Controller
       // $departments = array_merge($popular_departments, array_diff($all_departments, $popular_departments));
 
       $cities = Department::distinct()->pluck('city');
-      $departments = Department::distinct()->pluck('department');
+      if (isset(auth()->user()->city)) $departments = Department::where('city', auth()->user()->city)->distinct()->pluck('department');
+      else $departments = Department::distinct()->pluck('department');
       return view('otkazy', compact('request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }
 
