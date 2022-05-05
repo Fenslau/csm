@@ -170,6 +170,8 @@ return [
         'reason_id'             => 'Причина',
         'theme_id'              => 'Тема',
         'holodilnik'            => 'Холодильник',
-        'temperature'           => 'Температура'
+        'temperature'           => 'Температура',
+        'department'            => 'Подразделение',
+        'omsdms'                => 'ПЛТ/ОМС/ДМС'
     ],
 ];

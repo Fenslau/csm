@@ -23,9 +23,7 @@
     </thead>
     <tfoot class="d-none">
        <tr>
-         <td colspan="2">Данные верны. </td>
-         <td colspan="3"></td>
-         <td colspan="1">Подпись _____________ @empty($items[0]->user->name) @else{{ $items[0]->user->name }}@endempty</td>
+         <td colspan="5">Данные верны. Подпись _____________ @empty($items[0]->user->name) @else{{ $items[0]->user->name }}@endempty</td>
        </tr>
     </tfoot>
     <tbody>
@@ -64,11 +62,11 @@
           "lengthMenu": [ 50, 100, 200, 500 ],
           "pageLength": 50,
           "columnDefs": [ {
-          "targets": 7,
+          "targets": 8,
           "orderable": false
           },
           {
-          "targets": 8,
+          "targets": 9,
           "orderable": false
           }
        ],
@@ -81,7 +79,7 @@
                    exportOptions: {
                       columns: '.printable'
                    },
-                   title: 'Регистрация и контроль температурного режима холодильника @empty($items[0]['holodilnik']) @else{{ $items[0]['holodilnik'] }}@endempty отдела @empty($items[0]['department']) @else{{ $items[0]['department'] }}@endempty',
+                   title: 'Учёт работы бактерицидной установки кабинета @empty($items[0]['lampa']) @else{{ $items[0]['lampa'] }}@endempty отдела @empty($items[0]['department']) @else{{ $items[0]['department'] }}@endempty',
                    messageBottom: 'Данные верны. @empty($items[0]->user->name) @else{{ $items[0]->user->name }}@endempty. Подпись _____________',
 
                },
@@ -97,7 +95,7 @@
                    exportOptions: {
                       columns: '.printable'
                    },
-                   title: 'Регистрация и контроль температурного режима холодильника @empty($items[0]['holodilnik']) @else{{ $items[0]['holodilnik'] }}@endempty отдела @empty($items[0]['department']) @else{{ $items[0]['department'] }}@endempty',
+                   title: 'Учёт работы бактерицидной установки кабинета @empty($items[0]['lampa']) @else{{ $items[0]['lampa'] }}@endempty отдела @empty($items[0]['department']) @else{{ $items[0]['department'] }}@endempty',
                }
            ],
 

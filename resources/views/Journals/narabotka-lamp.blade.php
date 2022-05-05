@@ -28,7 +28,7 @@
                     <td class="text-truncate">{{ $item['department'] }}</td>
                     <td>{{ $item['lampa'] }}</td>
                     <td>{{ round($item['duration_all']/60, 0) }}</td>
-                    <td><a class="btn btn-sm btn-outline-danger zamena-lampy" href="{{ route('zamena-lampy') }}/?department={{ $item['department'] }}&lampa={{ $item['lampa'] }}">Заменить</a></td>
+                    <td><a onclick="if (confirm('Подтвердить')) {return true;} else {return false;}" class="btn btn-sm btn-outline-danger zamena-lampy" href="{{ route('zamena-lampy') }}/?department={{ $item['department'] }}&lampa={{ $item['lampa'] }}">Заменить</a></td>
                   </tr>
                 @empty
                   <tr>

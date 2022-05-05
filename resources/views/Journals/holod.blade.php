@@ -44,14 +44,13 @@
             </select>
           </div>
 
-
-          <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
-            <label class="mr-3 text-nowrap" for="time">Время суток: </label>
-            <select id="time" data-placeholder="Выберите время суток" class="form-control text-truncate chosen-select" name="time">
-                <option value=""></option>
-                <option value="utro">Утро</option>
-                <option value="vecher">Вечер</option>
-            </select>
+          <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
+            <label class="btn btn-outline-success btn-sm shadow-none">
+              <input type="radio" name="time" id="plt" value="utro" autocomplete="off"> Утро
+            </label>
+            <label class="btn btn-outline-success btn-sm shadow-none border-left-0">
+              <input type="radio" name="time" id="oms" value="vecher" autocomplete="off"> Вечер
+            </label>
           </div>
 
           <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">

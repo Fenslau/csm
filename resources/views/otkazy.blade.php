@@ -67,7 +67,7 @@
                 @foreach ($departments as $department)
                   <option class="text-truncate" value="{{ $department }}"
                     @if(!empty(session('department')))
-                      @if (in_array($department, session('department'))) selected @endif
+                      @if (is_array(session('department')) AND in_array($department, session('department'))) selected @endif
                     @elseif(!empty(auth()->user()->department) AND auth()->user()->department == $department) selected
                     @endif
                   >{{ $department }}</option>
