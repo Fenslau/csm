@@ -17,7 +17,7 @@ class LoginController extends Controller
 
         $credentials = $request->validate([
             'login' => ['required'],
-            //'password' => ['required'],
+            'password' => [''],
         ]);
         $user = $this->auth($credentials);
 
@@ -48,13 +48,21 @@ class LoginController extends Controller
             'base_dn' => env('AD_BASE_DN'),
             'admin_username' => env('AD_ADMIN_USERNAME'),
             'admin_password' => env('AD_ADMIN_PASSWORD'),
+    			'user_id_key' => 'samaccountname',
+    			'person_filter' => array('category' => 'objectCategory', 'person' => 'person'),
+    			'real_primarygroup' => true,
+    			'use_ssl' => false,
+    			'use_tls' => false,
+    			'recursive_groups' => true,
+    			'ad_port' => '389',
+    			'sso' => false,
         );
         $ad = new Adldap($config);
-        if ($ad->authenticate($credentials['login'], $credentials['password'])) {
-          $info = $ad->user()->info($credentials['login']);
-          dd($info);
-          $user['name'] = $info[0]['displayname'][0];
-          $user['email'] = $info[0]['mail'][0];
+		$ad->getLdapConnection()->showErrors();
+        if ($ad->authenticate(strtoupper($credentials['login']), $credentials['password'], TRUE)) {
+          $info = $ad->user()->info(strtoupper($credentials['login']));
+          $user['name'] = $info['displayname'];
+          $user['email'] = $info['mail'];
           return $user;
         }
         return FALSE;

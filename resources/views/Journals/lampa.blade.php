@@ -110,7 +110,7 @@
               </select>
             </div>
             <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
-              <label class="mr-1" for="lampa_">Кабинет: </label>
+              <label class="mr-1" for="lampa_">Помещение/лампа: </label>
               <select id="lampa_"  data-placeholder="Выберите кабинет" class="form-control text-truncate chosen-select" name="lampa">
                   <option value=""></option>
                 @foreach ($our_lampas as $lampa)
