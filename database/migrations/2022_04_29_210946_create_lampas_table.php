@@ -21,6 +21,7 @@ class CreateLampasTable extends Migration
             $table->string('department')->index();
 
             $table->string('lampa')->index();
+            $table->string('lampa_type');
             $table->string('condition');
             $table->string('rad_mode');
             $table->time('time_on');

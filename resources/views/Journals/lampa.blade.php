@@ -35,34 +35,39 @@
               @endforeach
             </select>
           </div>
-          <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
-            <label class="mr-3" for="lampa">Кабинет: </label>
-            <input id="lampa" class="form-control form-control-sm" type="text" autocomplete="off" name="lampa" value="@if(session('lampa')) {{ session('lampa') }} @endif" list="koridors" placeholder="Введите номер или выберите из списка">
-            <datalist id="koridors">
-            	<option value="Коридор 1">
-            	<option value="Коридор 2">
-            	<option value="Коридор 3">
-            </datalist>
-          </div>
 
-
-          <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
-            <label class="mr-3 text-nowrap" for="condition">Условия обеззараживания: </label>
-            <select id="condition" data-placeholder="Выберите из списка" class="form-control text-truncate chosen-select" name="condition">
-                <option value=""></option>
-                <option value="В отсутствии" @if(session('condition') == "В отсутствии") selected @endif>В отсутствии</option>
-                <option value="...">...</option>
-            </select>
+          <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
+            <label class="btn btn-outline-success btn-sm shadow-none">
+              <input type="radio" name="lampa_type" value="Повторно-кратковременный" autocomplete="off"> Ультрафиолетовая <br><small>бактерицидная установка</small>
+            </label>
+            <label class="btn btn-outline-success btn-sm shadow-none border-left-0">
+              <input type="radio" name="lampa_type" value="Непрерывный" autocomplete="off"> Бактерицидный <br>рециркулятор
+            </label>
           </div>
 
           <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
-            <label class="mr-3 text-nowrap" for="rad_mode">Режим облучения: </label>
-            <select id="rad_mode" data-placeholder="Выберите из списка" class="form-control text-truncate chosen-select" name="rad_mode">
-                <option value=""></option>
-                <option value="Повт.кр." @if(session('rad_mode') == "Повт.кр.") selected @endif>Повт.кр.</option>
-                <option value="...">...</option>
-            </select>
+            <label class="mr-3 text-nowrap" for="lampa">Помещение/лампа: </label>
+            <input id="lampa" class="form-control form-control-sm" type="text" autocomplete="off" name="lampa" value="@if(session('lampa')) {{ session('lampa') }} @endif">
           </div>
+
+          <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
+            <label class="btn btn-outline-success btn-sm shadow-none">
+              <input type="radio" name="condition" value="В отсутствии людей" autocomplete="off"> В отсутствии людей
+            </label>
+            <label class="btn btn-outline-success btn-sm shadow-none border-left-0">
+              <input type="radio" name="condition" value="В присутствии людей" autocomplete="off"> В присутствии людей
+            </label>
+          </div>
+
+          <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
+            <label class="btn btn-outline-success btn-sm shadow-none">
+              <input type="radio" name="rad_mode" value="Повторно-кратковременный" autocomplete="off"> Повторно-кратковременный
+            </label>
+            <label class="btn btn-outline-success btn-sm shadow-none border-left-0">
+              <input type="radio" name="rad_mode" value="Непрерывный" autocomplete="off"> Непрерывный
+            </label>
+          </div>
+
 
           <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
             <label class="mr-3 text-nowrap" for="time_on">Время включения: </label>
@@ -85,8 +90,8 @@
 <div class="container-xl view-all-container">
   <div class="row">
     <div class="col mb-5">
-      <h4 class="mt-5 text-center">Последние записи из журналов учёта
-        @empty($request->lampa) @else кабинета {{ $request->lampa }} @endempty
+      <h4 class="mt-5 text-center">Последние записи из журналов учёта работы
+        @empty($request->lampa) @else лампы {{ $request->lampa }} @endempty
         @empty($request->department) @else отдела {{ $request->department }} @endempty
         @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty
         @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty

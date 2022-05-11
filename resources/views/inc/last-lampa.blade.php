@@ -9,7 +9,7 @@
         <!-- <th class="d-none view-all">Ограниазция</th> -->
 
         <th rowspan="2" class="d-none view-all">Подразделение</th>
-        <th rowspan="2" class="printable">Кабинет</th>
+        <th rowspan="2" class="printable">Лампа</th>
         <th rowspan="2" class="printable">Условия обеззараживания</th>
         <th rowspan="2" class="printable">Режим облучения</th>
         <th colspan="2" class="printable">Время</th>
@@ -79,7 +79,7 @@
                    exportOptions: {
                       columns: '.printable'
                    },
-                   title: 'Учёт работы бактерицидной установки кабинета @empty($items[0]['lampa']) @else{{ $items[0]['lampa'] }}@endempty отдела @empty($items[0]['department']) @else{{ $items[0]['department'] }}@endempty',
+                   title: 'Учёт работы бактерицидной установки @empty($items[0]['lampa']) @else{{ $items[0]['lampa'] }}@endempty отдела @empty($items[0]['department']) @else{{ $items[0]['department'] }}@endempty',
                    messageBottom: 'Данные верны. @empty($items[0]->user->name) @else{{ $items[0]->user->name }}@endempty. Подпись _____________',
 
                },
@@ -95,7 +95,7 @@
                    exportOptions: {
                       columns: '.printable'
                    },
-                   title: 'Учёт работы бактерицидной установки кабинета @empty($items[0]['lampa']) @else{{ $items[0]['lampa'] }}@endempty отдела @empty($items[0]['department']) @else{{ $items[0]['department'] }}@endempty',
+                   title: 'Учёт работы бактерицидной установки @empty($items[0]['lampa']) @else{{ $items[0]['lampa'] }}@endempty отдела @empty($items[0]['department']) @else{{ $items[0]['department'] }}@endempty',
                }
            ],
 
