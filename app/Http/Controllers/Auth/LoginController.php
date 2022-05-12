@@ -58,7 +58,6 @@ class LoginController extends Controller
     			'sso' => false,
         );
         $ad = new Adldap($config);
-		$ad->getLdapConnection()->showErrors();
         if ($ad->authenticate(strtoupper($credentials['login']), $credentials['password'], TRUE)) {
           $info = $ad->user()->info(strtoupper($credentials['login']));
           $user['name'] = $info['displayname'];

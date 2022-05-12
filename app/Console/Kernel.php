@@ -13,9 +13,16 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+     protected $commands = [
+         Commands\Journal\HolodEmail::class,
+
+     ];
+
+
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('holod:email')->dailyAt('20:00')->runInBackground()->appendOutputTo('storage/logs/HolodEmail.log');
     }
 
     /**

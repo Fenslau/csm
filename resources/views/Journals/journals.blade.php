@@ -22,7 +22,7 @@
                     <a class="nav-link" href="{{ route('journal-holod') }}">Холодильники</a>
                   </li>
                   <li class="nav-item rounded px-2 my-1 border">
-                    <a class="nav-link" href="#">...</a>
+                    <a class="nav-link" href="{{ route('journal-lampa') }}">Лампы</a>
                   </li>
                   <li class="nav-item rounded px-2 my-1 border">
                     <a class="nav-link" href="#">...</a>
