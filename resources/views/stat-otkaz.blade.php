@@ -130,84 +130,6 @@
   <div class="row">
     <div class="col">
       <figure class="highcharts-figure mt-5">
-          <div id="container1.5"></div>
-          <p class="highcharts-description">
-          </p>
-      </figure>
-      <script>
-        $(document).ready(function () {
-          Highcharts.chart('container1.5', {
-              chart: {
-                  type: 'pie'
-              },
-              title: {
-                  text: 'Отказы по подразделениям @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
-              },
-              subtitle: {
-                  text: ''
-              },
-
-              accessibility: {
-                  announceNewData: {
-                      enabled: true
-                  },
-                  point: {
-                      valueSuffix: ''
-                  }
-              },
-
-              plotOptions: {
-                  series: {
-                      dataLabels: {
-                          enabled: true,
-                          format: '{point.name}: {point.y:.0f}'
-                      }
-                  }
-              },
-
-              tooltip: {
-                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b><br/>'
-              },
-
-              series: [
-                  {
-                      name: "Отказы",
-                      colorByPoint: true,
-                      data: [
-                        @foreach($our_departments as $dep)
-                          {
-                              name: "{{ $dep['department'] }}",
-                              y: {{ $dep['count'] }},
-                              drilldown: "{{ $dep['department'] }}"
-                          },
-                        @endforeach
-                      ]
-                  }
-              ],
-              drilldown: {
-                  series: [
-                    @foreach($our_departments as $dep)
-                      {
-                          name: "Отказы",
-                          id: "{{ $dep['department'] }}",
-                          data: [
-
-                          ]
-                      },
-                    @endforeach
-                  ]
-              }
-          });
-        });
-      </script>
-    </div>
-  </div>
-
-
-  <div class="row">
-    <div class="col">
-      <figure class="highcharts-figure mt-5">
           <div id="container1.8"></div>
           <p class="highcharts-description">
           </p>
@@ -287,6 +209,196 @@
                               [
                                   "{{ $date }}",
                                   {{ count($value) }}
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container1.9"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container1.9', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Отказы по подразделениям и <b>темам</b> @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на подразделение, чтобы увидеть статистику по темам отказов этого подразделения'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Количество отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f}'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_departments as $department)
+                          {
+                              name: "{{ $department->department }}",
+                              y: {{ $department->count }},
+                              drilldown: "{{ $department->department }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_departments as $department)
+                        {
+                          name: "Отказы",
+                          id: "{{ $department->department }}",
+                          data: [
+                            @foreach ($department->themes as $theme)
+                              [
+                                  "{{ $theme->theme->theme }}",
+                                  {{ $theme->count }}
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container1.95"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container1.95', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Отказы по подразделениям и <b>причинам</b> @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на подразделение, чтобы увидеть статистику по причинам отказов этого подразделения'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Количество отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f}'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_departments as $department)
+                          {
+                              name: "{{ $department->department }}",
+                              y: {{ $department->count }},
+                              drilldown: "{{ $department->department }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_departments as $department)
+                        {
+                          name: "Отказы",
+                          id: "{{ $department->department }}",
+                          data: [
+                            @foreach ($department->reasons as $reason)
+                              [
+                                  "{{ $reason->reason->reason }}",
+                                  {{ $reason->count }}
                               ],
                             @endforeach
                           ]
@@ -399,6 +511,102 @@
   <div class="row">
     <div class="col">
       <figure class="highcharts-figure mt-5">
+          <div id="container2.1"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container2.1', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Темы отказов и <b>подразделения</b>, к которым они относятся @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на тему, чтобы увидеть в каких подразделениях она была зафиксирована'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Количество отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f}'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_themes as $theme)
+                          {
+                              name: "{{ $theme->theme->theme }}",
+                              y: {{ $theme->count }},
+                              drilldown: "{{ $theme->theme->theme }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_themes as $theme)
+                        {
+                          name: "Отказы",
+                          id: "{{ $theme->theme->theme }}",
+                          data: [
+                            @foreach ($theme->departments as $department)
+                              [
+                                  "{{ $department->department }}",
+                                  {{ $department->count }}
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
           <div id="container3"></div>
           <p class="highcharts-description">
           </p>
@@ -478,6 +686,101 @@
                               [
                                   "{{ $date }}",
                                   {{ count($value) }}
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container3.1"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container3.1', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Причины отказов и <b>подразделения</b>, к которым они относятся @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на причину, чтобы увидеть подразделения, где она была зафиксирована'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Количество отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f}'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_reasons as $reason)
+                          {
+                              name: "{{ $reason->reason->reason }}",
+                              y: {{ $reason->count }},
+                              drilldown: "{{ $reason->reason->reason }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_reasons as $reason)
+                        {
+                          name: "Отказы",
+                          id: "{{ $reason->reason->reason }}",
+                          data: [
+                            @foreach ($reason->departments as $department)
+                              [
+                                  "{{ $department->department }}",
+                                  {{ $department->count }}
                               ],
                             @endforeach
                           ]

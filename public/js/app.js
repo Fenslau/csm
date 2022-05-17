@@ -2140,6 +2140,20 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
+  $(document).on('click', '.defrost', function (e) {
+    if (document.getElementById("defrost").checked) {
+      $('.defrost').removeClass('text-muted');
+      $("#temperature").attr("disabled", false);
+      $(".label-defrost").text('Температура:');
+    } else {
+      $('.defrost').addClass('text-muted');
+      $("#temperature").attr("disabled", true);
+      $(".label-defrost").text('Разморозка:');
+      $(".output-defrost").text('');
+    }
+  });
+});
+$(document).ready(function () {
   $(document).on('click', '.view-all-table', function (e) {
     $('.view-all-table').toggleClass('text-muted');
     $('.view-all').toggleClass('d-none');

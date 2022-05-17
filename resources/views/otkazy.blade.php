@@ -33,7 +33,7 @@
                 <label class="btn btn-outline-success btn-sm shadow-none">
                   <input type="radio" name="omsdms" id="plt" value="ПЛТ" autocomplete="off"> ПЛТ
                 </label>
-                <label class="btn btn-outline-success btn-sm shadow-none border-left-0 border-right-0">
+                <label class="btn btn-outline-success btn-sm shadow-none mx-3">
                   <input type="radio" name="omsdms" id="oms" value="ОМС" autocomplete="off"> ОМС
                 </label>
                 <label class="btn btn-outline-success btn-sm shadow-none">

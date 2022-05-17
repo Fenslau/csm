@@ -22,7 +22,7 @@
           @csrf
           @include('inc.cityandorg')
 
-          <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
+          <div class="d-flex flex-nowrap justify-content-between form-group m-1">
             <label class="mr-3" for="department">Подразделение: </label>
             <select id="department"  data-placeholder="Выберите подразделение" class="form-control text-truncate chosen-select" name="department">
               @foreach ($departments as $department)
@@ -35,38 +35,56 @@
               @endforeach
             </select>
           </div>
-          <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
+          <div class="d-flex flex-nowrap align-items-baseline form-group m-1">
             <label class="mr-3" for="holodilnik">Холодильник: </label>
-            <select id="holodilnik"  data-placeholder="Выберите холодильник" class="form-control text-truncate chosen-select" name="holodilnik">
-              @foreach ($holodilniks as $holodilnik)
-                <option class="text-truncate" value="{{ $holodilnik }}" @if(!empty(session('holodilnik')) AND $holodilnik == session('holodilnik')) selected @endif>{{ $holodilnik }}</option>
-              @endforeach
-            </select>
+            <div id="holodilnik" class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
+
+            </div>
           </div>
 
           <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
-            <label class="btn btn-outline-success btn-sm shadow-none">
+            <label class="btn btn-outline-success btn-sm shadow-none mr-3">
               <input type="radio" name="time" id="plt" value="utro" autocomplete="off"> Утро
             </label>
-            <label class="btn btn-outline-success btn-sm shadow-none border-left-0">
+            <label class="btn btn-outline-success btn-sm shadow-none">
               <input type="radio" name="time" id="oms" value="vecher" autocomplete="off"> Вечер
             </label>
           </div>
 
-          <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
-            <label class="mr-3 text-nowrap" for="temperature">Температура: </label>
-            <select id="temperature" data-placeholder="Выберите температуру" class="form-control text-truncate chosen-select" name="temperature">
-              @for ($temp = 1; $temp < 10; $temp++)
-                <option value="{{ $temp }}" @if(!empty(session('temperature')) AND $temp == session('temperature')) selected @endif>{{ $temp }}&deg;C</option>
-              @endfor
-                <option value="Разморозка">Разморозка</option>
-            </select>
+          <div class="d-flex flex-nowrap justify-content-between form-group m-1">
+            <label class="mr-3 text-nowrap label-defrost" for="temperature">Температура: </label>
+            <input type="range" name="temperature" value="5" class="custom-range" min="1" max="10" id="temperature" oninput="this.nextElementSibling.value = this.value">
+            <output class="ml-2 output-defrost">5</output>&deg;C
+            <input id="defrost" class="d-none" type="checkbox" name="defrost">
+            <label for="defrost" data-toggle="tooltip" title="Разморозка" class="px-2 m-0 text-primary defrost cursor-pointer"><i class="fas fa-snowflakes"></i></label>
           </div>
 
           <div class="form-group row m-1">
             <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1">Зарегистрировать</button>
           </div>
         </form>
+        <script>
+          $(document).ready(function () {
+            $("#department").change(function(){
+              var dep = $(this).val();
+              axios.post('{{ route('get-holodilnik') }}', {
+                  dep: dep
+                })
+                .then(function (response) {
+                  $("#holodilnik").html(response.data.options);
+                })
+                .catch(function (error) {
+                  $('.toast-header').addClass('bg-danger');
+                  $('.toast-header').removeClass('bg-success');
+                  $('.toast-body').html('Что-то пошло не так. Попробуйте ещё раз или сообщите нам');
+                  $('.toast').toast('show');
+                });
+            });
+          });
+          $(document).ready(function () {
+            $("#department").trigger('change');
+          });
+        </script>
       </div>
   </div>
 </div>
@@ -95,10 +113,7 @@
             <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
               <label class="mr-1" for="holodilnik_">Холодильник: </label>
               <select id="holodilnik_"  data-placeholder="Выберите холодильник" class="form-control text-truncate chosen-select" name="holodilnik">
-                  <option value=""></option>
-                @foreach ($our_holodilniks as $holodilnik)
-                  <option class="text-truncate" value="{{ $holodilnik }}" @if(!empty($request->holodilnik) AND $holodilnik == $request->holodilnik) selected @endif>{{ $holodilnik }}</option>
-                @endforeach
+
               </select>
             </div>
             С <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="{{ date('Y-m') }}-01"	max="{{ date('Y-m-d') }}" min="2022-04-01">
@@ -109,6 +124,27 @@
             </div>
           </div>
         </form>
+        <script>
+          $(document).ready(function () {
+            $("#department_").change(function(){
+              var dep = $(this).val();
+              axios.post('{{ route('get-holodilnik') }}', {
+                  dep: dep,
+                  select: 1
+                })
+                .then(function (response) {
+                  $("#holodilnik_").html(response.data.options);
+                  $('.chosen-select').trigger('chosen:updated');
+                })
+                .catch(function (error) {
+                  $('.toast-header').addClass('bg-danger');
+                  $('.toast-header').removeClass('bg-success');
+                  $('.toast-body').html('Что-то пошло не так. Попробуйте ещё раз или сообщите нам');
+                  $('.toast').toast('show');
+                });
+            });
+          });
+        </script>
         @can('holod_all_view')
           <div data-toggle="tooltip" title="Подробная таблица" class="view-all-table btn text-muted mr-2">
             <i class="fa fa-eye"></i>
@@ -125,7 +161,13 @@
 <div class="container">
   <div class="row">
     <div class="col">
-
+      <div class="d-flex flex-wrap justify-content-around my-5">
+        @can('holod_all_view')
+        <div class="alert alert-danger max-content p-0">
+          <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journal-holod-list') }}">Список холодильников</a>
+        </div>
+        @endcan
+      </div>
     </div>
   </div>
 </div>

@@ -21,12 +21,21 @@ class HolodRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-          'holodilnik'  => ['required'],
-          'time'        => ['required'],
-          'temperature' => ['required']
-        ];
-    }
+     protected function prepareForValidation()
+     {
+       if ($this->defrost) {
+         $this->merge([
+             'temperature' => 'Разморозка',
+         ]);
+       }
+     }
+
+      public function rules()
+      {
+          return [
+            'holodilnik'  => ['required'],
+            'time'        => ['required'],
+            'temperature' => ['required']
+          ];
+      }
 }

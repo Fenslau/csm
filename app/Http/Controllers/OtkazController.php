@@ -75,6 +75,10 @@ class OtkazController extends Controller
       }
       $our_departments = $stat->getwhere($request)->select('department', DB::raw('count(*) as count'))->groupBy('department')->orderBy('count', 'desc')->get();
       foreach ($our_departments as &$department) {
+          $department->themes = $stat->getwhere($request)->with('theme')->select('*', DB::raw('COUNT(*) as count'))->where('department', $department->department)->groupBy('theme_id')->orderBy('count', 'desc')->get();
+
+          $department->reasons = $stat->getwhere($request)->with('reason')->select('*', DB::raw('COUNT(*) as count'))->where('department', $department->department)->groupBy('reason_id')->orderBy('count', 'desc')->get();
+
           $department->dates = $stat->getwhere($request)->where('department', $department->department)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
              return Carbon::parse($date->created_at)->format('d.m');
           })->take(30)->reverse();
@@ -82,6 +86,8 @@ class OtkazController extends Controller
 
       $our_reasons = $stat->getwhere($request)->with('reason')->select('reason_id', DB::raw('count(*) as count'))->groupBy('reason_id')->orderBy('count', 'desc')->get();
       foreach ($our_reasons as &$reason) {
+          $reason->departments = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('reason_id', $reason->reason_id)->groupBy('department')->orderBy('count', 'desc')->get();
+          // $reason->themes = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('reason_id', $reason->reason_id)->groupBy('theme_id')->orderBy('count', 'desc')->get();
           $reason->dates = $stat->getwhere($request)->where('reason_id', $reason->reason_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
              return Carbon::parse($date->created_at)->format('d.m');
           })->take(30)->reverse();
@@ -89,7 +95,8 @@ class OtkazController extends Controller
 
       $our_themes = $stat->getwhere($request)->with('theme')->select('theme_id', DB::raw('count(*) as count'))->groupBy('theme_id')->orderBy('count', 'desc')->get();
       foreach ($our_themes as &$theme) {
-          // $theme->reasons = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('theme_id', $theme->theme_id)->groupBy('reason_id')->orderBy('count', 'desc')->get();        
+          $theme->departments = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('theme_id', $theme->theme_id)->groupBy('department')->orderBy('count', 'desc')->get();
+          // $theme->reasons = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('theme_id', $theme->theme_id)->groupBy('reason_id')->orderBy('count', 'desc')->get();
           $theme->dates = $stat->getwhere($request)->where('theme_id', $theme->theme_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
              return Carbon::parse($date->created_at)->format('d.m');
           })->take(30)->reverse();

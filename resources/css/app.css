@@ -28,6 +28,9 @@ ul.chosen-choices {
 	height: 100% !important;
 }
 
+.cursor-pointer {
+	cursor: pointer;
+}
 
 .visiblility {
     visibility: hidden;

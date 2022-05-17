@@ -44,8 +44,16 @@ Route::get('/journals', 'App\Http\Controllers\JournalController@main')
 ->name('journals');
 Route::get('/journals/holod', 'App\Http\Controllers\Journals\HolodController@main')
 ->name('journal-holod');
+Route::get('/journals/holod/list', 'App\Http\Controllers\Journals\HolodController@list')
+->name('journal-holod-list');
+Route::get('/journals/holod/del', 'App\Http\Controllers\Journals\HolodController@del')
+->name('journal-holod-del');
 Route::post('/journals/holod/new', 'App\Http\Controllers\Journals\HolodController@new')
 ->name('new-holod');
+Route::post('/journals/holod/new-holodilnik', 'App\Http\Controllers\Journals\HolodController@newholod')
+->name('journal-holod-new');
+Route::post('/journals/holod/get-holodilnik', 'App\Http\Controllers\Journals\HolodController@getholodilnik')
+->name('get-holodilnik');
 
 Route::get('/journals/lampa', 'App\Http\Controllers\Journals\LampaController@main')
 ->name('journal-lampa');
