@@ -112,7 +112,7 @@
             </div>
             <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
               <label class="mr-1" for="holodilnik_">Холодильник: </label>
-              <select id="holodilnik_"  data-placeholder="Выберите холодильник" class="form-control text-truncate chosen-select" name="holodilnik">
+              <select id="holodilnik_" style="width: 8rem;" data-placeholder="Выберите холодильник" class="form-control text-truncate chosen-select" name="holodilnik">
 
               </select>
             </div>
@@ -144,12 +144,15 @@
                 });
             });
           });
+          $(document).ready(function () {
+            $('.chosen-select').trigger('change');
+          });
         </script>
-        @can('holod_all_view')
+        <!-- @can('holod_all_view')
           <div data-toggle="tooltip" title="Подробная таблица" class="view-all-table btn text-muted mr-2">
             <i class="fa fa-eye"></i>
           </div>
-        @endcan
+        @endcan -->
       </div>
       <div class="table-responsive">
         @include('inc.last-holod')

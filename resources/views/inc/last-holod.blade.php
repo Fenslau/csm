@@ -1,25 +1,25 @@
 <table class="d-table table table-striped table-bordered table-hover table-sm table-responsive group-table">
     <thead class="thead-dark">
       <tr class="text-center">
-        <th class="d-none view-all">№</th>
+        <!-- <th class="d-none view-all">№</th> -->
         <th class="printable">Дата</th>
-        <th class="d-none view-all">Время</th>
+        <!-- <th class="d-none view-all">Время</th>
 
-        <th class="d-none view-all">Город</th>
+        <th class="d-none view-all">Город</th> -->
         <!-- <th class="d-none view-all">Ограниазция</th> -->
 
-        <th class="d-none view-all">Подразделение</th>
+        <th class="">Подразделение</th>
         <th>Холодильник</th>
         <th class="printable">Утро</th>
         <th class="printable">Вечер</th>
-        <th class="d-none view-all printable">Регистратор</th>
+        <th class="printable">Регистратор</th>
 
       </tr>
     </thead>
     <tfoot class="d-none">
        <tr>
          <td colspan="2">Данные верны. </td>
-         <td colspan="6"></td>
+         <td colspan="3"></td>
          <td>Подпись _____________ @empty($items[0]->user->name) @else{{ $items[0]->user->name }}@endempty</td>
        </tr>
     </tfoot>
@@ -27,24 +27,24 @@
       @forelse ($items as $item)
         @if ($item['time'] == 'Вечер') @continue @endif
         <tr class="lh-md text-center">
-          <td class="d-none view-all">{{ $loop->iteration }}</td>
+          <!-- <td class="d-none view-all">{{ $loop->iteration }}</td> -->
           <td>{{ date('d.m.y', strtotime($item['updated_at'])) }}</td>
-          <td class="d-none view-all">{{ date('H:i', strtotime($item['updated_at'])) }}</td>
+          <!-- <td class="d-none view-all">{{ date('H:i', strtotime($item['updated_at'])) }}</td>
 
-          <td class="d-none view-all">{{ $item['city'] }}</td>
+          <td class="d-none view-all">{{ $item['city'] }}</td> -->
           <!-- <td class="text-truncate d-none view-all">{{ $item['organization'] }}</td> -->
 
-          <td class="text-truncate d-none view-all">{{ $item['department'] }}</td>
+          <td class="text-truncate">{{ $item['department'] }}</td>
           <td>{{ $item['holodilnik'] }}</td>
           <td>@empty($item['utro']) @else{{ $item['utro'] }} @if(is_numeric($item['utro']))&deg;C @endif @endempty</td>
           <td>@empty($item['vecher']) @else{{ $item['vecher'] }} @if(is_numeric($item['vecher']))&deg;C @endif @endempty</td>
 
-          <td class="d-none view-all">{{ $item->user->name }}</td>
+          <td class="">{{ $item->user->name }}</td>
 
         </tr>
       @empty
         <tr>
-          <td class="text-center" colspan="10">Ни одной записи в журналах не зарегистрировано</td>
+          <td class="text-center" colspan="6">Ни одной записи в журналах не зарегистрировано</td>
         </tr>
       @endforelse
     </tbody>
@@ -62,11 +62,11 @@
           "orderable": false
           },
           {
-          "targets": 6,
+          "targets": 3,
           "orderable": false
           },
           {
-          "targets": 7,
+          "targets": 4,
           "orderable": false
           }
        ],
@@ -89,8 +89,7 @@
                    text: 'Печать',
                    footer: true,
                    customize: function ( win ) {
-                      $(win.document.body).find( 'td, th' )
-                          .addClass( 'text-center' )
+                      $(win.document.body).find( 'td, th' ).addClass( 'text-center' );
                    },
                    exportOptions: {
                       columns: '.printable'

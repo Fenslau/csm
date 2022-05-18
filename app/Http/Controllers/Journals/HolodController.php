@@ -24,7 +24,7 @@ class HolodController extends Controller
       $holodilniks = (['1', '2', '3', '4', '5', '6']);
       $cities = Person::distinct()->pluck('city');
       $organizations = Organization::distinct()->orderBy('org', 'asc')->pluck('org');
-      $departments = Holodlist::distinct()->pluck('department');
+      $departments = Holodlist::distinct()->orderBy('department', 'asc')->pluck('department');
       $our_departments = Holodlist::distinct()->orderBy('department', 'asc')->pluck('department');
       $our_holodilniks = Holodlist::distinct()->orderBy('holodilnik', 'asc')->pluck('holodilnik');
       return view('Journals/holod', compact('items', 'organizations', 'departments', 'cities', 'holodilniks', 'request', 'our_departments', 'our_holodilniks'));
@@ -61,7 +61,7 @@ class HolodController extends Controller
       $data = view('inc.select-holodilnik', compact('holodilniks'))->render();
     }
     else {
-      $data = view('inc.radio-holodilnik', compact('holodilniks'))->render();      
+      $data = view('inc.radio-holodilnik', compact('holodilniks'))->render();
     }
     return response()->json(['options' => $data]);
   }

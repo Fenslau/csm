@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
 
      protected $commands = [
          Commands\Journal\HolodEmail::class,
+         Commands\Journal\LampaEmail::class,
 
      ];
 
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('holod:email')->dailyAt('20:00')->runInBackground()->appendOutputTo('storage/logs/HolodEmail.log');
+        $schedule->command('lampa:email')->dailyAt('20:00')->runInBackground()->appendOutputTo('storage/logs/LampaEmail.log');
     }
 
     /**

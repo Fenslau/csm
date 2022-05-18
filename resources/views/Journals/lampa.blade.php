@@ -46,8 +46,10 @@
           </div>
 
           <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
-            <label class="mr-3 text-nowrap" for="lampa">Помещение/лампа: </label>
-            <input id="lampa" class="form-control form-control-sm" type="text" autocomplete="off" name="lampa" value="@if(session('lampa')) {{ session('lampa') }} @endif">
+            <label class="mr-1" for="lampa">Лампа: </label>
+            <select id="lampa"  data-placeholder="Выберите лампу" class="form-control text-truncate chosen-select" name="lampa">
+
+            </select>
           </div>
 
           <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
@@ -84,6 +86,29 @@
             <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1">Зарегистрировать</button>
           </div>
         </form>
+        <script>
+          $(document).ready(function () {
+            $("#department").change(function(){
+              var dep = $(this).val();
+              axios.post('{{ route('get-lampa') }}', {
+                  dep: dep
+                })
+                .then(function (response) {
+                  $("#lampa").html(response.data.options);
+                  $('.chosen-select').trigger('chosen:updated');
+                })
+                .catch(function (error) {
+                  $('.toast-header').addClass('bg-danger');
+                  $('.toast-header').removeClass('bg-success');
+                  $('.toast-body').html('Что-то пошло не так. Попробуйте ещё раз или сообщите нам');
+                  $('.toast').toast('show');
+                });
+            });
+          });
+          $(document).ready(function () {
+            $("#department").trigger('change');
+          });
+        </script>
       </div>
   </div>
 </div>
@@ -110,12 +135,9 @@
               </select>
             </div>
             <div class="d-flex flex-nowrap justify-content-between align-items-baseline form-group m-1">
-              <label class="mr-1" for="lampa_">Помещение/лампа: </label>
-              <select id="lampa_"  data-placeholder="Выберите кабинет" class="form-control text-truncate chosen-select" name="lampa">
-                  <option value=""></option>
-                @foreach ($our_lampas as $lampa)
-                  <option class="text-truncate" value="{{ $lampa }}" @if(!empty($request->lampa) AND $lampa == $request->lampa) selected @endif>{{ $lampa }}</option>
-                @endforeach
+              <label class="mr-1" for="lampa_">Лампа: </label>
+              <select id="lampa_" style="width: 8rem;" data-placeholder="Выберите лампу" class="form-control chosen-select" name="lampa">
+
               </select>
             </div>
             С <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="{{ date('Y-m') }}-01"	max="{{ date('Y-m-d') }}" min="2022-04-01">
@@ -126,11 +148,34 @@
             </div>
           </div>
         </form>
-        @can('lampa_all_view')
+        <script>
+          $(document).ready(function () {
+            $("#department_").change(function(){
+              var dep = $(this).val();
+              axios.post('{{ route('get-lampa') }}', {
+                  dep: dep
+                })
+                .then(function (response) {
+                  $("#lampa_").html(response.data.options);
+                  $('.chosen-select').trigger('chosen:updated');
+                })
+                .catch(function (error) {
+                  $('.toast-header').addClass('bg-danger');
+                  $('.toast-header').removeClass('bg-success');
+                  $('.toast-body').html('Что-то пошло не так. Попробуйте ещё раз или сообщите нам');
+                  $('.toast').toast('show');
+                });
+            });
+          });
+          $(document).ready(function () {
+            $('.chosen-select').trigger('change');
+          });
+        </script>
+        <!-- @can('lampa_all_view')
           <div data-toggle="tooltip" title="Подробная таблица" class="view-all-table btn text-muted mr-2">
             <i class="fa fa-eye"></i>
           </div>
-        @endcan
+        @endcan -->
       </div>
       <div class="table-responsive">
         @include('inc.last-lampa')
@@ -147,7 +192,11 @@
           <div class="alert alert-danger max-content p-0">
             <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('narabotka-lamp') }}">Наработка ламп</a>
           </div>
-
+          @can('lampa_all_view')
+          <div class="alert alert-danger max-content p-0">
+            <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journal-lampa-list') }}">Список ламп</a>
+          </div>
+          @endcan
       </div>
     </div>
   </div>

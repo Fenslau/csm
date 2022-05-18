@@ -49,6 +49,10 @@ Breadcrumbs::register('journal-lampa-narabotka', function ($breadcrumbs) {
     $breadcrumbs->parent('journal-lampa');
     $breadcrumbs->push('Наработка ламп', route('narabotka-lamp'));
 });
+Breadcrumbs::register('journal-lampa-list', function ($breadcrumbs) {
+    $breadcrumbs->parent('journal-lampa');
+    $breadcrumbs->push('Список ламп', route('journal-lampa-list'));
+});
 
 Breadcrumbs::register('document', function ($breadcrumbs) {
     $breadcrumbs->parent('home');

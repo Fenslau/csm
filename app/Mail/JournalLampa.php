@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class JournalHolod extends Mailable
+class JournalLampa extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,13 +16,12 @@ class JournalHolod extends Mailable
      *
      * @return void
      */
+     public $items;
 
-    public $items;
-
-    public function __construct($items)
-    {
-        $this->items = $items;
-    }
+     public function __construct($items)
+     {
+         $this->items = $items;
+     }
 
     /**
      * Build the message.
@@ -31,6 +30,6 @@ class JournalHolod extends Mailable
      */
     public function build()
     {
-        return $this->subject('Холодильники - отсутствует ввод данных')->view('email.Journal.Holod');
+        return $this->subject('Лампы - отсутствует ввод данных')->view('email.Journal.Lampa');
     }
 }

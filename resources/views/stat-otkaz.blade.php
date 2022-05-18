@@ -89,9 +89,9 @@
           <div class="d-flex flex-nowrap justify-content-between form-group m-1">
             <label class="mr-3 text-nowrap" for="omsdms">ПЛТ/ОМС/ДМС: </label>
             <select multiple id="omsdms" class="form-control text-truncate chosen-select" data-placeholder="Выберите из списка" name="omsdms[]">
-                <option class="" value="ПЛТ">ПЛТ</option>
-                <option class="" value="ОМС">ОМС</option>
-                <option class="" value="ДМС">ДМС</option>
+                <option class="" value="ПЛТ" @if (is_array($request->omsdms) AND in_array("ПЛТ", $request->omsdms)) selected @endif>ПЛТ</option>
+                <option class="" value="ОМС" @if (is_array($request->omsdms) AND in_array("ОМС", $request->omsdms)) selected @endif>ОМС</option>
+                <option class="" value="ДМС" @if (is_array($request->omsdms) AND in_array("ДМС", $request->omsdms)) selected @endif>ДМС</option>
             </select>
           </div>
 

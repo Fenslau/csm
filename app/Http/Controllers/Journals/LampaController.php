@@ -8,7 +8,10 @@ use App\Models\User;
 use App\Models\Person;
 use App\Models\Organization;
 use App\Models\Journals\Lampa;
+use App\Models\Journals\Lampalist;
+use App\Models\Department;
 use App\Http\Requests\LampaRequest;
+use App\Http\Requests\LampaNewRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -21,10 +24,41 @@ class LampaController extends Controller
 
         $cities = Person::distinct()->pluck('city');
         $organizations = Organization::distinct()->orderBy('org', 'asc')->pluck('org');
-        $departments = Organization::distinct()->orderBy('department', 'asc')->pluck('department');
-        $our_departments = Lampa::distinct()->orderBy('department', 'asc')->pluck('department');
-        $our_lampas = Lampa::distinct()->orderBy('lampa', 'asc')->pluck('lampa');
+        $departments = Lampalist::distinct()->orderBy('department', 'asc')->pluck('department');
+        $our_departments = Lampalist::distinct()->orderBy('department', 'asc')->pluck('department');
+        $our_lampas = Lampalist::distinct()->orderBy('lampa', 'asc')->pluck('lampa');
         return view('Journals/lampa', compact('items', 'organizations', 'departments', 'cities', 'request', 'lampas', 'our_departments', 'our_lampas'));
+    }
+
+    public function list() {
+        $items = array();
+        $items = Lampalist::orderBy('created_at', 'desc')->get();
+        if (isset(auth()->user()->city)) $departments = Department::where('city', auth()->user()->city)->distinct()->pluck('department');
+        else $departments = Department::distinct()->pluck('department');
+        return view('Journals/lampa-list', compact('items', 'departments'));
+    }
+
+    public function del(Request $request) {
+        if (Lampalist::where('department', $request->department)->where('lampa', $request->lampa)->delete())
+        return back()->with('success', 'Лампа удалёна');
+        else return back()->with('error', 'Не удалось удалить лампу');
+    }
+
+    public function newlampa(LampaNewRequest $request) {
+        session(['department' => $request->department]);
+        $request->duration_all = $request->duration_all*60;
+        if ($request->duration_all !== NULL)
+        $lampa = Lampalist::updateOrCreate(['lampa' => $request->lampa], $request->all());
+        else $lampa = Lampalist::updateOrCreate(['lampa' => $request->lampa], $request->except('duration_all'));
+        if ($lampa)
+        return back()->with('success', 'Лампа добавлена');
+        else return back()->with('error', 'Не удалось добавить лампу');
+    }
+
+    public function getlampa(Request $request) {
+      $lampas = Lampalist::where('department', $request->dep)->orderBy('lampa', 'asc')->pluck('lampa');
+      $data = view('inc.select-lampa', compact('lampas'))->render();
+      return response()->json(['options' => $data]);
     }
 
     public function new(LampaRequest $request) {
@@ -36,22 +70,25 @@ class LampaController extends Controller
         $time_off = Carbon::createFromTime($time[0], $time[1]);
         $duration = $time_on->diffInMinutes($time_off, false);
         $lampa = new Lampa();
-        $duration_all = $lampa->getwhere($request->all())->latest()->first();
-        if (!$duration_all) $duration_all = 0; else $duration_all = $duration_all->duration_all;
+        $duration_all = Lampalist::where('lampa', $request->lampa)->first()->duration_all;
+        if (!$duration_all) $duration_all = 0;
         $user = $user->lampa()->Create($request->all() + ['duration' => $duration, 'duration_all' => $duration_all + $duration]);
-        if ($duration_all/60 > env('LAMPA_NARABOTKA')) session()->flash('warning', 'Пора заменить лампу в помещении <b>'.$request->lampa.'</b> Время наработки: <b>'.round($duration_all/60, 0) .' '. trans_choice('час|часа|часов', round($duration_all/60, 0), [], 'ru').'</b>');
+        Lampalist::where('lampa', $request->lampa)->update(['duration_all' => $duration_all + $duration]);
+        if ($duration_all/60 > env('LAMPA_NARABOTKA')) {
+          session()->flash('warning', 'Пора заменить лампу <b>'.$request->lampa.'</b> Время наработки: <b>'.round($duration_all/60, 0) .' '. trans_choice('час|часа|часов', round($duration_all/60, 0), [], 'ru').'</b>');
+        }
         if ($user) return back()->with('success', 'Режим включения бактерицидной лампы зарегистрирован');
         else return back()->with('error', 'Не удалось зарегистрировать режим включения бактерицидной лампы');
     }
 
     public function zamena(Request $request) {
-      if (Lampa::where('department', $request->department)->where('lampa', $request->lampa)->update(['duration_all' => 0]))
-      return back()->with('success', 'Лампа в помещении <b>'.$request->lampa.'</b> подразделения <b>'.$request->department.'</b> заменена. Отсчёт наработки начнётся заново');
+      if (Lampalist::where('department', $request->department)->where('lampa', $request->lampa)->update(['duration_all' => 0]))
+      return back()->with('success', 'Лампа <b>'.$request->lampa.'</b> подразделения <b>'.$request->department.'</b> заменена. Отсчёт наработки начнётся заново');
     }
 
     public function narabotka() {
       $items = array();
-      $items = Lampa::select('*', DB::raw('max(duration_all) as duration_all'))->groupBy('department', 'lampa')->orderBy('duration_all', 'desc')->get();
+      $items = Lampalist::groupBy('department', 'lampa')->orderBy('duration_all', 'desc')->get();
       return view('Journals/narabotka-lamp', compact('items'));
     }
 }

@@ -4,11 +4,7 @@
 @section('description-block', '')
 
 @section('content')
-<style>
-.dataTables_filter {
-  display: none;
-}
-</style>
+
 <div class="container">
   <div class="row">
     <div class="col">
