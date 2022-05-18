@@ -1,7 +1,7 @@
 <table class="d-table table table-striped table-bordered table-hover table-sm table-responsive group-table">
     <thead class="thead-dark">
       <tr class="text-center">
-        <!-- <th class="d-none view-all">№</th> -->
+        <th class="d-none view-all">№</th>
         <th class="printable">Дата</th>
         <!-- <th class="d-none view-all">Время</th>
 
@@ -19,7 +19,7 @@
     <tfoot class="d-none">
        <tr>
          <td colspan="2">Данные верны. </td>
-         <td colspan="3"></td>
+         <td colspan="4"></td>
          <td>Подпись _____________ @empty($items[0]->user->name) @else{{ $items[0]->user->name }}@endempty</td>
        </tr>
     </tfoot>
@@ -27,7 +27,7 @@
       @forelse ($items as $item)
         @if ($item['time'] == 'Вечер') @continue @endif
         <tr class="lh-md text-center">
-          <!-- <td class="d-none view-all">{{ $loop->iteration }}</td> -->
+          <td class="d-none view-all">{{ $loop->iteration }}</td>
           <td>{{ date('d.m.y', strtotime($item['updated_at'])) }}</td>
           <!-- <td class="d-none view-all">{{ date('H:i', strtotime($item['updated_at'])) }}</td>
 
@@ -58,15 +58,15 @@
           "lengthMenu": [ 50, 100, 200, 500 ],
           "pageLength": 50,
           "columnDefs": [ {
-          "targets": 2,
-          "orderable": false
-          },
-          {
           "targets": 3,
           "orderable": false
           },
           {
           "targets": 4,
+          "orderable": false
+          },
+          {
+          "targets": 5,
           "orderable": false
           }
        ],
