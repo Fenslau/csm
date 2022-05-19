@@ -27,6 +27,7 @@ class LampaNewRequest extends FormRequest
         return [
             'lampa'  => ['required'],
             'department'  => ['required'],
+            'duration_all' => ['integer', 'nullable']
         ];
     }
 }

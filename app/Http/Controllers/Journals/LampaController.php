@@ -46,9 +46,9 @@ class LampaController extends Controller
 
     public function newlampa(LampaNewRequest $request) {
         session(['department' => $request->department]);
-        $request->duration_all = $request->duration_all*60;
+
         if ($request->duration_all !== NULL)
-        $lampa = Lampalist::updateOrCreate(['department' => $request->department, 'lampa' => $request->lampa], $request->all());
+        $lampa = Lampalist::updateOrCreate(['department' => $request->department, 'lampa' => $request->lampa], ['duration_all' => $request->duration_all*60]);
         else $lampa = Lampalist::updateOrCreate(['department' => $request->department, 'lampa' => $request->lampa], $request->except('duration_all'));
         if ($lampa)
         return back()->with('success', 'Лампа добавлена');

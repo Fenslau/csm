@@ -16,7 +16,7 @@ class CreateLampalistsTable extends Migration
         Schema::create('lampalists', function (Blueprint $table) {
             $table->id();
             $table->string('department')->index();
-            $table->string('lampa')->unique();
+            $table->string('lampa')->index();
             $table->integer('duration_all')->nullable();
             $table->timestamps();
         });

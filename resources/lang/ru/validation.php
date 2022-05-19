@@ -173,6 +173,7 @@ return [
         'temperature'           => 'Температура',
         'department'            => 'Подразделение',
         'omsdms'                => 'ПЛТ/ОМС/ДМС',
-        'lampa'                 => 'Лампа'
+        'lampa'                 => 'Лампа',
+        'duration_all'          => 'Наработка'
     ],
 ];
