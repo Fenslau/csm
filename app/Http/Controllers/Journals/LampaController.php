@@ -48,8 +48,8 @@ class LampaController extends Controller
         session(['department' => $request->department]);
         $request->duration_all = $request->duration_all*60;
         if ($request->duration_all !== NULL)
-        $lampa = Lampalist::updateOrCreate(['lampa' => $request->lampa], $request->all());
-        else $lampa = Lampalist::updateOrCreate(['lampa' => $request->lampa], $request->except('duration_all'));
+        $lampa = Lampalist::updateOrCreate(['department' => $request->department, 'lampa' => $request->lampa], $request->all());
+        else $lampa = Lampalist::updateOrCreate(['department' => $request->department, 'lampa' => $request->lampa], $request->except('duration_all'));
         if ($lampa)
         return back()->with('success', 'Лампа добавлена');
         else return back()->with('error', 'Не удалось добавить лампу');
@@ -70,10 +70,10 @@ class LampaController extends Controller
         $time_off = Carbon::createFromTime($time[0], $time[1]);
         $duration = $time_on->diffInMinutes($time_off, false);
         $lampa = new Lampa();
-        $duration_all = Lampalist::where('lampa', $request->lampa)->first()->duration_all;
+        $duration_all = Lampalist::where('department', $request->department)->where('lampa', $request->lampa)->first()->duration_all;
         if (!$duration_all) $duration_all = 0;
         $user = $user->lampa()->Create($request->all() + ['duration' => $duration, 'duration_all' => $duration_all + $duration]);
-        Lampalist::where('lampa', $request->lampa)->update(['duration_all' => $duration_all + $duration]);
+        Lampalist::where('department', $request->department)->where('lampa', $request->lampa)->update(['duration_all' => $duration_all + $duration]);
         if ($duration_all/60 > env('LAMPA_NARABOTKA')) {
           session()->flash('warning', 'Пора заменить лампу <b>'.$request->lampa.'</b> Время наработки: <b>'.round($duration_all/60, 0) .' '. trans_choice('час|часа|часов', round($duration_all/60, 0), [], 'ru').'</b>');
         }
