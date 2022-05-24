@@ -22,7 +22,7 @@ class HolodController extends Controller
       $stat = new Holod();
       $items = $stat->getwhere($request)->with('user')->orderBy('updated_at', 'desc')->paginate(5000);
       $holodilniks = (['1', '2', '3', '4', '5', '6']);
-      $cities = Person::distinct()->pluck('city');
+      $cities = Department::distinct()->pluck('city');
       $organizations = Organization::distinct()->orderBy('org', 'asc')->pluck('org');
       $departments = Holodlist::distinct()->orderBy('department', 'asc')->pluck('department');
       $our_departments = Holodlist::distinct()->orderBy('department', 'asc')->pluck('department');

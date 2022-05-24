@@ -22,7 +22,7 @@ class LampaController extends Controller
         $stat = new Lampa();
         $items = $stat->getwhere($request)->with('user')->orderBy('updated_at', 'desc')->paginate(5000);
 
-        $cities = Person::distinct()->pluck('city');
+        $cities = Department::distinct()->pluck('city');
         $organizations = Organization::distinct()->orderBy('org', 'asc')->pluck('org');
         $departments = Lampalist::distinct()->orderBy('department', 'asc')->pluck('department');
         $our_departments = Lampalist::distinct()->orderBy('department', 'asc')->pluck('department');

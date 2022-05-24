@@ -72,7 +72,7 @@
               </div>
 
             </nav> -->
-
+@can('manage_users')
             <nav class="d-flex justify-content-around align-items-stretch navbar">
 
               <div class="m-1 min-content alert alert-danger">
@@ -81,6 +81,7 @@
               </div>
 
             </nav>
+@endcan            
           </div>
 
       </div>
