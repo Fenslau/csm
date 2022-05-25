@@ -127,8 +127,8 @@
       <div class="d-flex justify-content-between align-items-center flex-wrap mt-3 mb-2">
         <form class="form-inline" action="{{ route('otkaz') }}" method="GET">
           <div class="input-group align-items-center">
-            С <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="{{ date('Y-m') }}-01"	max="{{ date('Y-m-d') }}" min="2022-04-01">
-            по <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-01">
+            <span class="mx-1">С</span> <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="{{ date('Y-m') }}-01"	max="{{ date('Y-m-d') }}" min="2022-04-01">
+            <span class="mr-1 ml-2">по</span> <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-01">
             <div class="input-group-append">
               <button type="submit" class="btn btn-sm btn-outline-danger shadow-none">Показать</button>
             </div>
