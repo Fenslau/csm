@@ -56,7 +56,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6">
       <form class="stat-otkaz" action="{{ route('otkaz-stat') }}" method="GET">
             <div class="d-flex flex-nowrap justify-content-between form-group m-1">
               <label class="mr-3" for="city">Город: </label>
