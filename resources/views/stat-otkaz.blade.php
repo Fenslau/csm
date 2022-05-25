@@ -65,8 +65,17 @@
                   <option class="text-truncate" value="{{ $city }}" @if (is_array($request->city) AND in_array($city, $request->city)) selected @endif>{{ $city }}</option>
                 @endforeach
               </select>
+              <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="city_all">Выбрать всё</button>
             </div>
-
+            <script>
+            $(document).ready(function () {
+              $(document).on('click', '#city_all', function (e) {
+                  e.preventDefault();
+                  $('#city option').prop('selected', true);
+                  $('#city').trigger('chosen:updated');
+              });
+            });
+            </script>
           <!-- <div class="d-flex flex-nowrap justify-content-between form-group m-1">
             <label class="mr-3" for="organization">Организация: </label>
             <select multiple id="organization" class="form-control text-truncate chosen-select" data-placeholder="Выберите организацию" name="organization[]">
@@ -84,7 +93,17 @@
                 <option class="text-truncate" value="{{ $department }}" @if (is_array($request->department) AND in_array($department, $request->department)) selected @endif>{{ $department }}</option>
               @endforeach
             </select>
+            <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="department_all">Выбрать всё</button>
           </div>
+          <script>
+          $(document).ready(function () {
+            $(document).on('click', '#department_all', function (e) {
+                e.preventDefault();
+                $('#department option').prop('selected', true);
+                $('#department').trigger('chosen:updated');
+            });
+          });
+          </script>
 
           <div class="d-flex flex-nowrap justify-content-between form-group m-1">
             <label class="mr-3 text-nowrap" for="omsdms">ПЛТ/ОМС/ДМС: </label>
@@ -93,7 +112,17 @@
                 <option class="" value="ОМС" @if (is_array($request->omsdms) AND in_array("ОМС", $request->omsdms)) selected @endif>ОМС</option>
                 <option class="" value="ДМС" @if (is_array($request->omsdms) AND in_array("ДМС", $request->omsdms)) selected @endif>ДМС</option>
             </select>
+            <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="omsdms_all">Выбрать всё</button>
           </div>
+          <script>
+          $(document).ready(function () {
+            $(document).on('click', '#omsdms_all', function (e) {
+                e.preventDefault();
+                $('#omsdms option').prop('selected', true);
+                $('#omsdms').trigger('chosen:updated');
+            });
+          });
+          </script>
 
         <div class="d-flex flex-nowrap justify-content-between form-group m-1">
           <label class="mr-3 text-nowrap" for="theme">Тема отказа: </label>
@@ -102,7 +131,17 @@
               <option class="text-truncate" value="{{ $theme->id }}" @if (is_array($request->theme_id) AND in_array($theme->id, $request->theme_id)) selected @endif>{{ $theme->theme }}</option>
             @endforeach
           </select>
+          <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="theme_all">Выбрать всё</button>
         </div>
+        <script>
+        $(document).ready(function () {
+          $(document).on('click', '#theme_all', function (e) {
+              e.preventDefault();
+              $('#theme option').prop('selected', true);
+              $('#theme').trigger('chosen:updated');
+          });
+        });
+        </script>
 
         <div class="d-flex flex-nowrap justify-content-between form-group m-1">
           <label class="mr-3 text-nowrap" for="reason">Причина отказа: </label>
@@ -111,8 +150,17 @@
               <option class="text-truncate" value="{{ $reason->id }}" @if (is_array($request->reason_id) AND in_array($reason->id, $request->reason_id)) selected @endif>{{ $reason->reason }}</option>
             @endforeach
           </select>
+          <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="reason_all">Выбрать всё</button>
         </div>
-
+        <script>
+        $(document).ready(function () {
+          $(document).on('click', '#reason_all', function (e) {
+              e.preventDefault();
+              $('#reason option').prop('selected', true);
+              $('#reason').trigger('chosen:updated');
+          });
+        });
+        </script>
 
         <div class="form-group row m-1 align-items-center">
           С <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="{{ date('Y-m') }}-01"	max="{{ date('Y-m-d') }}" min="2022-04-01">
