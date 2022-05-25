@@ -24,7 +24,7 @@
           <span>Подразделение: </span> <span class="ml-3 text-truncate">{{ $user->department }}</span>
         </div>
       </div>
-
+@can('manage_users')
       <form class="form-inline" action="{{ route('give_roles', $user->id) }}" method="post">
         @csrf
         <div class="input-group">
@@ -45,6 +45,7 @@
           </div>
         </div>
       </form>
+@endcan
       <div class="text-center m-5">
         <input class="btn btn-success" type="button" onclick="history.back();" value="Назад"/>
       </div>

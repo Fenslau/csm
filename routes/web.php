@@ -81,7 +81,7 @@ Route::get('/procedure', 'App\Http\Controllers\ProcedureController@main')
 
 
 Route::get('/users', 'App\Http\Controllers\UserController@main')
-->name('users');
+->can('manage_users')->name('users');
 Route::post('/users/new', 'App\Http\Controllers\UserController@new')
 ->name('new-user');
 Route::post('/users/search', 'App\Http\Controllers\UserController@search')
@@ -89,19 +89,19 @@ Route::post('/users/search', 'App\Http\Controllers\UserController@search')
 Route::get('/users/{id}', 'App\Http\Controllers\UserController@id')
 ->name('user');
 Route::post('/users/{id}/update', 'App\Http\Controllers\UserController@update')
-->name('user-update');
+->can('manage_users')->name('user-update');
 Route::post('/users/{id}/give_roles', 'App\Http\Controllers\UserController@give_roles')
-->name('give_roles');
+->can('manage_users')->name('give_roles');
 
 
 Route::post('/roles/new', 'App\Http\Controllers\RoleController@new')
-->name('new-role');
+->can('manage_users')->name('new-role');
 Route::post('/roles/del', 'App\Http\Controllers\RoleController@del')
-->name('role-del');
+->can('manage_users')->name('role-del');
 Route::get('/roles/{id}', 'App\Http\Controllers\RoleController@id')
 ->name('role');
 Route::post('/roles/{id}/give_permissions', 'App\Http\Controllers\RoleController@give_permissions')
-->name('give_permissions');
+->can('manage_users')->name('give_permissions');
 
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')
 ->name('login');
