@@ -44,3 +44,38 @@ ul.chosen-choices {
 .dataTables_filter {
 	float: left !important;
 }
+
+/* ПЕРЕКРАСКА :( */
+.header {
+	background-color: rgb(35, 64, 143);
+}
+.btn-header {
+	color: #fff;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	height: 3rem;
+}
+.btn-header:hover {
+	color: #fff;
+	background-color: #4261b5;
+}
+.btn-csm {
+	background-color: rgb(35, 64, 143) !important;
+	color: #fff !important;
+	border: none !important
+}
+.btn-csm:hover {
+	background-color: #4261b5 !important;
+	color: white !important;
+
+}
+.btn-outline-csm {
+    color: rgb(35, 64, 143) !important;
+    border-color: rgb(35, 64, 143) !important;
+}
+.btn-outline-csm:not(:disabled):not(.disabled).active, .btn-outline-csm:hover {
+		color: #fff !important;
+    background-color: rgb(35, 64, 143) !important;
+    border-color: rgb(35, 64, 143) !important;
+}

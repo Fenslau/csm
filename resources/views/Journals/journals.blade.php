@@ -35,13 +35,13 @@
             </nav> -->
 
             <nav class="d-flex justify-content-around align-items-stretch navbar">
-              <div class="m-1 min-content alert alert-success">
+              <div class="m-1 min-content alert alert-success btn-csm">
                 <p class="text-center lh-sm mb-0"><small>Регистрация и контроль температурного режима</small></p>
-                <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journal-holod') }}">холодильника</a>
+                <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase text-white" href="{{ route('journal-holod') }}">холодильника</a>
               </div>
-              <div class="m-1 min-content alert alert-success">
+              <div class="m-1 min-content alert alert-success btn-csm">
                 <p class="text-center lh-sm mb-0"><small>учёт работы</small></p>
-                <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journal-lampa') }}">бактерицидной установки</a>
+                <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase text-white" href="{{ route('journal-lampa') }}">бактерицидной установки</a>
               </div>
             </nav>
       </div>

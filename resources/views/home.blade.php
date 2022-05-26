@@ -44,12 +44,12 @@
                     <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('procedure') }}">Процедурный кабинет</a>
                     <p class="d-none d-md-block text-center lh-sm"><small>регистрация манипуляций</small></p>
                   </div> -->
-                  <div class="m-1 min-content alert alert-success">
-                    <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journals') }}">Журналы</a>
+                  <div class="m-1 min-content alert alert-success btn-csm">
+                    <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase text-white" href="{{ route('journals') }}">Журналы</a>
                     <p class="text-center lh-sm"><small>холодильники, уборка помещений, кварцевание и т.п</small></p>
                   </div>
-                  <div class="m-1 min-content alert alert-success">
-                    <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('otkaz') }}">Регистрация отказов</a>
+                  <div class="m-1 min-content alert alert-success btn-csm">
+                    <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase text-white" href="{{ route('otkaz') }}">Регистрация отказов</a>
                     <p class="text-center lh-sm"><small>отказы клиники в запросах пациентов на медицинские услуги</small></p>
                   </div>
                 </nav>
@@ -81,7 +81,7 @@
               </div>
 
             </nav>
-@endcan            
+@endcan
           </div>
 
       </div>

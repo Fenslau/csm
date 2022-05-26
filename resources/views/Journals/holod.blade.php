@@ -43,10 +43,10 @@
           </div>
 
           <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
-            <label class="btn btn-outline-success btn-sm shadow-none mr-3">
+            <label class="btn btn-outline-success btn-sm shadow-none mr-3 btn-outline-csm">
               <input type="radio" name="time" id="plt" value="utro" autocomplete="off"> Утро
             </label>
-            <label class="btn btn-outline-success btn-sm shadow-none">
+            <label class="btn btn-outline-success btn-sm shadow-none btn-outline-csm">
               <input type="radio" name="time" id="oms" value="vecher" autocomplete="off"> Вечер
             </label>
           </div>
@@ -60,7 +60,7 @@
           </div>
 
           <div class="form-group row m-1">
-            <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1">Зарегистрировать</button>
+            <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1 btn-csm">Зарегистрировать</button>
           </div>
         </form>
         <script>
@@ -120,7 +120,7 @@
             <span class="mr-1 ml-2">по</span> <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-01">
 
             <div class="input-group-append">
-              <button type="submit" class="btn btn-sm btn-outline-danger shadow-none">Показать</button>
+              <button type="submit" class="btn btn-sm btn-outline-danger shadow-none btn-csm">Показать</button>
             </div>
           </div>
         </form>
@@ -166,8 +166,8 @@
     <div class="col">
       <div class="d-flex flex-wrap justify-content-around my-5">
         @can('holod_all_view')
-        <div class="alert alert-danger max-content p-0">
-          <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journal-holod-list') }}">Список холодильников</a>
+        <div class="alert  max-content p-0">
+          <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase btn-csm" href="{{ route('journal-holod-list') }}">Список холодильников</a>
         </div>
         @endcan
       </div>

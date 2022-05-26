@@ -74,7 +74,7 @@
        buttons: [
                {
                    extend: 'excel',
-                   className: 'btn btn-sm btn-success shadow-none',
+                   className: 'btn btn-sm btn-success shadow-none border-0',
                    text: 'Excel',
                    exportOptions: {
                       columns: '.printable'
@@ -85,7 +85,7 @@
                },
                {
                    extend: 'print',
-                   className: 'btn btn-sm btn-info shadow-none',
+                   className: 'btn btn-sm btn-info shadow-none btn-csm',
                    text: 'Печать',
                    footer: true,
                    customize: function ( win ) {

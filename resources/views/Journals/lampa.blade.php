@@ -37,10 +37,10 @@
           </div>
 
           <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
-            <label class="btn btn-outline-success btn-sm shadow-none">
+            <label class="btn btn-outline-success btn-sm shadow-none btn-outline-csm">
               <input type="radio" name="lampa_type" value="Повторно-кратковременный" autocomplete="off"> Ультрафиолетовая <br><small>бактерицидная установка</small>
             </label>
-            <label class="btn btn-outline-success btn-sm shadow-none border-left-0">
+            <label class="btn btn-outline-success btn-sm shadow-none border-left-0 btn-outline-csm">
               <input type="radio" name="lampa_type" value="Непрерывный" autocomplete="off"> Бактерицидный <br>рециркулятор
             </label>
           </div>
@@ -53,19 +53,19 @@
           </div>
 
           <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
-            <label class="btn btn-outline-success btn-sm shadow-none">
+            <label class="btn btn-outline-success btn-sm shadow-none btn-outline-csm">
               <input type="radio" name="condition" value="В отсутствии людей" autocomplete="off"> В отсутствии людей
             </label>
-            <label class="btn btn-outline-success btn-sm shadow-none border-left-0">
+            <label class="btn btn-outline-success btn-sm shadow-none border-left-0 btn-outline-csm">
               <input type="radio" name="condition" value="В присутствии людей" autocomplete="off"> В присутствии людей
             </label>
           </div>
 
           <div class="btn-group btn-group-toggle m-1 mb-2" data-toggle="buttons">
-            <label class="btn btn-outline-success btn-sm shadow-none">
+            <label class="btn btn-outline-success btn-sm shadow-none btn-outline-csm">
               <input type="radio" name="rad_mode" value="Повторно-кратковременный" autocomplete="off"> Повторно-кратковременный
             </label>
-            <label class="btn btn-outline-success btn-sm shadow-none border-left-0">
+            <label class="btn btn-outline-success btn-sm shadow-none border-left-0 btn-outline-csm">
               <input type="radio" name="rad_mode" value="Непрерывный" autocomplete="off"> Непрерывный
             </label>
           </div>
@@ -83,7 +83,7 @@
           <div class="text-center"><small>длительность будет вычислена автоматически и добавлена в журнал</small></div>
 
           <div class="form-group row m-1">
-            <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1">Зарегистрировать</button>
+            <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1 btn-csm">Зарегистрировать</button>
           </div>
         </form>
         <script>
@@ -144,7 +144,7 @@
             <span class="mr-1 ml-2">по</span> <input class="w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-01">
 
             <div class="input-group-append">
-              <button type="submit" class="btn btn-sm btn-outline-danger shadow-none">Показать</button>
+              <button type="submit" class="btn btn-sm btn-outline-danger shadow-none btn-csm">Показать</button>
             </div>
           </div>
         </form>
@@ -189,12 +189,12 @@
     <div class="col">
       <div class="d-flex flex-wrap justify-content-around my-5">
 
-          <div class="alert alert-danger max-content p-0">
-            <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('narabotka-lamp') }}">Наработка ламп</a>
+          <div class="alert  max-content p-0">
+            <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase btn-csm" href="{{ route('narabotka-lamp') }}">Наработка ламп</a>
           </div>
           @can('lampa_all_view')
-          <div class="alert alert-danger max-content p-0">
-            <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('journal-lampa-list') }}">Список ламп</a>
+          <div class="alert  max-content p-0">
+            <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase btn-csm" href="{{ route('journal-lampa-list') }}">Список ламп</a>
           </div>
           @endcan
       </div>

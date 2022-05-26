@@ -37,7 +37,7 @@
           <input type="text" autocomplete="off" class="form-control form-control-sm form-control" name="duration_all" placeholder="Наработка на данный момент">
         </div>
         <div class="form-group row m-1 my-3">
-            <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1">Добавить</button>
+            <button type="submit" @auth @else disabled @endauth class="btn btn btn-outline-success shadow-none flex-grow-1 btn-csm">Добавить</button>
         </div>
       </form>
     </div>

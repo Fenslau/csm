@@ -27,7 +27,7 @@
           </select>
           <input type="text" autocomplete="off" class="form-control form-control-sm border-success border-right-0 form-control" name="holodilnik" placeholder="Холодильник">
           <div class="input-group-append">
-            <button class="btn btn-sm btn-outline-success text-nowrap shadow-none" type="submit">Добавить</button>
+            <button class="btn btn-sm btn-outline-success text-nowrap shadow-none btn-csm" type="submit">Добавить</button>
           </div>
         </div>
       </form>

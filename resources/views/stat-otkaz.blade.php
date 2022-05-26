@@ -65,7 +65,7 @@
                   <option class="text-truncate" value="{{ $city }}" @if (is_array($request->city) AND in_array($city, $request->city)) selected @endif>{{ $city }}</option>
                 @endforeach
               </select>
-              <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="city_all">Выбрать всё</button>
+              <button class="btn btn-sm btn-outline-info text-nowrap shadow-none btn-outline-csm" id="city_all">Выбрать всё</button>
             </div>
             <script>
             $(document).ready(function () {
@@ -93,7 +93,7 @@
                 <option class="text-truncate" value="{{ $department }}" @if (is_array($request->department) AND in_array($department, $request->department)) selected @endif>{{ $department }}</option>
               @endforeach
             </select>
-            <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="department_all">Выбрать всё</button>
+            <button class="btn btn-sm btn-outline-info text-nowrap shadow-none btn-outline-csm" id="department_all">Выбрать всё</button>
           </div>
           <script>
           $(document).ready(function () {
@@ -112,7 +112,7 @@
                 <option class="" value="ОМС" @if (is_array($request->omsdms) AND in_array("ОМС", $request->omsdms)) selected @endif>ОМС</option>
                 <option class="" value="ДМС" @if (is_array($request->omsdms) AND in_array("ДМС", $request->omsdms)) selected @endif>ДМС</option>
             </select>
-            <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="omsdms_all">Выбрать всё</button>
+            <button class="btn btn-sm btn-outline-info text-nowrap shadow-none btn-outline-csm" id="omsdms_all">Выбрать всё</button>
           </div>
           <script>
           $(document).ready(function () {
@@ -131,7 +131,7 @@
               <option class="text-truncate" value="{{ $theme->id }}" @if (is_array($request->theme_id) AND in_array($theme->id, $request->theme_id)) selected @endif>{{ $theme->theme }}</option>
             @endforeach
           </select>
-          <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="theme_all">Выбрать всё</button>
+          <button class="btn btn-sm btn-outline-info text-nowrap shadow-none btn-outline-csm" id="theme_all">Выбрать всё</button>
         </div>
         <script>
         $(document).ready(function () {
@@ -150,7 +150,7 @@
               <option class="text-truncate" value="{{ $reason->id }}" @if (is_array($request->reason_id) AND in_array($reason->id, $request->reason_id)) selected @endif>{{ $reason->reason }}</option>
             @endforeach
           </select>
-          <button class="btn btn-sm btn-outline-info text-nowrap shadow-none" id="reason_all">Выбрать всё</button>
+          <button class="btn btn-sm btn-outline-info text-nowrap shadow-none btn-outline-csm" id="reason_all">Выбрать всё</button>
         </div>
         <script>
         $(document).ready(function () {
@@ -167,7 +167,7 @@
           по <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-01">
         </div>
         <div class="form-group row m-1">
-          <button type="submit" class="btn btn-outline-danger shadow-none flex-grow-1 mr-2">Показать</button>
+          <button type="submit" class="btn btn-outline-danger shadow-none flex-grow-1 mr-2 btn-csm">Показать</button>
           <input type="reset" class="btn btn-outline-secondary shadow-none" value="Сбросить" onclick="$('.chosen-select option:selected').removeAttr('selected'); $('.chosen-select option').prop('selected', false); $('.chosen-select').trigger('chosen:updated');">
         </div>
       </form>
