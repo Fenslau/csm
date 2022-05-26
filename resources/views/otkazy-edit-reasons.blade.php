@@ -15,7 +15,7 @@
         <div class="input-group mb-3">
           <input type="text" autocomplete="off" class="border-success border-right-0 form-control" name="reason" placeholder="Причина отказа">
           <div class="input-group-append">
-            <button class="btn btn-outline-success text-nowrap shadow-none" type="submit">Добавить причину</button>
+            <button class="btn btn-outline-success text-nowrap shadow-none btn-csm" type="submit">Добавить причину</button>
           </div>
         </div>
       </form>
