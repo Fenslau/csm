@@ -174,6 +174,170 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col">
+        <figure class="highcharts-figure mt-5">
+            <div id="container0.1"></div>
+            <p class="highcharts-description">
+            </p>
+        </figure>
+        <script>
+          $(document).ready(function () {
+              Highcharts.chart('container0.1', {
+                  chart: {
+                      plotBackgroundColor: null,
+                      plotBorderWidth: null,
+                      plotShadow: false,
+                      type: 'pie'
+                  },
+                  title: {
+                      text: 'Распределение отказов по городам'
+                  },
+                  tooltip: {
+                      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                  },
+                  accessibility: {
+                      point: {
+                          valueSuffix: '%'
+                      }
+                  },
+                  plotOptions: {
+                      pie: {
+                          allowPointSelect: true,
+                          cursor: 'pointer',
+                          dataLabels: {
+                              enabled: true,
+                              format: '<b>{point.name}</b>: {point.y:.0f}'
+                          }
+                      }
+                  },
+                  series: [{
+                      name: 'Отказы',
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_cities as $city)
+                        		    {
+                                    name: '{{ $city->city }}',
+                                    y: {{ $city->count }}
+                                },
+                        @endforeach
+                	    ]
+                  }]
+              });
+            });
+        </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <figure class="highcharts-figure mt-5">
+            <div id="container0.2"></div>
+            <p class="highcharts-description">
+            </p>
+        </figure>
+        <script>
+          $(document).ready(function () {
+              Highcharts.chart('container0.2', {
+                  chart: {
+                      plotBackgroundColor: null,
+                      plotBorderWidth: null,
+                      plotShadow: false,
+                      type: 'pie'
+                  },
+                  title: {
+                      text: 'Распределение отказов по способу оплаты'
+                  },
+                  tooltip: {
+                      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                  },
+                  accessibility: {
+                      point: {
+                          valueSuffix: '%'
+                      }
+                  },
+                  plotOptions: {
+                      pie: {
+                          allowPointSelect: true,
+                          cursor: 'pointer',
+                          dataLabels: {
+                              enabled: true,
+                              format: '<b>{point.name}</b>: {point.y:.0f}'
+                          }
+                      }
+                  },
+                  series: [{
+                      name: 'Отказы',
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_oplata as $oplata)
+                        		    {
+                                    name: '{{ $oplata->omsdms }}',
+                                    y: {{ $oplata->count }}
+                                },
+                        @endforeach
+                	    ]
+                  }]
+              });
+            });
+        </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <figure class="highcharts-figure mt-5">
+            <div id="container0.3"></div>
+            <p class="highcharts-description">
+            </p>
+        </figure>
+        <script>
+          $(document).ready(function () {
+              Highcharts.chart('container0.3', {
+                  chart: {
+                      plotBackgroundColor: null,
+                      plotBorderWidth: null,
+                      plotShadow: false,
+                      type: 'pie'
+                  },
+                  title: {
+                      text: 'Распределение отказов по подразделениям'
+                  },
+                  tooltip: {
+                      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                  },
+                  accessibility: {
+                      point: {
+                          valueSuffix: '%'
+                      }
+                  },
+                  plotOptions: {
+                      pie: {
+                          allowPointSelect: true,
+                          cursor: 'pointer',
+                          dataLabels: {
+                              enabled: true,
+                              format: '<b>{point.name}</b>: {point.y:.0f}'
+                          }
+                      }
+                  },
+                  series: [{
+                      name: 'Отказы',
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_departments as $department)
+                                {
+                                    name: '{{ $department->department }}',
+                                    y: {{ $department->count }}
+                                },
+                        @endforeach
+                      ]
+                  }]
+              });
+            });
+        </script>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col">

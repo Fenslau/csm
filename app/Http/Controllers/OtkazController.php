@@ -101,6 +101,8 @@ class OtkazController extends Controller
              return Carbon::parse($date->created_at)->format('d.m');
           })->take(30)->reverse();
       }
+      $our_cities = $stat->getwhere($request)->select('city', DB::raw('count(*) as count'))->groupBy('city')->orderBy('count', 'desc')->get();
+      $our_oplata = $stat->getwhere($request)->select('omsdms', DB::raw('count(*) as count'))->groupBy('omsdms')->orderBy('count', 'desc')->get();
 
       $reasons = Reason::orderBy('reason')->get();
       $themes = Theme::orderBy('theme')->get();
@@ -110,7 +112,7 @@ class OtkazController extends Controller
       $cities = Department::distinct()->pluck('city');
       $departments = Department::distinct()->pluck('department');
 
-      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
+      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
     }
 
     public function editreasons() {
