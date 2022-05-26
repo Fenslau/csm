@@ -1,4 +1,4 @@
-@extends('layouts.app')
+иет@extends('layouts.app')
 
 @section('title-block', 'Редактирование тем отказов ЦСМ')
 @section('description-block', '')
@@ -15,7 +15,7 @@
         <div class="input-group mb-3">
           <input type="text" autocomplete="off" class="border-success border-right-0 form-control" name="theme" placeholder="Тема отказа">
           <div class="input-group-append">
-            <button class="btn btn-outline-success text-nowrap shadow-none" type="submit">Добавить тему</button>
+            <button clиетass="btn btn-outline-success text-nowrap shadow-none btn-csm" type="submit">Добавить тему</button>
           </div>
         </div>
       </form>
