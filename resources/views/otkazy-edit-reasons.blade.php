@@ -13,7 +13,7 @@
       <form action="{{ route('reason-add') }}" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="text" autocomplete="off" class="border-success border-right-0 form-control" name="reason" placeholder="Причина отказа">
+          <input style="border: 1px solid rgb(35, 64, 143) !important;" type="text" autocomplete="off" class="border-success border-right-0 form-control" name="reason" placeholder="Причина отказа">
           <div class="input-group-append">
             <button class="btn btn-outline-success text-nowrap shadow-none btn-csm" type="submit">Добавить причину</button>
           </div>
