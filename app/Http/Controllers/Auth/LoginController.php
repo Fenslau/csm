@@ -59,10 +59,11 @@ class LoginController extends Controller
         );
         $ad = new Adldap($config);
         if ($ad->authenticate(strtoupper($credentials['login']), $credentials['password'], TRUE)) {
-          $info = $ad->user()->info(strtoupper($credentials['login']));
-          $user['name'] = $info['displayname'];
-          $user['email'] = $info['mail'];
-          return $user;
+            if ($info = $ad->user()->info(strtoupper($credentials['login']))) {
+            $user['name'] = $info['displayname'];
+            $user['email'] = $info['mail'];
+            return $user;
+          }
         }
         return FALSE;
     }
