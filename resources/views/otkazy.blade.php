@@ -152,12 +152,12 @@
   <div class="row">
     <div class="col">
         <div class="d-flex flex-wrap justify-content-around my-5">
-          @can('otkaz_reason_edit')
+          @can('otkaz_all_view')
             <div class="alert  max-content p-0">
               <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase btn-csm" href="{{ route('edit_otkaz_reasons') }}">Причины</a>
             </div>
           @endcan
-          @can('otkaz_theme_edit')
+          @can('otkaz_all_view')
             <div class="alert  max-content p-0">
               <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase btn-csm" href="{{ route('edit_otkaz_themes') }}">Темы</a>
             </div>
