@@ -26,7 +26,7 @@
             @endforelse
           </select>
           <div class="input-group-append">
-            <button type="submit" class="btn btn-sm btn-outline-success shadow-none">Выдать права</button>
+            <button type="submit" class="btn btn-sm btn-outline-success shadow-none btn-csm">Выдать права</button>
           </div>
         </div>
       </form>
