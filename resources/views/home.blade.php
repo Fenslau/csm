@@ -75,8 +75,8 @@
 @can('manage_users')
             <nav class="d-flex justify-content-around align-items-stretch navbar">
 
-              <div class="m-1 min-content alert alert-danger">
-                <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('users') }}">Управление пользователями</a>
+              <div class="m-1 min-content alert  btn-csm">
+                <a class="nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase text-white" href="{{ route('users') }}">Управление пользователями</a>
                 <p class="text-center lh-sm"><small>контроль пользователей, выдача ролей, прав</small></p>
               </div>
 
