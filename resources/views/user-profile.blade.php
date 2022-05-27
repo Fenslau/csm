@@ -41,13 +41,13 @@
             @endforelse
           </select>
           <div class="input-group-append">
-            <button type="submit" class="btn btn-sm btn-outline-success shadow-none">Выдать роли</button>
+            <button type="submit" class="btn btn-sm btn-outline-success shadow-none btn-csm">Выдать роли</button>
           </div>
         </div>
       </form>
 @endcan
       <div class="text-center m-5">
-        <input class="btn btn-success" type="button" onclick="history.back();" value="Назад"/>
+        <input class="btn btn-success btn-csm" type="button" onclick="history.back();" value="Назад"/>
       </div>
     </div>
   </div>

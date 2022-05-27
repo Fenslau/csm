@@ -16,9 +16,9 @@
           <h5 class="text-center">Все пользователи</h5>
           <form class="form-inline" name="search-user" action="{{ route('user-search') }}" method="post">
             <div class="input-group m-1">
-              <input type="text" size="23" autocomplete="off" class="form-control form-control-sm border-warning" name="search" placeholder="Поиск">
+              <input type="text" size="23" autocomplete="off" class="form-control form-control-sm" name="search" placeholder="Поиск">
               <div class="input-group-append">
-                <button type="submit" class="btn btn-sm btn-warning shadow-none">Найти</button>
+                <button type="submit" class="btn btn-sm btn-warning shadow-none btn-csm">Найти</button>
               </div>
             </div>
           </form>
@@ -37,9 +37,9 @@
         <form class="form-inline flex-md-nowrap" action="{{ route('new-role') }}" method="POST">
           @csrf
           <div class="input-group m-1">
-            <input type="text" autocomplete="off" class="border-success border-right-0 form-control form-control-sm" name="role_name" placeholder="Название" value="{{ old('role_name') }}">
+            <input type="text" autocomplete="off" class="border-right-0 form-control form-control-sm" name="role_name" placeholder="Название" value="{{ old('role_name') }}">
             <div class="input-group-append">
-              <button type="submit" class="btn btn-sm btn-outline-success shadow-none">Создать роль</button>
+              <button type="submit" class="btn btn-sm btn-outline-success shadow-none btn-csm">Создать роль</button>
             </div>
           </div>
         </form>
