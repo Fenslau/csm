@@ -163,17 +163,28 @@
         </script>
 
         <div class="form-group row m-1 align-items-center">
-          С <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" value="{{ date('Y-m') }}-01"	max="{{ date('Y-m-d') }}" min="2022-04-01">
-          по <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}" min="2022-04-01">
+          С <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_from" @if($request->calendar_from) value="{{ $request->calendar_from }}" @else value="{{ date('Y-m') }}-01" @endif max="{{ date('Y-m-d') }}" min="2022-04-01">
+          по <input class="mx-1 w-auto form-control form-control-sm datepicker" type="date" name="calendar_to" @if($request->calendar_from) value="{{ $request->calendar_to }}" @else value="{{ date('Y-m-d') }}" @endif max="{{ date('Y-m-d') }}" min="2022-04-01">
         </div>
         <div class="form-group row m-1">
           <button type="submit" class="btn btn-outline-danger shadow-none flex-grow-1 mr-2 btn-csm">Показать</button>
-          <input type="reset" class="btn btn-outline-secondary shadow-none" value="Сбросить" onclick="$('.chosen-select option:selected').removeAttr('selected'); $('.chosen-select option').prop('selected', false); $('.chosen-select').trigger('chosen:updated');">
+          <input id="reset" type="reset" class="btn btn-outline-secondary shadow-none" value="Сбросить">
         </div>
       </form>
     </div>
   </div>
-
+<script>
+  $(document).ready(function () {
+      $(document).on('click', '#reset', function (e) {
+        e.preventDefault();
+        $('.chosen-select option:selected').removeAttr('selected');
+        $('.chosen-select option').prop('selected', false);
+        $('.chosen-select').trigger('chosen:updated');
+        $('input[name = "calendar_from"]').prop('value', '{{ date('Y-m') }}-01');
+        $('input[name = "calendar_to"]').prop('value', '{{ date('Y-m-d') }}');
+      });
+  });
+</script>
   <div class="row">
     <div class="col">
         <figure class="highcharts-figure mt-5">
@@ -336,6 +347,87 @@
               });
             });
         </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container1.7"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container1.7', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Распределение отказов по подразделениям с учётом вида оплаты'
+              },
+              xAxis: {
+                  categories: [
+                    @foreach ($our_departments as $department)
+                    '{{ $department->department }}',
+                    @endforeach
+                  ]
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Количество отказов'
+                  },
+                  stackLabels: {
+                      enabled: true,
+                      style: {
+                          fontWeight: 'bold',
+                          color: ( // theme
+                              Highcharts.defaultOptions.title.style &&
+                              Highcharts.defaultOptions.title.style.color
+                          ) || 'gray'
+                      }
+                  }
+              },
+              legend: {
+                  align: 'right',
+                  x: -30,
+                  verticalAlign: 'top',
+                  y: 25,
+                  floating: true,
+                  backgroundColor:
+                      Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                  borderColor: '#CCC',
+                  borderWidth: 1,
+                  shadow: false
+              },
+              tooltip: {
+                  headerFormat: '<b>{point.x}</b><br/>',
+                  pointFormat: '{series.name}: {point.y}<br/>Всего: {point.stackTotal}'
+              },
+              plotOptions: {
+                  column: {
+                      stacking: 'normal',
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+              },
+              series: [
+                @foreach ($dep_op as $op => $dep)
+                  {
+                    name: '{{ $op }}',
+                    data: [
+                      @foreach ($dep as $value)
+                        @if($value > 0) {{ $value }}, @else '', @endif
+                      @endforeach
+                    ]
+                  },
+                @endforeach
+              ]
+          });
+        });
+      </script>
     </div>
   </div>
 

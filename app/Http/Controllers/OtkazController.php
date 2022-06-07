@@ -103,6 +103,18 @@ class OtkazController extends Controller
       }
       $our_cities = $stat->getwhere($request)->select('city', DB::raw('count(*) as count'))->groupBy('city')->orderBy('count', 'desc')->get();
       $our_oplata = $stat->getwhere($request)->select('omsdms', DB::raw('count(*) as count'))->groupBy('omsdms')->orderBy('count', 'desc')->get();
+      foreach ($our_oplata as &$oplata) {
+        $oplata->departments = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('omsdms', $oplata->omsdms)->groupBy('department')->get()->toArray();
+      }
+
+      $dep_op = array();
+      foreach ($our_oplata as $oplata) {
+         $dep_op[$oplata->omsdms] = array();
+         foreach ($our_departments as $department) {
+           if (array_search($department->department, array_column($oplata->departments, 'department')) !== FALSE) $dep_op[$oplata->omsdms][] = $oplata->departments[array_search($department->department, array_column($oplata->departments, 'department'))]['count'];
+           else $dep_op[$oplata->omsdms][] = 0;
+         }
+      }
 
       $reasons = Reason::orderBy('reason')->get();
       $themes = Theme::orderBy('theme')->get();
@@ -112,7 +124,7 @@ class OtkazController extends Controller
       $cities = Department::distinct()->pluck('city');
       $departments = Department::distinct()->pluck('department');
 
-      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes'));
+      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes', 'dep_op'));
     }
 
     public function editreasons() {
