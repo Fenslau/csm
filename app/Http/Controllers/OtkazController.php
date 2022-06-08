@@ -105,16 +105,34 @@ class OtkazController extends Controller
       $our_oplata = $stat->getwhere($request)->select('omsdms', DB::raw('count(*) as count'))->groupBy('omsdms')->orderBy('count', 'desc')->get();
       foreach ($our_oplata as &$oplata) {
         $oplata->departments = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('omsdms', $oplata->omsdms)->groupBy('department')->get()->toArray();
+        $oplata->themes = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('omsdms', $oplata->omsdms)->groupBy('theme_id')->get()->toArray();
+        $oplata->reasons = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('omsdms', $oplata->omsdms)->groupBy('reason_id')->get()->toArray();
       }
 
-      $dep_op = array();
-      foreach ($our_oplata as $oplata) {
-         $dep_op[$oplata->omsdms] = array();
-         foreach ($our_departments as $department) {
-           if (array_search($department->department, array_column($oplata->departments, 'department')) !== FALSE) $dep_op[$oplata->omsdms][] = $oplata->departments[array_search($department->department, array_column($oplata->departments, 'department'))]['count'];
-           else $dep_op[$oplata->omsdms][] = 0;
-         }
-      }
+          $dep_op = array();
+          foreach ($our_oplata as $oplata) {
+             $dep_op[$oplata->omsdms] = array();
+             foreach ($our_departments as $department) {
+               if (array_search($department->department, array_column($oplata->departments, 'department')) !== FALSE) $dep_op[$oplata->omsdms][] = $oplata->departments[array_search($department->department, array_column($oplata->departments, 'department'))]['count'];
+               else $dep_op[$oplata->omsdms][] = 0;
+             }
+          }
+          $theme_op = array();
+          foreach ($our_oplata as $oplata) {
+             $theme_op[$oplata->omsdms] = array();
+             foreach ($our_themes as $theme) {
+               if (array_search($theme->theme->id, array_column($oplata->themes, 'theme_id')) !== FALSE) $theme_op[$oplata->omsdms][] = $oplata->themes[array_search($theme->theme->id, array_column($oplata->themes, 'theme_id'))]['count'];
+               else $theme_op[$oplata->omsdms][] = 0;
+             }
+          }
+          $reason_op = array();
+          foreach ($our_oplata as $oplata) {
+             $reason_op[$oplata->omsdms] = array();
+             foreach ($our_reasons as $reason) {
+               if (array_search($reason->reason->id, array_column($oplata->reasons, 'reason_id')) !== FALSE) $reason_op[$oplata->omsdms][] = $oplata->reasons[array_search($reason->reason->id, array_column($oplata->reasons, 'reason_id'))]['count'];
+               else $reason_op[$oplata->omsdms][] = 0;
+             }
+          }
 
       $reasons = Reason::orderBy('reason')->get();
       $themes = Theme::orderBy('theme')->get();
@@ -124,7 +142,7 @@ class OtkazController extends Controller
       $cities = Department::distinct()->pluck('city');
       $departments = Department::distinct()->pluck('department');
 
-      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes', 'dep_op'));
+      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes', 'dep_op', 'theme_op', 'reason_op'));
     }
 
     public function editreasons() {

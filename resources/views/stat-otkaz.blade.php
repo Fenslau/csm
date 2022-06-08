@@ -716,17 +716,97 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="col">
       <figure class="highcharts-figure mt-5">
-          <div id="container2"></div>
+          <div id="container2.05"></div>
           <p class="highcharts-description">
           </p>
       </figure>
       <script>
         $(document).ready(function () {
-          Highcharts.chart('container2', {
+          Highcharts.chart('container2.05', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Распределение отказов по темам с учётом вида оплаты'
+              },
+              xAxis: {
+                  categories: [
+                    @foreach ($our_themes as $theme)
+                    '{{ $theme->theme->theme }}',
+                    @endforeach
+                  ]
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Количество отказов'
+                  },
+                  stackLabels: {
+                      enabled: true,
+                      style: {
+                          fontWeight: 'bold',
+                          color: ( // theme
+                              Highcharts.defaultOptions.title.style &&
+                              Highcharts.defaultOptions.title.style.color
+                          ) || 'gray'
+                      }
+                  }
+              },
+              legend: {
+                  align: 'right',
+                  x: -30,
+                  verticalAlign: 'top',
+                  y: 25,
+                  floating: true,
+                  backgroundColor:
+                      Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                  borderColor: '#CCC',
+                  borderWidth: 1,
+                  shadow: false
+              },
+              tooltip: {
+                  headerFormat: '<b>{point.x}</b><br/>',
+                  pointFormat: '{series.name}: {point.y}<br/>Всего: {point.stackTotal}'
+              },
+              plotOptions: {
+                  column: {
+                      stacking: 'normal',
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+              },
+              series: [
+                @foreach ($theme_op as $op => $theme)
+                  {
+                    name: '{{ $op }}',
+                    data: [
+                      @foreach ($theme as $value)
+                        @if($value > 0) {{ $value }}, @else '', @endif
+                      @endforeach
+                    ]
+                  },
+                @endforeach
+              ]
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container2.09"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container2.09', {
               chart: {
                   type: 'column'
               },
@@ -907,17 +987,97 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="col">
       <figure class="highcharts-figure mt-5">
-          <div id="container3"></div>
+          <div id="container3.05"></div>
           <p class="highcharts-description">
           </p>
       </figure>
       <script>
         $(document).ready(function () {
-          Highcharts.chart('container3', {
+          Highcharts.chart('container3.05', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Распределение отказов по причинам с учётом вида оплаты'
+              },
+              xAxis: {
+                  categories: [
+                    @foreach ($our_reasons as $reason)
+                    '{{ $reason->reason->reason }}',
+                    @endforeach
+                  ]
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Количество отказов'
+                  },
+                  stackLabels: {
+                      enabled: true,
+                      style: {
+                          fontWeight: 'bold',
+                          color: ( // theme
+                              Highcharts.defaultOptions.title.style &&
+                              Highcharts.defaultOptions.title.style.color
+                          ) || 'gray'
+                      }
+                  }
+              },
+              legend: {
+                  align: 'right',
+                  x: -30,
+                  verticalAlign: 'top',
+                  y: 25,
+                  floating: true,
+                  backgroundColor:
+                      Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                  borderColor: '#CCC',
+                  borderWidth: 1,
+                  shadow: false
+              },
+              tooltip: {
+                  headerFormat: '<b>{point.x}</b><br/>',
+                  pointFormat: '{series.name}: {point.y}<br/>Всего: {point.stackTotal}'
+              },
+              plotOptions: {
+                  column: {
+                      stacking: 'normal',
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+              },
+              series: [
+                @foreach ($reason_op as $op => $reason)
+                  {
+                    name: '{{ $op }}',
+                    data: [
+                      @foreach ($reason as $value)
+                        @if($value > 0) {{ $value }}, @else '', @endif
+                      @endforeach
+                    ]
+                  },
+                @endforeach
+              ]
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container3.09"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container3.09', {
               chart: {
                   type: 'column'
               },
