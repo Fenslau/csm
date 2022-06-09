@@ -61,7 +61,7 @@ class LoginController extends Controller
         if ($ad->authenticate(strtoupper($credentials['login']), $credentials['password'], TRUE)) {
             if ($info = $ad->user()->info(strtoupper($credentials['login']))) {
             $user['name'] = $info['displayname'];
-            $user['email'] = $info['mail'];
+            if (isset($info['mail'])) $user['email'] = $info['mail'];
             return $user;
           }
         }
