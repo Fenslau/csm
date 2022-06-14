@@ -13,7 +13,7 @@
       <form class="my-3" action="{{ route('update_otkaz_costs') }}" method="post">
         @csrf
         @forelse ($items as $item)
-          <div id="theme_{{ $item->id }}" class=" d-flex flex-nowrap form-group m-1 form-inline">
+          <div id="theme_{{ $item->id }}" class=" d-flex justify-content-end flex-nowrap form-group m-1 form-inline">
             <label style="min-width: 7rem;" class="justify-content-end text-truncate" for="theme_cost_{{ $item->id }}">{{ $item->theme }}: </label>
             <input id="theme_cost_{{ $item->id }}" class=" ml-3 form-control form-control-sm" type="text" name="{{ $item->id }}" autocomplete="off" value="{{ $item->cost }}" placeholder="Стоимость">
           </div>
