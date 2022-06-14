@@ -32,9 +32,9 @@ class Otkazy extends Model
       if (!empty($request->theme_id)) $stat = $stat->whereIn('theme_id', $request->theme_id);
       if (!empty($request->reason_id)) $stat = $stat->whereIn('reason_id', $request->reason_id);
       if (!empty($request->omsdms)) $stat = $stat->whereIn('omsdms', $request->omsdms);
-      if (!empty($request->calendar_from)) $stat = $stat->where('created_at', '>=', $request->calendar_from);
-      if (!empty($request->calendar_to)) $stat = $stat->where('created_at', '<=', date('Y-m-d', strtotime($request->calendar_to)+60*60*24));
-      if (empty($request->calendar_to) AND empty($request->calendar_from)) $stat = $stat->whereMonth('created_at', now()->month);
+      if (!empty($request->calendar_from)) $stat = $stat->where('otkazies.created_at', '>=', $request->calendar_from);
+      if (!empty($request->calendar_to)) $stat = $stat->where('otkazies.created_at', '<=', date('Y-m-d', strtotime($request->calendar_to)+60*60*24));
+      if (empty($request->calendar_to) AND empty($request->calendar_from)) $stat = $stat->whereMonth('otkazies.created_at', now()->month);
       return $stat;
     }
 }

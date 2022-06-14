@@ -161,11 +161,11 @@
             <div class="alert  max-content p-0">
               <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase btn-csm" href="{{ route('edit_otkaz_themes') }}">Темы</a>
             </div>
-          @endcan
-            <!-- <div class="alert alert-danger max-content p-0">
-              <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase" href="{{ route('edit_otkaz_costs') }}">Стоимость</a>
-            </div> -->
 
+            <div class="alert max-content p-0">
+              <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase btn-csm" href="{{ route('edit_otkaz_costs') }}">Стоимость</a>
+            </div>
+          @endcan
             <div class="alert  max-content p-0">
               <a class="min-content nav-link stretched-link alert-link rounded font-weight-bolder lh-m text-center text-uppercase btn-csm" href="{{ route('otkaz-stat') }}">Статистика</a>
             </div>

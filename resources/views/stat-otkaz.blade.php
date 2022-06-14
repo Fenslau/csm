@@ -185,6 +185,32 @@
       });
   });
 </script>
+
+<div style="top: 3.0rem; background-color: rgba(255, 255, 255, 0.7);" class="btn-group btn-group-toggle m-1 p-2 d-flex my-5 sticky-top rounded" data-toggle="buttons">
+  <label class="btn btn-outline-success btn-sm shadow-none btn-outline-csm">
+    <input type="radio" name="values" id="count" value="Количество" checked autocomplete="off"> Количество
+  </label>
+  <label class="btn btn-outline-success btn-sm shadow-none mx-3 btn-outline-csm">
+    <input type="radio" name="values" id="roubles" value="Стоимость" autocomplete="off"> Стоимость
+  </label>
+</div>
+<script>
+$(document).ready(function () {
+    $(document).on('click', '[name="values"]', function (e) {
+      e.preventDefault();
+      if ($('#count:checked').length > 0) {
+        $('.count').removeClass('d-none');
+        $('.roubles').addClass('d-none');
+      }
+      if ($('#roubles:checked').length > 0) {
+        $('.count').addClass('d-none');
+        $('.roubles').removeClass('d-none');
+      }
+    });
+});
+</script>
+
+<div class="count">
   <div class="row">
     <div class="col">
         <figure class="highcharts-figure mt-5">
@@ -606,7 +632,7 @@
                           data: [
                             @foreach ($department->themes as $theme)
                               [
-                                  "{{ $theme->theme->theme }}",
+                                  "{{ $theme->theme }}",
                                   {{ $theme->count }}
                               ],
                             @endforeach
@@ -1257,6 +1283,1083 @@
       </script>
     </div>
   </div>
+</div>
+
+<div class="roubles d-none">
+  <div class="row">
+    <div class="col">
+        <figure class="highcharts-figure mt-5">
+            <div id="container_0.1"></div>
+            <p class="highcharts-description">
+            </p>
+        </figure>
+        <script>
+          $(document).ready(function () {
+              Highcharts.chart('container_0.1', {
+                  chart: {
+                      plotBackgroundColor: null,
+                      plotBorderWidth: null,
+                      plotShadow: false,
+                      type: 'pie'
+                  },
+                  title: {
+                      text: 'Распределение отказов по городам'
+                  },
+                  tooltip: {
+                      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                  },
+                  accessibility: {
+                      point: {
+                          valueSuffix: '%'
+                      }
+                  },
+                  plotOptions: {
+                      pie: {
+                          allowPointSelect: true,
+                          cursor: 'pointer',
+                          dataLabels: {
+                              enabled: true,
+                              format: '<b>{point.name}</b>: {point.y:.0f} руб.'
+                          }
+                      }
+                  },
+                  series: [{
+                      name: 'Отказы',
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_cities as $city)
+                        		    {
+                                    name: '{{ $city->city }}',
+                                    y: @empty($city->cost) 0 @else {{ $city->cost }} @endempty
+                                },
+                        @endforeach
+                	    ]
+                  }]
+              });
+            });
+        </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <figure class="highcharts-figure mt-5">
+            <div id="container_0.2"></div>
+            <p class="highcharts-description">
+            </p>
+        </figure>
+        <script>
+          $(document).ready(function () {
+              Highcharts.chart('container_0.2', {
+                  chart: {
+                      plotBackgroundColor: null,
+                      plotBorderWidth: null,
+                      plotShadow: false,
+                      type: 'pie'
+                  },
+                  title: {
+                      text: 'Распределение отказов по способу оплаты'
+                  },
+                  tooltip: {
+                      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                  },
+                  accessibility: {
+                      point: {
+                          valueSuffix: '%'
+                      }
+                  },
+                  plotOptions: {
+                      pie: {
+                          allowPointSelect: true,
+                          cursor: 'pointer',
+                          dataLabels: {
+                              enabled: true,
+                              format: '<b>{point.name}</b>: {point.y:.0f} руб.'
+                          }
+                      }
+                  },
+                  series: [{
+                      name: 'Отказы',
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_oplata as $oplata)
+                        		    {
+                                    name: '{{ $oplata->omsdms }}',
+                                    y: @empty($oplata->cost) 0 @else {{ $oplata->cost }} @endempty
+                                },
+                        @endforeach
+                	    ]
+                  }]
+              });
+            });
+        </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <figure class="highcharts-figure mt-5">
+            <div id="container_0.3"></div>
+            <p class="highcharts-description">
+            </p>
+        </figure>
+        <script>
+          $(document).ready(function () {
+              Highcharts.chart('container_0.3', {
+                  chart: {
+                      plotBackgroundColor: null,
+                      plotBorderWidth: null,
+                      plotShadow: false,
+                      type: 'pie'
+                  },
+                  title: {
+                      text: 'Распределение отказов по подразделениям'
+                  },
+                  tooltip: {
+                      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                  },
+                  accessibility: {
+                      point: {
+                          valueSuffix: '%'
+                      }
+                  },
+                  plotOptions: {
+                      pie: {
+                          allowPointSelect: true,
+                          cursor: 'pointer',
+                          dataLabels: {
+                              enabled: true,
+                              format: '<b>{point.name}</b>: {point.y:.0f} руб.'
+                          }
+                      }
+                  },
+                  series: [{
+                      name: 'Отказы',
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_departments as $department)
+                                {
+                                    name: '{{ $department->department }}',
+                                    y: @empty($department->cost) 0 @else{{ $department->cost }} @endempty
+                                },
+                        @endforeach
+                      ]
+                  }]
+              });
+            });
+        </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_1.7"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_1.7', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Распределение отказов по подразделениям с учётом вида оплаты'
+              },
+              xAxis: {
+                  categories: [
+                    @foreach ($our_departments as $department)
+                    '{{ $department->department }}',
+                    @endforeach
+                  ]
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Стоимость отказов'
+                  },
+                  stackLabels: {
+                      enabled: true,
+                      style: {
+                          fontWeight: 'bold',
+                          color: ( // theme
+                              Highcharts.defaultOptions.title.style &&
+                              Highcharts.defaultOptions.title.style.color
+                          ) || 'gray'
+                      }
+                  }
+              },
+              legend: {
+                  align: 'right',
+                  x: -30,
+                  verticalAlign: 'top',
+                  y: 25,
+                  floating: true,
+                  backgroundColor:
+                      Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                  borderColor: '#CCC',
+                  borderWidth: 1,
+                  shadow: false
+              },
+              tooltip: {
+                  headerFormat: '<b>{point.x}</b><br/>',
+                  pointFormat: '{series.name}: {point.y} руб.<br/>Всего: {point.stackTotal} руб.'
+              },
+              plotOptions: {
+                  column: {
+                      stacking: 'normal',
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+              },
+              series: [
+                @foreach ($dep_op_cost as $op => $dep)
+                  {
+                    name: '{{ $op }}',
+                    data: [
+                      @foreach ($dep as $value)
+                        @if($value > 0) {{ $value }}, @else '', @endif
+                      @endforeach
+                    ]
+                  },
+                @endforeach
+              ]
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_1.8"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_1.8', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Отказы по подразделениям @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на подразделение, чтобы увидеть статистику по нему по датам'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Стоимость отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f} руб.'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f} руб.</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_departments as $department)
+                          {
+                              name: "{{ $department->department }}",
+                              y: @empty($department->cost) 0 @else {{ $department->cost }} @endempty ,
+                              drilldown: "{{ $department->department }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_departments as $department)
+                        {
+                          name: "Отказы",
+                          id: "{{ $department->department }}",
+                          data: [
+                            @foreach ($department->dates as $date => $value)
+                              [
+                                  "{{ $date }}",
+                                  {{ array_sum(array_column($value->toArray(), 'cost')) }}
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_1.9"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_1.9', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Отказы по подразделениям и <b>темам</b> @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на подразделение, чтобы увидеть статистику по темам отказов этого подразделения'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Стоимость отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f} руб.'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f} руб.</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_departments as $department)
+                          {
+                              name: "{{ $department->department }}",
+                              y: @empty($department->cost) 0 @else {{ $department->cost }} @endempty ,
+                              drilldown: "{{ $department->department }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_departments as $department)
+                        {
+                          name: "Отказы",
+                          id: "{{ $department->department }}",
+                          data: [
+                            @foreach ($department->themes as $theme)
+                              [
+                                  "{{ $theme->theme }}",
+                                  @empty($theme->cost) 0 @else {{ $theme->cost }} @endempty
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_1.95"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_1.95', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Отказы по подразделениям и <b>причинам</b> @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на подразделение, чтобы увидеть статистику по причинам отказов этого подразделения'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Стоимость отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f} руб.'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f} руб.</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_departments as $department)
+                          {
+                              name: "{{ $department->department }}",
+                              y: @empty($department->cost) 0 @else {{ $department->cost }} @endempty ,
+                              drilldown: "{{ $department->department }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_departments as $department)
+                        {
+                          name: "Отказы",
+                          id: "{{ $department->department }}",
+                          data: [
+                            @foreach ($department->reasons as $reason)
+                              [
+                                  "{{ $reason->reason->reason }}",
+                                  @empty($reason->cost) 0 @else {{ $reason->cost }} @endempty
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_2.05"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_2.05', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Распределение отказов по темам с учётом вида оплаты'
+              },
+              xAxis: {
+                  categories: [
+                    @foreach ($our_themes as $theme)
+                    '{{ $theme->theme->theme }}',
+                    @endforeach
+                  ]
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Стоимость отказов'
+                  },
+                  stackLabels: {
+                      enabled: true,
+                      style: {
+                          fontWeight: 'bold',
+                          color: ( // theme
+                              Highcharts.defaultOptions.title.style &&
+                              Highcharts.defaultOptions.title.style.color
+                          ) || 'gray'
+                      }
+                  }
+              },
+              legend: {
+                  align: 'right',
+                  x: -30,
+                  verticalAlign: 'top',
+                  y: 25,
+                  floating: true,
+                  backgroundColor:
+                      Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                  borderColor: '#CCC',
+                  borderWidth: 1,
+                  shadow: false
+              },
+              tooltip: {
+                  headerFormat: '<b>{point.x}</b><br/>',
+                  pointFormat: '{series.name}: {point.y} руб.<br/>Всего: {point.stackTotal} руб.'
+              },
+              plotOptions: {
+                  column: {
+                      stacking: 'normal',
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+              },
+              series: [
+                @foreach ($theme_op_cost as $op => $theme)
+                  {
+                    name: '{{ $op }}',
+                    data: [
+                      @foreach ($theme as $value)
+                        @if($value > 0) {{ $value }}, @else '', @endif
+                      @endforeach
+                    ]
+                  },
+                @endforeach
+              ]
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_2.09"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_2.09', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Темы отказов @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на тему, чтобы увидеть статистику по ней по датам'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Стоимость отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f} руб.'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f} руб.</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_themes as $theme)
+                          {
+                              name: "{{ $theme->theme->theme }}",
+                              y: @empty($theme->cost) 0 @else {{ $theme->cost }} @endempty,
+                              drilldown: "{{ $theme->theme->theme }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_themes as $theme)
+                        {
+                          name: "Отказы",
+                          id: "{{ $theme->theme->theme }}",
+                          data: [
+                            @foreach ($theme->dates as $date => $value)
+                              [
+                                  "{{ $date }}",
+                                  {{ array_sum(array_column($value->toArray(), 'cost')) }}
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_2.1"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_2.1', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Темы отказов и <b>подразделения</b>, к которым они относятся @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на тему, чтобы увидеть в каких подразделениях она была зафиксирована'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Стоимость отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f} руб.'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f} руб.</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_themes as $theme)
+                          {
+                              name: "{{ $theme->theme->theme }}",
+                              y: @empty($theme->cost) 0 @else {{ $theme->cost }} @endempty,
+                              drilldown: "{{ $theme->theme->theme }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_themes as $theme)
+                        {
+                          name: "Отказы",
+                          id: "{{ $theme->theme->theme }}",
+                          data: [
+                            @foreach ($theme->departments as $department)
+                              [
+                                  "{{ $department->department }}",
+                                  @empty($department->cost) 0 @else {{ $department->cost }} @endempty
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_3.05"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_3.05', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Распределение отказов по причинам с учётом вида оплаты'
+              },
+              xAxis: {
+                  categories: [
+                    @foreach ($our_reasons as $reason)
+                    '{{ $reason->reason->reason }}',
+                    @endforeach
+                  ]
+              },
+              yAxis: {
+                  min: 0,
+                  title: {
+                      text: 'Стоимость отказов'
+                  },
+                  stackLabels: {
+                      enabled: true,
+                      style: {
+                          fontWeight: 'bold',
+                          color: ( // theme
+                              Highcharts.defaultOptions.title.style &&
+                              Highcharts.defaultOptions.title.style.color
+                          ) || 'gray'
+                      }
+                  }
+              },
+              legend: {
+                  align: 'right',
+                  x: -30,
+                  verticalAlign: 'top',
+                  y: 25,
+                  floating: true,
+                  backgroundColor:
+                      Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                  borderColor: '#CCC',
+                  borderWidth: 1,
+                  shadow: false
+              },
+              tooltip: {
+                  headerFormat: '<b>{point.x}</b><br/>',
+                  pointFormat: '{series.name}: {point.y} руб.<br/>Всего: {point.stackTotal} руб.'
+              },
+              plotOptions: {
+                  column: {
+                      stacking: 'normal',
+                      dataLabels: {
+                          enabled: true
+                      }
+                  }
+              },
+              series: [
+                @foreach ($reason_op_cost as $op => $reason)
+                  {
+                    name: '{{ $op }}',
+                    data: [
+                      @foreach ($reason as $value)
+                        @if($value > 0) {{ $value }}, @else '', @endif
+                      @endforeach
+                    ]
+                  },
+                @endforeach
+              ]
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_3.09"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_3.09', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Причины отказов @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на причину, чтобы увидеть статистику по ней по датам'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Стоимость отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f} руб.'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f} руб.</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_reasons as $reason)
+                          {
+                              name: "{{ $reason->reason->reason }}",
+                              y: @empty($reason->cost) 0 @else {{ $reason->cost }} @endempty ,
+                              drilldown: "{{ $reason->reason->reason }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_reasons as $reason)
+                        {
+                          name: "Отказы",
+                          id: "{{ $reason->reason->reason }}",
+                          data: [
+                            @foreach ($reason->dates as $date => $value)
+                              [
+                                  "{{ $date }}",
+                                  {{ array_sum(array_column($value->toArray(), 'cost')) }}
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <figure class="highcharts-figure mt-5">
+          <div id="container_3.1"></div>
+          <p class="highcharts-description">
+          </p>
+      </figure>
+      <script>
+        $(document).ready(function () {
+          Highcharts.chart('container_3.1', {
+              chart: {
+                  type: 'column'
+              },
+              title: {
+                  text: 'Причины отказов и <b>подразделения</b>, к которым они относятся @empty($request->calendar_from) @else c {{ date('d.m', strtotime($request->calendar_from)) }} @endempty @empty($request->calendar_to) @else по {{ date('d.m', strtotime($request->calendar_to)) }} @endempty @if(empty($request->calendar_to) && empty($request->calendar_from)) за текущий месяц @endempty'
+              },
+              subtitle: {
+                  text: 'Нажмите на причину, чтобы увидеть подразделения, где она была зафиксирована'
+              },
+              accessibility: {
+                  announceNewData: {
+                      enabled: true
+                  }
+              },
+              xAxis: {
+                  type: 'category'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Стоимость отказов'
+                  }
+
+              },
+              legend: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.0f} руб.'
+                      }
+                  }
+              },
+
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f} руб.</b><br/>'
+              },
+
+              series: [
+                  {
+                      name: "Отказы",
+                      colorByPoint: true,
+                      data: [
+                        @foreach ($our_reasons as $reason)
+                          {
+                              name: "{{ $reason->reason->reason }}",
+                              y: @empty($reason->cost) 0 @else {{ $reason->cost }} @endempty ,
+                              drilldown: "{{ $reason->reason->reason }}"
+                          },
+                        @endforeach
+                      ]
+                  }
+              ],
+              drilldown: {
+                  breadcrumbs: {
+                      position: {
+                          align: 'right'
+                      }
+                  },
+                  series: [
+                      @foreach ($our_reasons as $reason)
+                        {
+                          name: "Отказы",
+                          id: "{{ $reason->reason->reason }}",
+                          data: [
+                            @foreach ($reason->departments as $department)
+                              [
+                                  "{{ $department->department }}",
+                                  @empty($department->cost) 0 @else {{ $department->cost }} @endempty
+                              ],
+                            @endforeach
+                          ]
+                        },
+                      @endforeach
+                  ]
+              }
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
+
 
 </div>
 <script src="//code.highcharts.com/highcharts.src.js"></script>

@@ -14,6 +14,7 @@
         @csrf
         <div class="input-group mb-3">
           <input style="border: 1px solid rgb(35, 64, 143) !important;" type="text" autocomplete="off" class="border-success border-right-0 form-control" name="theme" placeholder="Тема отказа">
+          <input style="border: 1px solid rgb(35, 64, 143) !important;" type="text" autocomplete="off" class="border-success border-right-0 form-control" name="cost" placeholder="Стоимость">
           <div class="input-group-append">
             <button class="btn btn-outline-success text-nowrap shadow-none btn-csm" type="submit">Добавить тему</button>
           </div>

@@ -24,7 +24,8 @@ class ThemeaddRequest extends FormRequest
     public function rules()
     {
         return [
-            'theme' => ['required']
+            'theme' => ['required'],
+            'cost'  => ['nullable', 'integer']
         ];
     }
 }

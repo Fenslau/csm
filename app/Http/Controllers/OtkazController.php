@@ -68,45 +68,46 @@ class OtkazController extends Controller
     public function statistic(Request $request) {
       $items = array();
       $stat = new Otkazy;
-      $our_organizations = $stat->getwhere($request)->select('organization', DB::raw('count(*) as count'))->groupBy('organization')->orderBy('count', 'desc')->get()->toArray();
+      $our_organizations = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('organization', DB::raw('count(*) as count, sum(cost) as cost'))->groupBy('organization')->orderBy('count', 'desc')->get()->toArray();
       foreach ($our_organizations as &$organization) {
-          $organization['departments'] = $stat->getwhere($request)->where('organization', $organization['organization'])->select('department', DB::raw('count(*) as count'))->groupBy('department')->get()->toArray();
+          $organization['departments'] = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->where('organization', $organization['organization'])->select('department', DB::raw('count(*) as count, sum(cost) as cost'))->groupBy('department')->get()->toArray();
           $organization['organization'] = str_replace('"', '', $organization['organization']);
       }
-      $our_departments = $stat->getwhere($request)->select('department', DB::raw('count(*) as count'))->groupBy('department')->orderBy('count', 'desc')->get();
+      $our_departments = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('department', DB::raw('count(*) as count, sum(cost) as cost'))->groupBy('department')->orderBy('count', 'desc')->get();
       foreach ($our_departments as &$department) {
-          $department->themes = $stat->getwhere($request)->with('theme')->select('*', DB::raw('COUNT(*) as count'))->where('department', $department->department)->groupBy('theme_id')->orderBy('count', 'desc')->get();
+          $department->themes = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('*', DB::raw('COUNT(*) as count, sum(cost) as cost'))->where('department', $department->department)->groupBy('theme_id')->orderBy('count', 'desc')->get();
 
-          $department->reasons = $stat->getwhere($request)->with('reason')->select('*', DB::raw('COUNT(*) as count'))->where('department', $department->department)->groupBy('reason_id')->orderBy('count', 'desc')->get();
+          $department->reasons = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->with('reason')->select('*', DB::raw('COUNT(*) as count, sum(cost) as cost'))->where('department', $department->department)->groupBy('reason_id')->orderBy('count', 'desc')->get();
 
-          $department->dates = $stat->getwhere($request)->where('department', $department->department)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
+          $department->dates = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->where('department', $department->department)->orderBy('otkazies.created_at', 'desc')->get()->groupBy(function($date) {
              return Carbon::parse($date->created_at)->format('d.m');
           })->take(30)->reverse();
       }
-
-      $our_reasons = $stat->getwhere($request)->with('reason')->select('reason_id', DB::raw('count(*) as count'))->groupBy('reason_id')->orderBy('count', 'desc')->get();
+//dd($our_departments->toArray());
+      $our_reasons = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->with('reason')->select('reason_id', DB::raw('count(*) as count, sum(cost) as cost'))->groupBy('reason_id')->orderBy('count', 'desc')->get();
       foreach ($our_reasons as &$reason) {
-          $reason->departments = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('reason_id', $reason->reason_id)->groupBy('department')->orderBy('count', 'desc')->get();
+          $reason->departments = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('*', DB::raw('COUNT(*) as count, sum(cost) as cost'))->where('reason_id', $reason->reason_id)->groupBy('department')->orderBy('count', 'desc')->get();
           // $reason->themes = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('reason_id', $reason->reason_id)->groupBy('theme_id')->orderBy('count', 'desc')->get();
-          $reason->dates = $stat->getwhere($request)->where('reason_id', $reason->reason_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
+          $reason->dates = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->where('reason_id', $reason->reason_id)->orderBy('otkazies.created_at', 'desc')->get()->groupBy(function($date) {
              return Carbon::parse($date->created_at)->format('d.m');
           })->take(30)->reverse();
       }
 
-      $our_themes = $stat->getwhere($request)->with('theme')->select('theme_id', DB::raw('count(*) as count'))->groupBy('theme_id')->orderBy('count', 'desc')->get();
+      $our_themes = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->with('theme')->select('theme_id', DB::raw('count(*) as count, sum(cost) as cost'))->groupBy('theme_id')->orderBy('count', 'desc')->get();
       foreach ($our_themes as &$theme) {
-          $theme->departments = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('theme_id', $theme->theme_id)->groupBy('department')->orderBy('count', 'desc')->get();
+          $theme->departments = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('*', DB::raw('COUNT(*) as count, sum(cost) as cost'))->where('theme_id', $theme->theme_id)->groupBy('department')->orderBy('count', 'desc')->get();
           // $theme->reasons = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('theme_id', $theme->theme_id)->groupBy('reason_id')->orderBy('count', 'desc')->get();
-          $theme->dates = $stat->getwhere($request)->where('theme_id', $theme->theme_id)->orderBy('created_at', 'desc')->get()->groupBy(function($date) {
+          $theme->dates = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->where('theme_id', $theme->theme_id)->orderBy('otkazies.created_at', 'desc')->get()->groupBy(function($date) {
              return Carbon::parse($date->created_at)->format('d.m');
           })->take(30)->reverse();
       }
-      $our_cities = $stat->getwhere($request)->select('city', DB::raw('count(*) as count'))->groupBy('city')->orderBy('count', 'desc')->get();
-      $our_oplata = $stat->getwhere($request)->select('omsdms', DB::raw('count(*) as count'))->groupBy('omsdms')->orderBy('count', 'desc')->get();
+      $our_cities = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('city', DB::raw('count(*) as count, sum(cost) as cost'))->groupBy('city')->orderBy('count', 'desc')->get();
+
+      $our_oplata = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('omsdms', DB::raw('count(*) as count, sum(cost) as cost'))->groupBy('omsdms')->orderBy('count', 'desc')->get();
       foreach ($our_oplata as &$oplata) {
-        $oplata->departments = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('omsdms', $oplata->omsdms)->groupBy('department')->get()->toArray();
-        $oplata->themes = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('omsdms', $oplata->omsdms)->groupBy('theme_id')->get()->toArray();
-        $oplata->reasons = $stat->getwhere($request)->select('*', DB::raw('COUNT(*) as count'))->where('omsdms', $oplata->omsdms)->groupBy('reason_id')->get()->toArray();
+        $oplata->departments = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('*', DB::raw('COUNT(*) as count, sum(cost) as cost'))->where('omsdms', $oplata->omsdms)->groupBy('department')->get()->toArray();
+        $oplata->themes = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('*', DB::raw('COUNT(*) as count, sum(cost) as cost'))->where('omsdms', $oplata->omsdms)->groupBy('theme_id')->get()->toArray();
+        $oplata->reasons = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('*', DB::raw('COUNT(*) as count, sum(cost) as cost'))->where('omsdms', $oplata->omsdms)->groupBy('reason_id')->get()->toArray();
       }
 
           $dep_op = array();
@@ -117,6 +118,15 @@ class OtkazController extends Controller
                else $dep_op[$oplata->omsdms][] = 0;
              }
           }
+          $dep_op_cost = array();
+          foreach ($our_oplata as $oplata) {
+             $dep_op_cost[$oplata->omsdms] = array();
+             foreach ($our_departments as $department) {
+               if (array_search($department->department, array_column($oplata->departments, 'department')) !== FALSE) $dep_op_cost[$oplata->omsdms][] = $oplata->departments[array_search($department->department, array_column($oplata->departments, 'department'))]['cost'];
+               else $dep_op_cost[$oplata->omsdms][] = 0;
+             }
+          }
+
           $theme_op = array();
           foreach ($our_oplata as $oplata) {
              $theme_op[$oplata->omsdms] = array();
@@ -125,12 +135,29 @@ class OtkazController extends Controller
                else $theme_op[$oplata->omsdms][] = 0;
              }
           }
+          $theme_op_cost = array();
+          foreach ($our_oplata as $oplata) {
+             $theme_op_cost[$oplata->omsdms] = array();
+             foreach ($our_themes as $theme) {
+               if (array_search($theme->theme->id, array_column($oplata->themes, 'theme_id')) !== FALSE) $theme_op_cost[$oplata->omsdms][] = $oplata->themes[array_search($theme->theme->id, array_column($oplata->themes, 'theme_id'))]['cost'];
+               else $theme_op_cost[$oplata->omsdms][] = 0;
+             }
+          }
+
           $reason_op = array();
           foreach ($our_oplata as $oplata) {
              $reason_op[$oplata->omsdms] = array();
              foreach ($our_reasons as $reason) {
                if (array_search($reason->reason->id, array_column($oplata->reasons, 'reason_id')) !== FALSE) $reason_op[$oplata->omsdms][] = $oplata->reasons[array_search($reason->reason->id, array_column($oplata->reasons, 'reason_id'))]['count'];
                else $reason_op[$oplata->omsdms][] = 0;
+             }
+          }
+          $reason_op_cost = array();
+          foreach ($our_oplata as $oplata) {
+             $reason_op_cost[$oplata->omsdms] = array();
+             foreach ($our_reasons as $reason) {
+               if (array_search($reason->reason->id, array_column($oplata->reasons, 'reason_id')) !== FALSE) $reason_op_cost[$oplata->omsdms][] = $oplata->reasons[array_search($reason->reason->id, array_column($oplata->reasons, 'reason_id'))]['cost'];
+               else $reason_op_cost[$oplata->omsdms][] = 0;
              }
           }
 
@@ -142,7 +169,7 @@ class OtkazController extends Controller
       $cities = Department::distinct()->pluck('city');
       $departments = Department::distinct()->pluck('department');
 
-      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes', 'dep_op', 'theme_op', 'reason_op'));
+      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes', 'dep_op', 'dep_op_cost', 'theme_op', 'theme_op_cost', 'reason_op', 'reason_op_cost'));
     }
 
     public function editreasons() {
@@ -159,8 +186,19 @@ class OtkazController extends Controller
 
     public function editcosts() {
       $items = array();
-      $reasons = Reason::where('active', 1)->get();
+      $items = Theme::where('active', 1)->get();
       return view('otkazy-edit-costs', compact('items'));
+    }
+    public function updatecosts(Request $request) {
+      $numeric = TRUE;
+      foreach ($request->all() as $key => $value) {
+        if (is_numeric($key)) {
+          if (is_numeric($value) AND $value >= 0) Theme::find($key)->update(['cost' => $value]);
+          elseif ($value) $numeric = FALSE;
+        }
+      }
+      if ($numeric) return back()->with('success', 'Стоимости отказов обновлены');
+      else return back()->with('warning', 'Некоторые данные стоимости содержали нечисловые значения и не были заменены');
     }
 
     public function reasonadd(ReasonaddRequest $request) {
@@ -181,7 +219,7 @@ class OtkazController extends Controller
     public function themeadd(ThemeaddRequest $request) {
       $theme = Theme::updateOrCreate(
         ['theme' => $request->theme],
-        ['active' => 1]
+        ['active' => 1, 'cost' => $request->cost]
     );
       if ($theme) return back()->with('success', 'Новая тема отказа добавлена');
       else return back()->with('error', 'Не удалось добавить тему отказа');

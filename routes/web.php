@@ -24,6 +24,8 @@ Route::get('/otkazy/edit-themes', 'App\Http\Controllers\OtkazController@editthem
 ->name('edit_otkaz_themes');
 Route::get('/otkazy/edit-costs', 'App\Http\Controllers\OtkazController@editcosts')
 ->name('edit_otkaz_costs');
+Route::post('/otkazy/edit-costs', 'App\Http\Controllers\OtkazController@updatecosts')
+->name('update_otkaz_costs');
 Route::post('/otkazy/edit-reasons/add', 'App\Http\Controllers\OtkazController@reasonadd')
 ->name('reason-add');
 Route::post('/otkazy/edit-reasons/del', 'App\Http\Controllers\OtkazController@reasondel')

@@ -174,6 +174,7 @@ return [
         'department'            => 'Подразделение',
         'omsdms'                => 'ПЛТ/ОМС/ДМС',
         'lampa'                 => 'Лампа',
-        'duration_all'          => 'Наработка'
+        'duration_all'          => 'Наработка',
+        'cost'                  => 'Стоимость'
     ],
 ];
