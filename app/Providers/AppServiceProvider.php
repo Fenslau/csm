@@ -42,5 +42,8 @@ class AppServiceProvider extends ServiceProvider
               } else { if ('$value' === $expected) echo 'selected'; } ?>";
 
         });
+        Blade::directive('dec', function ($expression) {
+          return "<?php echo number_format((float)$expression, 0, ',', ' '); ?>";
+        });        
       }
 }

@@ -47,8 +47,8 @@
           "language": {
                   "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Russian.json"
               },
-          "lengthMenu": [ 50, 100, 200, 500 ],
-          "pageLength": 50,
+          "lengthMenu": [ 10, 50, 100, 200, 500 ],
+          "pageLength": 10,
           "columnDefs": [ {
           // "targets": 1,
           // "orderable": false
