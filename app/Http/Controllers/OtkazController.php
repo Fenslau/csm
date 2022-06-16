@@ -66,7 +66,6 @@ class OtkazController extends Controller
     }
 
     public function statistic(Request $request) {
-      $items = array();
       $stat = new Otkazy;
       $our_organizations = $stat->getwhere($request)->join('themes', 'otkazies.theme_id', 'themes.id')->select('organization', DB::raw('count(*) as count, sum(cost) as cost'))->groupBy('organization')->orderBy('count', 'desc')->get()->toArray();
       foreach ($our_organizations as &$organization) {
@@ -169,17 +168,17 @@ class OtkazController extends Controller
       $cities = Department::distinct()->pluck('city');
       $departments = Department::distinct()->pluck('department');
 
-      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'items', 'reasons', 'organizations', 'departments', 'cities', 'themes', 'dep_op', 'dep_op_cost', 'theme_op', 'theme_op_cost', 'reason_op', 'reason_op_cost'));
+      return view('stat-otkaz', compact('our_organizations', 'our_departments', 'our_reasons', 'our_themes', 'our_cities', 'our_oplata', 'request', 'reasons', 'organizations', 'departments', 'cities', 'themes', 'dep_op', 'dep_op_cost', 'theme_op', 'theme_op_cost', 'reason_op', 'reason_op_cost'));
     }
 
     public function editreasons() {
-      $items = array();
+      $reasons = array();
       $reasons = Reason::where('active', 1)->get();
       return view('otkazy-edit-reasons', compact('reasons'));
     }
 
     public function editthemes() {
-      $items = array();
+      $themes = array();
       $themes = Theme::where('active', 1)->get();
       return view('otkazy-edit-themes', compact('themes'));
     }

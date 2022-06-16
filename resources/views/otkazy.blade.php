@@ -46,7 +46,7 @@
               <select id="theme" class="form-control text-truncate chosen-select" name="theme_id">
                   <option value="">Выберите тему</option>
                 @foreach ($themes as $theme)
-                  <option class="text-truncate" value="{{ $theme->id }}">{{ $theme->theme }}</option>
+                  <option class="text-truncate" value="{{ $theme->id }}" {{ (collect(old('theme_id'))->contains($theme->id)) ? 'selected':'' }}>{{ $theme->theme }}</option>
                 @endforeach
               </select>
             </div>
@@ -56,7 +56,7 @@
               <select id="reason" class="form-control text-truncate chosen-select" name="reason_id">
                   <option value="">Выберите причину</option>
                 @foreach ($reasons as $reason)
-                  <option class="text-truncate" value="{{ $reason->id }}">{{ $reason->reason }}</option>
+                  <option class="text-truncate" value="{{ $reason->id }}" {{ (collect(old('reason_id'))->contains($reason->id)) ? 'selected':'' }}>{{ $reason->reason }}</option>
                 @endforeach
               </select>
             </div>
