@@ -1319,7 +1319,7 @@ $(document).ready(function () {
                           cursor: 'pointer',
                           dataLabels: {
                               enabled: true,
-                              format: '<b>{point.name}</b>: {point.y:,.0f} руб.'
+                              format: '<b>{point.name}</b>: {point.y:,.0f} р.'
                           }
                       }
                   },
@@ -1374,7 +1374,7 @@ $(document).ready(function () {
                           cursor: 'pointer',
                           dataLabels: {
                               enabled: true,
-                              format: '<b>{point.name}</b>: {point.y:,.0f} руб.'
+                              format: '<b>{point.name}</b>: {point.y:,.0f} р.'
                           }
                       }
                   },
@@ -1429,7 +1429,7 @@ $(document).ready(function () {
                           cursor: 'pointer',
                           dataLabels: {
                               enabled: true,
-                              format: '<b>{point.name}</b>: {point.y:,.0f} руб.'
+                              format: '<b>{point.name}</b>: {point.y:,.0f} р.'
                           }
                       }
                   },
@@ -1504,7 +1504,7 @@ $(document).ready(function () {
               },
               tooltip: {
                   headerFormat: '<b>{point.x}</b><br/>',
-                  pointFormat: '{series.name}: {point.y} руб.<br/>Всего: {point.stackTotal:,.0f} руб.'
+                  pointFormat: '{series.name}: {point.y} р.<br/>Всего: {point.stackTotal:,.0f} р.'
               },
               plotOptions: {
                   column: {
@@ -1573,14 +1573,14 @@ $(document).ready(function () {
                       borderWidth: 0,
                       dataLabels: {
                           enabled: true,
-                          format: '{point.y:,.0f} руб.'
+                          format: '{point.y:,.0f} р.'
                       }
                   }
               },
 
               tooltip: {
                   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} руб.</b><br/>'
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} р.</b><br/>'
               },
 
               series: [
@@ -1668,14 +1668,14 @@ $(document).ready(function () {
                       borderWidth: 0,
                       dataLabels: {
                           enabled: true,
-                          format: '{point.y:,.0f} руб.'
+                          format: '{point.y:,.0f} р.'
                       }
                   }
               },
 
               tooltip: {
                   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} руб.</b><br/>'
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} р.</b><br/>'
               },
 
               series: [
@@ -1763,14 +1763,14 @@ $(document).ready(function () {
                       borderWidth: 0,
                       dataLabels: {
                           enabled: true,
-                          format: '{point.y:,.0f} руб.'
+                          format: '{point.y:,.0f} р.'
                       }
                   }
               },
 
               tooltip: {
                   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} руб.</b><br/>'
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} р.</b><br/>'
               },
 
               series: [
@@ -1870,7 +1870,7 @@ $(document).ready(function () {
               },
               tooltip: {
                   headerFormat: '<b>{point.x}</b><br/>',
-                  pointFormat: '{series.name}: {point.y} руб.<br/>Всего: {point.stackTotal:,.0f} руб.'
+                  pointFormat: '{series.name}: {point.y} р.<br/>Всего: {point.stackTotal:,.0f} р.'
               },
               plotOptions: {
                   column: {
@@ -1939,14 +1939,14 @@ $(document).ready(function () {
                       borderWidth: 0,
                       dataLabels: {
                           enabled: true,
-                          format: '{point.y:,.0f} руб.'
+                          format: '{point.y:,.0f} р.'
                       }
                   }
               },
 
               tooltip: {
                   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} руб.</b><br/>'
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} р.</b><br/>'
               },
 
               series: [
@@ -2034,14 +2034,14 @@ $(document).ready(function () {
                       borderWidth: 0,
                       dataLabels: {
                           enabled: true,
-                          format: '{point.y:,.0f} руб.'
+                          format: '{point.y:,.0f} р.'
                       }
                   }
               },
 
               tooltip: {
                   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} руб.</b><br/>'
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} р.</b><br/>'
               },
 
               series: [
@@ -2141,7 +2141,7 @@ $(document).ready(function () {
               },
               tooltip: {
                   headerFormat: '<b>{point.x}</b><br/>',
-                  pointFormat: '{series.name}: {point.y} руб.<br/>Всего: {point.stackTotal:,.0f} руб.'
+                  pointFormat: '{series.name}: {point.y} р.<br/>Всего: {point.stackTotal:,.0f} р.'
               },
               plotOptions: {
                   column: {
@@ -2210,14 +2210,14 @@ $(document).ready(function () {
                       borderWidth: 0,
                       dataLabels: {
                           enabled: true,
-                          format: '{point.y:,.0f} руб.'
+                          format: '{point.y:,.0f} р.'
                       }
                   }
               },
 
               tooltip: {
                   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} руб.</b><br/>'
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} р.</b><br/>'
               },
 
               series: [
@@ -2305,14 +2305,14 @@ $(document).ready(function () {
                       borderWidth: 0,
                       dataLabels: {
                           enabled: true,
-                          format: '{point.y:,.0f} руб.'
+                          format: '{point.y:,.0f} р.'
                       }
                   }
               },
 
               tooltip: {
                   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} руб.</b><br/>'
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:,.0f} р.</b><br/>'
               },
 
               series: [
